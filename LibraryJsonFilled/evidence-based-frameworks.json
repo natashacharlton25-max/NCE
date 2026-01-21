@@ -1,0 +1,930 @@
+{
+  "_meta": {
+    "id": "evidence-based-frameworks",
+    "name": "Evidence-Based Therapeutic Frameworks",
+    "path": "therapeutic/frameworks/evidence-based",
+    "description": "Established psychological, behavioural, and therapeutic frameworks for content creation",
+    "version": "1.0.0",
+    "last_updated": "2026-01-12",
+    "usage_note": "These frameworks provide structural credibility. Apply brand voice, cognitive level, and proprietary philosophy on top."
+  },
+
+  "frameworks": {
+
+    "kolb_experiential": {
+      "id": "kolb_experiential",
+      "name": "Kolb's Experiential Learning Cycle",
+      "source": "David Kolb",
+      "category": "skill_building",
+      "description": "Learning happens through a cycle of experience, reflection, conceptualisation, and experimentation",
+      
+      "structure": {
+        "stages": [
+          {
+            "name": "concrete_experience",
+            "label": "Concrete Experience",
+            "description": "Do the thing. Have the experience.",
+            "content_application": "Exercises, try-it-now prompts, real-world application"
+          },
+          {
+            "name": "reflective_observation",
+            "label": "Reflective Observation",
+            "description": "What happened? What did you notice?",
+            "content_application": "Reflection questions, journaling prompts, what-did-you-notice sections"
+          },
+          {
+            "name": "abstract_conceptualisation",
+            "label": "Abstract Conceptualisation",
+            "description": "What does this mean? What's the pattern?",
+            "content_application": "Psychoeducation, explaining the why, connecting to theory"
+          },
+          {
+            "name": "active_experimentation",
+            "label": "Active Experimentation",
+            "description": "How will you apply this? What will you try next?",
+            "content_application": "Action planning, next-steps, implementation intentions"
+          }
+        ],
+        "cycle_note": "The cycle repeats - each round deepens skill"
+      },
+
+      "use_in_sections": ["skill_practice", "reflection", "application"],
+      "best_for": ["skill_building", "experiential_exercise"],
+      "cognitive_levels": [1, 2, 3, 4, 5]
+    },
+
+    "dreyfus_model": {
+      "id": "dreyfus_model",
+      "name": "Dreyfus Model of Skill Acquisition",
+      "source": "Stuart and Hubert Dreyfus",
+      "category": "skill_building",
+      "description": "Five stages from beginner to expert - match content complexity to current stage",
+
+      "structure": {
+        "stages": [
+          {
+            "name": "novice",
+            "label": "Novice",
+            "characteristics": ["Follows rules", "Needs explicit instruction", "Context-free rules"],
+            "content_needs": "Clear steps, explicit rules, simple frameworks"
+          },
+          {
+            "name": "advanced_beginner",
+            "label": "Advanced Beginner",
+            "characteristics": ["Recognises patterns", "Still rule-bound", "Beginning to see context"],
+            "content_needs": "Examples, pattern recognition, when-to-use guidance"
+          },
+          {
+            "name": "competent",
+            "label": "Competent",
+            "characteristics": ["Plans", "Prioritises", "Handles complexity", "Takes responsibility"],
+            "content_needs": "Decision frameworks, prioritisation tools, complexity handling"
+          },
+          {
+            "name": "proficient",
+            "label": "Proficient",
+            "characteristics": ["Sees holistically", "Intuition developing", "Recognises deviations"],
+            "content_needs": "Nuance, edge cases, deeper understanding"
+          },
+          {
+            "name": "expert",
+            "label": "Expert",
+            "characteristics": ["Intuitive", "Fluid", "Transcends rules", "Sees what others miss"],
+            "content_needs": "Advanced concepts, peer-level discussion, innovation"
+          }
+        ]
+      },
+
+      "use_in_sections": ["skill_overview", "practice_sequence"],
+      "best_for": ["skill_building", "progressive_learning"],
+      "cognitive_levels": [1, 2, 3],
+      "application_note": "Don't expect expert performance from novices. Match exercises to current stage."
+    },
+
+    "deliberate_practice": {
+      "id": "deliberate_practice",
+      "name": "Deliberate Practice",
+      "source": "Anders Ericsson",
+      "category": "skill_building",
+      "description": "How skills are actually built at high levels - not mindless repetition but focused, feedback-rich practice",
+
+      "structure": {
+        "principles": [
+          {
+            "name": "specific_goals",
+            "description": "Focus on particular sub-skills, not vague improvement"
+          },
+          {
+            "name": "full_concentration",
+            "description": "Not mindless repetition - full attention required"
+          },
+          {
+            "name": "immediate_feedback",
+            "description": "Know if you're doing it right, adjust in real-time"
+          },
+          {
+            "name": "outside_comfort_zone",
+            "description": "Stretching, not coasting - working at the edge of ability"
+          },
+          {
+            "name": "repetition_with_refinement",
+            "description": "Do it again, better each time"
+          }
+        ]
+      },
+
+      "use_in_sections": ["technique_breakdown", "practice_sequence"],
+      "best_for": ["skill_building"],
+      "cognitive_levels": [1, 2, 3, 4],
+      "application_note": "Design exercises that follow these principles for maximum skill development"
+    },
+
+    "stages_of_change": {
+      "id": "stages_of_change",
+      "name": "Transtheoretical Model (Stages of Change)",
+      "source": "Prochaska & DiClemente",
+      "category": "behaviour_change",
+      "description": "People move through predictable stages when changing behaviour - meet them where they are",
+
+      "structure": {
+        "stages": [
+          {
+            "name": "precontemplation",
+            "label": "Precontemplation",
+            "description": "Not thinking about change",
+            "content_approach": "Raise awareness, plant seeds, no pressure"
+          },
+          {
+            "name": "contemplation",
+            "label": "Contemplation",
+            "description": "Thinking about it, ambivalent",
+            "content_approach": "Explore pros/cons, address ambivalence, build motivation"
+          },
+          {
+            "name": "preparation",
+            "label": "Preparation",
+            "description": "Getting ready, planning",
+            "content_approach": "Concrete planning, skill building, removing barriers"
+          },
+          {
+            "name": "action",
+            "label": "Action",
+            "description": "Making the change",
+            "content_approach": "Support, reinforcement, problem-solving"
+          },
+          {
+            "name": "maintenance",
+            "label": "Maintenance",
+            "description": "Sustaining the change",
+            "content_approach": "Prevent relapse, build identity, long-term strategies"
+          },
+          {
+            "name": "relapse",
+            "label": "Relapse",
+            "description": "Part of the process for many",
+            "content_approach": "Normalise, learn from it, re-engage without shame"
+          }
+        ]
+      },
+
+      "use_in_sections": ["introduction", "self_assessment", "goal_setting"],
+      "best_for": ["behaviour_change", "motivation"],
+      "cognitive_levels": [1, 2, 3, 4],
+      "application_note": "A workbook for someone in contemplation looks different than one for someone in action"
+    },
+
+    "com_b": {
+      "id": "com_b",
+      "name": "COM-B Model",
+      "source": "Michie et al.",
+      "category": "behaviour_change",
+      "description": "Three conditions needed for behaviour change - diagnose why change isn't happening",
+
+      "structure": {
+        "components": [
+          {
+            "name": "capability",
+            "label": "Capability",
+            "types": ["Physical", "Psychological"],
+            "question": "Can they do it? Do they have the skills and knowledge?",
+            "content_intervention": "Skills training, education, practice"
+          },
+          {
+            "name": "opportunity",
+            "label": "Opportunity",
+            "types": ["Physical", "Social"],
+            "question": "Does the environment allow it? Do social norms support it?",
+            "content_intervention": "Environment design, social support, removing barriers"
+          },
+          {
+            "name": "motivation",
+            "label": "Motivation",
+            "types": ["Reflective", "Automatic"],
+            "question": "Do they want to? Is it rewarding?",
+            "content_intervention": "Values connection, reward design, identity work"
+          }
+        ],
+        "formula": "Behaviour = Capability + Opportunity + Motivation"
+      },
+
+      "use_in_sections": ["barrier_identification", "action_planning"],
+      "best_for": ["behaviour_change", "barrier_analysis"],
+      "cognitive_levels": [1, 2, 3],
+      "application_note": "Use to diagnose why change isn't happening - is it capability, opportunity, or motivation?"
+    },
+
+    "implementation_intentions": {
+      "id": "implementation_intentions",
+      "name": "Implementation Intentions",
+      "source": "Peter Gollwitzer",
+      "category": "behaviour_change",
+      "description": "Specific if-then plans dramatically increase follow-through",
+
+      "structure": {
+        "format": "When [situation X occurs], I will [do behaviour Y]",
+        "components": [
+          {
+            "name": "situation",
+            "description": "Specific cue or trigger",
+            "examples": ["When I wake up", "When I feel anxious", "When I sit down for dinner"]
+          },
+          {
+            "name": "behaviour",
+            "description": "Specific action to take",
+            "examples": ["I will drink a glass of water", "I will take three deep breaths", "I will put my phone in another room"]
+          }
+        ],
+        "key_principle": "Pre-decided, not in-the-moment choice"
+      },
+
+      "use_in_sections": ["action_planning", "practice_protocol", "implementation"],
+      "best_for": ["behaviour_change", "habit_building"],
+      "cognitive_levels": [2, 3, 4, 5],
+      "application_note": "All 'when will you do this' planning should use this format"
+    },
+
+    "habit_loop": {
+      "id": "habit_loop",
+      "name": "Habit Loop",
+      "source": "Charles Duhigg / James Clear",
+      "category": "behaviour_change",
+      "description": "How habits form and can be changed - cue, craving, response, reward",
+
+      "structure": {
+        "components": [
+          {
+            "name": "cue",
+            "label": "Cue",
+            "description": "Trigger that initiates the behaviour",
+            "intervention": "Make cues obvious (for good habits) or invisible (for bad habits)"
+          },
+          {
+            "name": "craving",
+            "label": "Craving",
+            "description": "Motivation, the want behind the behaviour",
+            "intervention": "Make it attractive - connect to identity, values, or pleasure"
+          },
+          {
+            "name": "response",
+            "label": "Response",
+            "description": "The behaviour itself",
+            "intervention": "Make it easy - reduce friction, start small"
+          },
+          {
+            "name": "reward",
+            "label": "Reward",
+            "description": "The satisfaction that reinforces the habit",
+            "intervention": "Make it satisfying - immediate reward, tracking, celebration"
+          }
+        ]
+      },
+
+      "use_in_sections": ["habit_design", "behaviour_analysis", "action_planning"],
+      "best_for": ["behaviour_change", "habit_building"],
+      "cognitive_levels": [2, 3, 4],
+      "application_note": "Design cues, make the behaviour easy, ensure reward is felt"
+    },
+
+    "smart_goals": {
+      "id": "smart_goals",
+      "name": "SMART Goals",
+      "source": "George Doran",
+      "category": "goal_setting",
+      "description": "Framework for setting clear, achievable goals",
+
+      "structure": {
+        "criteria": [
+          {"letter": "S", "name": "Specific", "question": "What exactly will you do?"},
+          {"letter": "M", "name": "Measurable", "question": "How will you know you've done it?"},
+          {"letter": "A", "name": "Achievable", "question": "Is this realistic for you right now?"},
+          {"letter": "R", "name": "Relevant", "question": "Does this matter to you? Does it connect to your values?"},
+          {"letter": "T", "name": "Time-bound", "question": "By when?"}
+        ]
+      },
+
+      "use_in_sections": ["goal_setting", "action_planning"],
+      "best_for": ["goal_setting", "planning"],
+      "cognitive_levels": [1, 2, 3, 4],
+      "application_note": "Often combined with Implementation Intentions for maximum effectiveness"
+    },
+
+    "woop": {
+      "id": "woop",
+      "name": "WOOP",
+      "source": "Gabriele Oettingen",
+      "category": "goal_setting",
+      "description": "Mental contrasting with implementation intentions - more effective than positive visualisation alone",
+
+      "structure": {
+        "steps": [
+          {"letter": "W", "name": "Wish", "description": "What do you want?"},
+          {"letter": "O", "name": "Outcome", "description": "What would be the best outcome? How would it feel?"},
+          {"letter": "O", "name": "Obstacle", "description": "What's the main internal obstacle?"},
+          {"letter": "P", "name": "Plan", "description": "If [obstacle], then I will [action]"}
+        ]
+      },
+
+      "use_in_sections": ["goal_setting", "obstacle_anticipation", "action_planning"],
+      "best_for": ["goal_setting", "motivation", "realistic_planning"],
+      "cognitive_levels": [2, 3, 4],
+      "application_note": "The obstacle step is key - this is what makes it more effective than just positive thinking"
+    },
+
+    "rain": {
+      "id": "rain",
+      "name": "RAIN",
+      "source": "Tara Brach (adapted from Michele McDonald)",
+      "category": "emotional_processing",
+      "description": "Mindfulness-based approach to working with difficult emotions",
+
+      "structure": {
+        "steps": [
+          {
+            "letter": "R",
+            "name": "Recognise",
+            "description": "What is happening inside me right now?",
+            "prompt": "Notice the emotion, thought, or sensation"
+          },
+          {
+            "letter": "A",
+            "name": "Allow",
+            "description": "Can I let this be here?",
+            "prompt": "Don't try to fix or change it - just let it exist"
+          },
+          {
+            "letter": "I",
+            "name": "Investigate",
+            "description": "What does this feel like in my body? What does it need?",
+            "prompt": "Get curious with kindness"
+          },
+          {
+            "letter": "N",
+            "name": "Nurture",
+            "description": "What would I say to a friend feeling this?",
+            "prompt": "Offer yourself compassion"
+          }
+        ],
+        "follow_up": "After RAIN: Rest in awareness, notice any shift"
+      },
+
+      "use_in_sections": ["emotional_processing", "self_compassion", "mindfulness_exercise"],
+      "best_for": ["emotional_processing", "self_compassion"],
+      "cognitive_levels": [2, 3, 4],
+      "application_note": "Useful for in-the-moment regulation and for processing after difficult experiences"
+    },
+
+    "window_of_tolerance": {
+      "id": "window_of_tolerance",
+      "name": "Window of Tolerance",
+      "source": "Dan Siegel",
+      "category": "emotional_processing",
+      "description": "Understanding nervous system states and the optimal zone for functioning",
+
+      "structure": {
+        "zones": [
+          {
+            "name": "hyperarousal",
+            "position": "Above the window",
+            "state": "Too activated",
+            "signs": ["Anxiety", "Panic", "Rage", "Hypervigilance", "Racing thoughts"],
+            "nervous_system": "Sympathetic activation (fight/flight)"
+          },
+          {
+            "name": "window",
+            "position": "Inside the window",
+            "state": "Optimal arousal",
+            "signs": ["Present", "Thinking clearly", "Emotionally regulated", "Able to connect"],
+            "nervous_system": "Ventral vagal (social engagement)"
+          },
+          {
+            "name": "hypoarousal",
+            "position": "Below the window",
+            "state": "Too deactivated",
+            "signs": ["Numbness", "Dissociation", "Collapse", "Depression", "Shutdown"],
+            "nervous_system": "Dorsal vagal (freeze/shutdown)"
+          }
+        ],
+        "goal": "Expand the window over time; return to the window when outside it"
+      },
+
+      "use_in_sections": ["psychoeducation", "self_awareness", "regulation_skills"],
+      "best_for": ["emotional_processing", "regulation", "trauma_informed"],
+      "cognitive_levels": [1, 2, 3, 4],
+      "application_note": "Often combined with Polyvagal Theory for deeper understanding"
+    },
+
+    "cognitive_triangle": {
+      "id": "cognitive_triangle",
+      "name": "Cognitive Triangle",
+      "source": "Cognitive Behavioural Therapy (Beck)",
+      "category": "cognitive_work",
+      "description": "The interconnection between thoughts, feelings, and behaviours",
+
+      "structure": {
+        "components": [
+          {"name": "thoughts", "description": "What you think", "example": "I'm going to fail"},
+          {"name": "feelings", "description": "What you feel", "example": "Anxious, scared"},
+          {"name": "behaviours", "description": "What you do", "example": "Avoid, procrastinate"}
+        ],
+        "key_insight": "Change one, and the others shift. You can enter at any point."
+      },
+
+      "use_in_sections": ["psychoeducation", "thought_work", "behaviour_analysis"],
+      "best_for": ["cognitive_work", "CBT_based"],
+      "cognitive_levels": [2, 3, 4]
+    },
+
+    "abcde": {
+      "id": "abcde",
+      "name": "ABCDE Model",
+      "source": "Albert Ellis (REBT) / Martin Seligman (adapted)",
+      "category": "cognitive_work",
+      "description": "Challenging unhelpful beliefs and building more helpful ones",
+
+      "structure": {
+        "steps": [
+          {"letter": "A", "name": "Activating Event", "description": "What happened? (Just the facts)"},
+          {"letter": "B", "name": "Belief", "description": "What did you tell yourself about it?"},
+          {"letter": "C", "name": "Consequence", "description": "How did you feel? What did you do?"},
+          {"letter": "D", "name": "Disputation", "description": "Is that belief accurate? What's the evidence?"},
+          {"letter": "E", "name": "Effect", "description": "What's a more helpful way to see this? How does that feel?"}
+        ]
+      },
+
+      "use_in_sections": ["thought_challenging", "cognitive_restructuring", "reflection"],
+      "best_for": ["cognitive_work", "CBT_based", "resilience"],
+      "cognitive_levels": [2, 3, 4]
+    },
+
+    "gottman_four_horsemen": {
+      "id": "gottman_four_horsemen",
+      "name": "Gottman's Four Horsemen",
+      "source": "John Gottman",
+      "category": "relationships",
+      "description": "Four communication patterns that predict relationship failure, plus their antidotes",
+
+      "structure": {
+        "horsemen": [
+          {
+            "name": "criticism",
+            "description": "Attacking character, not behaviour",
+            "example": "You never think about anyone but yourself",
+            "antidote": "Gentle startup - express need without blame"
+          },
+          {
+            "name": "contempt",
+            "description": "Disrespect, superiority, mockery",
+            "example": "Eye-rolling, sarcasm, name-calling",
+            "antidote": "Build culture of appreciation and respect"
+          },
+          {
+            "name": "defensiveness",
+            "description": "Deflecting, counter-attacking, playing victim",
+            "example": "That's not my fault, you're the one who...",
+            "antidote": "Take responsibility, even for a small part"
+          },
+          {
+            "name": "stonewalling",
+            "description": "Withdrawing, shutting down, refusing to engage",
+            "example": "Walking away, silent treatment, zoning out",
+            "antidote": "Self-soothe, take a break, then return"
+          }
+        ]
+      },
+
+      "use_in_sections": ["relationship_patterns", "communication_skills", "self_awareness"],
+      "best_for": ["relationships", "communication"],
+      "cognitive_levels": [2, 3, 4]
+    },
+
+    "nvc": {
+      "id": "nvc",
+      "name": "Nonviolent Communication",
+      "source": "Marshall Rosenberg",
+      "category": "relationships",
+      "description": "Framework for compassionate communication that meets needs",
+
+      "structure": {
+        "steps": [
+          {
+            "name": "observations",
+            "description": "What happened? (Facts without evaluation)",
+            "example": "When I see dishes in the sink for three days..."
+          },
+          {
+            "name": "feelings",
+            "description": "What do you feel about it?",
+            "example": "I feel frustrated and overwhelmed..."
+          },
+          {
+            "name": "needs",
+            "description": "What need is connected to that feeling?",
+            "example": "Because I need order and shared responsibility..."
+          },
+          {
+            "name": "requests",
+            "description": "What would you like? (Request, not demand)",
+            "example": "Would you be willing to wash them tonight?"
+          }
+        ]
+      },
+
+      "use_in_sections": ["communication_skills", "conflict_resolution", "assertiveness"],
+      "best_for": ["relationships", "communication", "difficult_conversations"],
+      "cognitive_levels": [2, 3, 4]
+    },
+
+    "attachment_styles": {
+      "id": "attachment_styles",
+      "name": "Attachment Styles",
+      "source": "John Bowlby / Mary Ainsworth",
+      "category": "relationships",
+      "description": "Patterns of relating based on early experience",
+
+      "structure": {
+        "styles": [
+          {
+            "name": "secure",
+            "description": "Comfortable with intimacy and independence",
+            "in_relationships": "Can ask for needs, tolerate conflict, trust others"
+          },
+          {
+            "name": "anxious",
+            "also_called": "Anxious-preoccupied",
+            "description": "Fears abandonment, seeks reassurance",
+            "in_relationships": "Needs closeness, worries about rejection, may seem 'clingy'"
+          },
+          {
+            "name": "avoidant",
+            "also_called": "Dismissive-avoidant",
+            "description": "Discomfort with closeness, values independence",
+            "in_relationships": "Pulls away when things get close, may seem 'distant'"
+          },
+          {
+            "name": "disorganised",
+            "also_called": "Fearful-avoidant",
+            "description": "Mixed/contradictory patterns, wants closeness but fears it",
+            "in_relationships": "Push-pull dynamic, difficulty with consistent relating"
+          }
+        ],
+        "key_insight": "Attachment styles can change with awareness and secure relationships"
+      },
+
+      "use_in_sections": ["self_discovery", "relationship_patterns", "psychoeducation"],
+      "best_for": ["relationships", "self_discovery"],
+      "cognitive_levels": [2, 3, 4]
+    },
+
+    "relapse_prevention": {
+      "id": "relapse_prevention",
+      "name": "Relapse Prevention",
+      "source": "Marlatt & Gordon",
+      "category": "recovery",
+      "description": "Framework for maintaining change and handling setbacks",
+
+      "structure": {
+        "components": [
+          {"name": "high_risk_situations", "description": "Identify triggers and risky contexts"},
+          {"name": "coping_strategies", "description": "Build skills for managing risk"},
+          {"name": "warning_signs", "description": "Recognise early indicators of slipping"},
+          {"name": "lifestyle_balance", "description": "Build a life that supports the change"},
+          {"name": "lapse_vs_relapse", "description": "A slip doesn't equal failure (abstinence violation effect)"},
+          {"name": "recovery_plan", "description": "What to do if you slip - get back on track without catastrophising"}
+        ]
+      },
+
+      "use_in_sections": ["maintenance", "setback_planning", "recovery"],
+      "best_for": ["recovery", "behaviour_change", "maintenance"],
+      "cognitive_levels": [2, 3, 4]
+    },
+
+    "halt": {
+      "id": "halt",
+      "name": "HALT",
+      "source": "Alcoholics Anonymous / Recovery tradition",
+      "category": "recovery",
+      "description": "Simple check for vulnerability states - address basic needs first",
+
+      "structure": {
+        "letters": [
+          {"letter": "H", "name": "Hungry", "check": "Have I eaten? Is my blood sugar stable?"},
+          {"letter": "A", "name": "Angry", "check": "Am I holding onto resentment or frustration?"},
+          {"letter": "L", "name": "Lonely", "check": "Have I connected with anyone? Am I isolating?"},
+          {"letter": "T", "name": "Tired", "check": "Have I slept? Am I rested?"}
+        ],
+        "principle": "When you notice these, you're more vulnerable. Address basic needs first."
+      },
+
+      "use_in_sections": ["warning_signs", "self_check", "maintenance"],
+      "best_for": ["recovery", "self_awareness", "prevention"],
+      "cognitive_levels": [3, 4, 5]
+    },
+
+    "wrap": {
+      "id": "wrap",
+      "name": "Wellness Recovery Action Plan (WRAP)",
+      "source": "Mary Ellen Copeland",
+      "category": "recovery",
+      "description": "Structured self-management system for mental health",
+
+      "structure": {
+        "sections": [
+          {"name": "wellness_toolbox", "description": "What helps you stay well - your resources"},
+          {"name": "daily_maintenance", "description": "What you do every day to stay on track"},
+          {"name": "triggers", "description": "What sets you off, and how to respond"},
+          {"name": "early_warning_signs", "description": "What signals trouble is coming"},
+          {"name": "when_things_are_breaking_down", "description": "Action plan for escalation"},
+          {"name": "crisis_plan", "description": "What to do in emergency - who to call, what helps"}
+        ]
+      },
+
+      "use_in_sections": ["comprehensive_planning", "maintenance", "crisis_preparation"],
+      "best_for": ["recovery", "mental_health", "self_management"],
+      "cognitive_levels": [2, 3, 4]
+    },
+
+    "values_card_sort": {
+      "id": "values_card_sort",
+      "name": "Values Card Sort",
+      "source": "Motivational Interviewing tradition",
+      "category": "self_discovery",
+      "description": "Process for identifying and prioritising personal values",
+
+      "structure": {
+        "process": [
+          {"step": 1, "action": "Present full list of values"},
+          {"step": 2, "action": "Sort into 'Important', 'Somewhat Important', 'Not Important'"},
+          {"step": 3, "action": "From 'Important' pile, narrow to top 5-10"},
+          {"step": 4, "action": "Rank or prioritise the final values"},
+          {"step": 5, "action": "Reflect on what these mean and how you live them"}
+        ],
+        "common_values": ["Family", "Honesty", "Freedom", "Security", "Creativity", "Achievement", "Connection", "Health", "Growth", "Adventure", "Peace", "Justice"]
+      },
+
+      "use_in_sections": ["values_clarification", "self_discovery", "goal_alignment"],
+      "best_for": ["self_discovery", "values_work", "motivation"],
+      "cognitive_levels": [2, 3, 4]
+    },
+
+    "wheel_of_life": {
+      "id": "wheel_of_life",
+      "name": "Wheel of Life",
+      "source": "Coaching tradition",
+      "category": "self_discovery",
+      "description": "Visual assessment of life balance across key areas",
+
+      "structure": {
+        "typical_categories": [
+          "Career/Work",
+          "Finances",
+          "Health/Fitness",
+          "Family/Friends",
+          "Romance/Partner",
+          "Personal Growth",
+          "Fun/Recreation",
+          "Physical Environment"
+        ],
+        "process": [
+          {"step": 1, "action": "Rate each area 1-10 for current satisfaction"},
+          {"step": 2, "action": "Plot on wheel - visualise the shape"},
+          {"step": 3, "action": "Identify areas for focus"},
+          {"step": 4, "action": "Set goals for priority areas"}
+        ]
+      },
+
+      "use_in_sections": ["life_assessment", "goal_setting", "self_discovery"],
+      "best_for": ["self_discovery", "life_balance", "coaching"],
+      "cognitive_levels": [3, 4, 5]
+    },
+
+    "polyvagal": {
+      "id": "polyvagal",
+      "name": "Polyvagal Theory",
+      "source": "Stephen Porges",
+      "category": "trauma_informed",
+      "description": "Three-part nervous system explains stress responses and the path to safety",
+
+      "structure": {
+        "states": [
+          {
+            "name": "ventral_vagal",
+            "label": "Ventral Vagal (Safe & Social)",
+            "colour": "Green",
+            "state": "Safe, social, connected",
+            "signs": ["Calm", "Present", "Able to connect", "Curious", "Flexible"],
+            "access_to": "Full range of responses, social engagement"
+          },
+          {
+            "name": "sympathetic",
+            "label": "Sympathetic (Fight/Flight)",
+            "colour": "Yellow/Red",
+            "state": "Mobilised, activated",
+            "signs": ["Anxious", "Angry", "Restless", "Hypervigilant", "Racing heart"],
+            "access_to": "Action, escape, defence"
+          },
+          {
+            "name": "dorsal_vagal",
+            "label": "Dorsal Vagal (Shutdown)",
+            "colour": "Blue",
+            "state": "Immobilised, collapsed",
+            "signs": ["Numb", "Disconnected", "Hopeless", "Foggy", "Exhausted"],
+            "access_to": "Conservation, protection through disappearing"
+          }
+        ],
+        "key_insight": "We move between states based on neuroception (unconscious safety scanning). The goal is building capacity to return to ventral."
+      },
+
+      "use_in_sections": ["psychoeducation", "nervous_system", "regulation"],
+      "best_for": ["trauma_informed", "regulation", "self_awareness"],
+      "cognitive_levels": [1, 2, 3, 4],
+      "application_note": "Often combined with Window of Tolerance for comprehensive nervous system education"
+    },
+
+    "hermans_phases": {
+      "id": "hermans_phases",
+      "name": "Herman's Three Stages of Trauma Recovery",
+      "source": "Judith Herman",
+      "category": "trauma_informed",
+      "description": "Phased approach to trauma recovery - safety first",
+
+      "structure": {
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Safety & Stabilisation",
+            "focus": "Establishing safety, stabilising symptoms, building resources",
+            "not_yet": "Processing trauma memories"
+          },
+          {
+            "phase": 2,
+            "name": "Remembrance & Mourning",
+            "focus": "Processing traumatic memories, grieving losses",
+            "requires": "Sufficient safety and stabilisation from Phase 1"
+          },
+          {
+            "phase": 3,
+            "name": "Reconnection",
+            "focus": "Rebuilding life, reclaiming identity, reconnecting with others",
+            "represents": "Integration and moving forward"
+          }
+        ],
+        "key_principle": "Never skip Phase 1. Safety must come first."
+      },
+
+      "use_in_sections": ["psychoeducation", "treatment_planning", "self_understanding"],
+      "best_for": ["trauma_informed", "recovery_planning"],
+      "cognitive_levels": [1, 2, 3],
+      "application_note": "Aligns with proprietary 'Resilience Before Processing' principle"
+    },
+
+    "grounding_categories": {
+      "id": "grounding_categories",
+      "name": "Grounding Techniques",
+      "source": "Various trauma-informed traditions",
+      "category": "trauma_informed",
+      "description": "Categories of techniques for returning to present-moment awareness",
+
+      "structure": {
+        "categories": [
+          {
+            "name": "sensory",
+            "description": "Using the five senses to anchor in the present",
+            "examples": ["5-4-3-2-1", "Cold water", "Strong scent", "Textured object"]
+          },
+          {
+            "name": "physical",
+            "description": "Using the body to ground",
+            "examples": ["Feet on floor", "Wall push", "Body scan", "Movement"]
+          },
+          {
+            "name": "mental",
+            "description": "Using cognitive tasks to anchor",
+            "examples": ["Categories game", "Counting backwards", "Describing surroundings"]
+          },
+          {
+            "name": "soothing",
+            "description": "Self-compassion and comfort",
+            "examples": ["Kind self-talk", "Safe place imagery", "Comfort object"]
+          }
+        ]
+      },
+
+      "use_in_sections": ["coping_skills", "crisis_tools", "regulation"],
+      "best_for": ["trauma_informed", "crisis", "regulation"],
+      "cognitive_levels": [3, 4, 5]
+    }
+  },
+
+  "categories": {
+    "skill_building": {
+      "name": "Skill Building",
+      "description": "Frameworks for learning and developing new skills",
+      "frameworks": ["kolb_experiential", "dreyfus_model", "deliberate_practice"]
+    },
+    "behaviour_change": {
+      "name": "Behaviour Change",
+      "description": "Frameworks for understanding and facilitating behaviour change",
+      "frameworks": ["stages_of_change", "com_b", "implementation_intentions", "habit_loop"]
+    },
+    "goal_setting": {
+      "name": "Goal Setting & Planning",
+      "description": "Frameworks for setting and achieving goals",
+      "frameworks": ["smart_goals", "woop"]
+    },
+    "emotional_processing": {
+      "name": "Emotional Processing",
+      "description": "Frameworks for working with emotions",
+      "frameworks": ["rain", "window_of_tolerance"]
+    },
+    "cognitive_work": {
+      "name": "Cognitive Work",
+      "description": "Frameworks for understanding and changing thought patterns",
+      "frameworks": ["cognitive_triangle", "abcde"]
+    },
+    "relationships": {
+      "name": "Relationships",
+      "description": "Frameworks for understanding and improving relationships",
+      "frameworks": ["gottman_four_horsemen", "nvc", "attachment_styles"]
+    },
+    "recovery": {
+      "name": "Recovery & Maintenance",
+      "description": "Frameworks for maintaining change and managing setbacks",
+      "frameworks": ["relapse_prevention", "halt", "wrap"]
+    },
+    "self_discovery": {
+      "name": "Self-Discovery",
+      "description": "Frameworks for self-understanding and values clarification",
+      "frameworks": ["values_card_sort", "wheel_of_life"]
+    },
+    "trauma_informed": {
+      "name": "Trauma-Informed",
+      "description": "Frameworks for trauma-sensitive work",
+      "frameworks": ["polyvagal", "hermans_phases", "grounding_categories"]
+    }
+  },
+
+  "usage_guidance": {
+    "combining_frameworks": {
+      "description": "Many workbooks use multiple frameworks together",
+      "examples": [
+        {
+          "combination": ["smart_goals", "implementation_intentions"],
+          "use_for": "Goal-setting sections"
+        },
+        {
+          "combination": ["stages_of_change", "com_b"],
+          "use_for": "Behaviour change workbooks"
+        },
+        {
+          "combination": ["window_of_tolerance", "polyvagal"],
+          "use_for": "Regulation psychoeducation"
+        },
+        {
+          "combination": ["nvc", "gottman_four_horsemen"],
+          "use_for": "Relationship/communication workbooks"
+        },
+        {
+          "combination": ["kolb_experiential", "deliberate_practice"],
+          "use_for": "Skill-building workbooks"
+        }
+      ]
+    },
+    "framework_vs_workbook": {
+      "description": "The framework provides structure. You still need:",
+      "still_needed": [
+        "Brand voice",
+        "Cognitive level adjustment",
+        "Exercises and reflections",
+        "Connection to reader's life",
+        "Proprietary therapeutic philosophy throughout"
+      ]
+    },
+    "citation_by_cognitive_level": {
+      "level_1": "Full academic citation",
+      "level_2": "Named attribution: 'This approach is based on [framework] developed by [source]'",
+      "level_3": "Light touch: 'Research shows...' or 'One helpful framework...'",
+      "level_4": "Implicit: Use the structure without naming it",
+      "level_5": "Invisible: Just the practical application"
+    }
+  }
+}

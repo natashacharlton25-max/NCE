@@ -1,0 +1,172 @@
+{
+  "_meta": {
+    "id": "cognitive-work-frameworks",
+    "name": "Cognitive Work Frameworks",
+    "category": "cognitive_work",
+    "description": "Frameworks for understanding and changing thought patterns",
+    "use_when": "Content focuses on thoughts, beliefs, cognitive patterns or CBT approaches",
+    "version": "1.0.0",
+    "last_updated": "2026-01-12",
+    "language": "Australian English"
+  },
+
+  "frameworks": {
+
+    "cognitive_triangle": {
+      "id": "cognitive_triangle",
+      "name": "Cognitive Triangle",
+      "source": {
+        "creator": "Aaron Beck (based on cognitive therapy principles)",
+        "year": "1960s onwards",
+        "publication": "Various works on cognitive therapy",
+        "field": "Cognitive behavioural therapy"
+      },
+
+      "descriptions": {
+        "professional": "A foundational model in cognitive behavioural therapy illustrating the interconnection between thoughts, emotions and behaviours. The model proposes that these three elements influence each other reciprocally, such that changing one can produce changes in the others. This provides multiple entry points for therapeutic intervention and helps clients understand how their internal experiences and actions are connected.",
+        "peer_led": "The way you think, the way you feel and the way you act are all connected. If you think this is terrible, you might feel anxious and avoid the situation. But it works the other way too. Change your thinking and your feelings might shift. Change what you do and your thoughts might follow. You do not have to change everything at once. Pick one corner of the triangle and start there."
+      },
+
+      "background": {
+        "origin": "Developed as a core concept in Aaron Beck's cognitive therapy and widely adopted across cognitive behavioural approaches. Represents a shift from psychodynamic focus on unconscious processes to observable thoughts, feelings and behaviours.",
+        "evidence_base": "CBT is one of the most researched therapeutic approaches with strong evidence across multiple conditions. The interconnection of thoughts, emotions and behaviours is a foundational assumption.",
+        "why_it_matters": "Makes abstract internal experiences concrete and workable. Shows people they have multiple options for change. Demystifies the change process.",
+        "common_applications": ["Depression treatment", "Anxiety treatment", "General CBT", "Psychoeducation", "Self help"],
+        "limitations": "Can oversimplify complex experiences. The relationship between elements is not always obvious. Some people find it too cognitive or rational."
+      },
+
+      "structure": {
+        "components": [
+          {
+            "name": "thoughts",
+            "label": "Thoughts",
+            "description": "What you think, including interpretations, beliefs, predictions and self talk",
+            "examples": ["I am going to fail", "They think I am stupid", "This always happens to me", "I cannot cope"],
+            "questions_to_explore": ["What went through your mind?", "What were you telling yourself?", "What did you predict would happen?"],
+            "intervention_focus": "Identify, examine evidence, develop alternative thoughts"
+          },
+          {
+            "name": "feelings",
+            "label": "Feelings",
+            "description": "Emotional experiences including their physical sensations",
+            "examples": ["Anxious", "Sad", "Angry", "Ashamed", "Hopeless", "Frustrated"],
+            "questions_to_explore": ["What emotion did you feel?", "Where did you feel it in your body?", "How intense was it?"],
+            "intervention_focus": "Notice, name, validate, allow, regulate"
+          },
+          {
+            "name": "behaviours",
+            "label": "Behaviours",
+            "description": "What you do or do not do in response",
+            "examples": ["Avoid the situation", "Snap at someone", "Stay in bed", "Check repeatedly", "Isolate", "Overwork"],
+            "questions_to_explore": ["What did you do?", "What did you avoid doing?", "How did you cope?"],
+            "intervention_focus": "Identify patterns, behavioural experiments, graded exposure, behavioural activation"
+          }
+        ],
+        "interconnection": "Each element influences the others. Change can start at any point in the triangle. The easiest entry point varies by person and situation.",
+        "entry_points": {
+          "thoughts": "Easiest for people who are reflective and can identify their thinking",
+          "behaviours": "Easiest for people who struggle to identify thoughts but can change what they do",
+          "feelings": "Harder to change directly, but naming and allowing can shift the cycle"
+        }
+      },
+
+      "use_in_sections": ["psychoeducation", "thought_work", "behaviour_analysis", "self_awareness"],
+      "best_for": ["cognitive_work", "CBT_based", "understanding_patterns"],
+      "cognitive_levels": [2, 3, 4],
+      "application_note": "Useful as a starting point for self observation. Help people identify which corner they have most access to.",
+      "pairs_well_with": ["abcde", "thought_challenging", "behavioural_experiments"]
+    },
+
+    "abcde": {
+      "id": "abcde",
+      "name": "ABCDE Model",
+      "source": {
+        "creator": "Albert Ellis (ABC), Martin Seligman (added DE)",
+        "year": "1955 (ABC), 1990s (DE addition)",
+        "publication": "Various works on REBT and learned optimism",
+        "field": "Rational Emotive Behaviour Therapy, positive psychology"
+      },
+
+      "descriptions": {
+        "professional": "An extended cognitive restructuring framework building on Ellis's ABC model from Rational Emotive Behaviour Therapy. The model distinguishes between activating events (A), beliefs about those events (B), and emotional and behavioural consequences (C). Seligman added disputation (D) of unhelpful beliefs and the new effects (E) that result. The framework emphasises that events do not directly cause emotional reactions; rather, our beliefs about events mediate our responses.",
+        "peer_led": "When something happens, it is not the event itself that upsets you. It is what you tell yourself about it. The ABCDE model helps you separate what happened (A) from what you thought about it (B) and how you felt and acted as a result (C). Then you can question whether your thinking was accurate (D) and notice how things shift when you see it differently (E). It puts you back in the driver's seat."
+      },
+
+      "background": {
+        "origin": "Ellis developed the ABC model as part of Rational Emotive Behaviour Therapy in the 1950s. Seligman added the D and E components as part of his work on learned optimism and resilience training.",
+        "evidence_base": "REBT and cognitive restructuring have substantial research support. The ABCDE framework is widely used in resilience training programmes with positive outcomes.",
+        "why_it_matters": "Challenges the assumption that events cause feelings. Gives people a structured way to examine and change their thinking. Builds cognitive flexibility.",
+        "common_applications": ["Resilience training", "Anxiety treatment", "Depression treatment", "Anger management", "Performance coaching"],
+        "limitations": "Can feel mechanical or dismissive of valid emotions if used poorly. Requires honest self reflection. Not all thoughts are easily disputable."
+      },
+
+      "structure": {
+        "steps": [
+          {
+            "letter": "A",
+            "name": "Activating Event",
+            "description": "What happened. Just the facts, without interpretation.",
+            "guidance": "Describe the situation objectively. What would a camera record? Stick to observable facts.",
+            "example": "My friend did not reply to my message for two days.",
+            "prompts": ["What happened?", "What would a video show?", "Just the facts"]
+          },
+          {
+            "letter": "B",
+            "name": "Belief",
+            "description": "What you told yourself about what happened. Your interpretation, assumption or conclusion.",
+            "guidance": "What went through your mind? What did you assume this meant? What did you predict?",
+            "example": "She is annoyed with me. I must have said something wrong. She does not want to be friends anymore.",
+            "prompts": ["What did you tell yourself?", "What did you assume?", "What did this mean to you?"]
+          },
+          {
+            "letter": "C",
+            "name": "Consequence",
+            "description": "How you felt and what you did as a result of the belief.",
+            "guidance": "What emotions did you experience? What did you do or avoid doing?",
+            "example": "Felt anxious and rejected. Checked phone repeatedly. Did not reach out to other friends.",
+            "prompts": ["How did you feel?", "What did you do?", "What did you avoid?"]
+          },
+          {
+            "letter": "D",
+            "name": "Disputation",
+            "description": "Examining whether the belief is accurate, helpful and the only way to see the situation.",
+            "guidance": "What is the evidence for and against this thought? Is there another explanation? What would I tell a friend thinking this?",
+            "example": "She is often slow to reply. She has been busy with work. There is no evidence I upset her. She has been a good friend for years.",
+            "prompts": ["What is the evidence?", "Is there another way to see this?", "What would you tell a friend?"],
+            "disputation_questions": [
+              "What is the evidence for this thought?",
+              "What is the evidence against it?",
+              "Is there an alternative explanation?",
+              "What is the worst that could happen? Could I cope?",
+              "What is the best that could happen?",
+              "What is most likely to happen?",
+              "What would I tell a friend in this situation?"
+            ]
+          },
+          {
+            "letter": "E",
+            "name": "Effect",
+            "description": "The new perspective and how it affects your feelings and actions.",
+            "guidance": "What is a more balanced way to see this? How do you feel now? What will you do differently?",
+            "example": "She is probably just busy. I can reach out again casually. Feeling less anxious and more understanding.",
+            "prompts": ["What is a more balanced view?", "How do you feel now?", "What will you do?"]
+          }
+        ]
+      },
+
+      "use_in_sections": ["thought_challenging", "cognitive_restructuring", "reflection", "resilience_building"],
+      "best_for": ["cognitive_work", "CBT_based", "resilience"],
+      "cognitive_levels": [2, 3, 4],
+      "application_note": "Works best when the disputation is genuinely curious rather than dismissive. Validate the original feeling before challenging the thought.",
+      "pairs_well_with": ["cognitive_triangle", "thinking_traps", "thought_records"]
+    }
+  },
+
+  "suggested_combinations": [
+    {
+      "frameworks": ["cognitive_triangle", "abcde"],
+      "use_for": "Comprehensive cognitive work",
+      "how": "Use cognitive triangle to introduce the concept of thought feeling behaviour connection. Use ABCDE as the detailed process for working with specific situations."
+    }
+  ]
+}

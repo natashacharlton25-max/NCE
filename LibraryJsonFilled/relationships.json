@@ -1,0 +1,304 @@
+{
+  "_meta": {
+    "id": "relationships-frameworks",
+    "name": "Relationships Frameworks",
+    "category": "relationships",
+    "description": "Frameworks for understanding and improving relationships",
+    "use_when": "Content addresses communication, relationship patterns, conflict or connection",
+    "version": "1.0.0",
+    "last_updated": "2026-01-12",
+    "language": "Australian English"
+  },
+
+  "frameworks": {
+
+    "gottman_four_horsemen": {
+      "id": "gottman_four_horsemen",
+      "name": "The Four Horsemen of the Apocalypse",
+      "source": {
+        "creator": "John Gottman",
+        "year": "1990s",
+        "publication": "Why Marriages Succeed or Fail (1994)",
+        "field": "Relationship psychology"
+      },
+
+      "descriptions": {
+        "professional": "Four negative communication patterns identified through longitudinal research as highly predictive of relationship dissolution. Gottman's research on married couples found that the presence and frequency of these patterns, particularly contempt, could predict divorce with significant accuracy. Each horseman has a corresponding antidote that can counteract its destructive effects.",
+        "peer_led": "These are four ways of talking to each other that really damage relationships. Criticism is attacking your partner's character rather than addressing a specific issue. Contempt is acting superior or disgusted. Defensiveness is refusing to take any responsibility. Stonewalling is shutting down and refusing to engage. Everyone does these sometimes, but when they become habits, relationships suffer. The good news is each one has an antidote."
+      },
+
+      "background": {
+        "origin": "Gottman conducted extensive research observing couples interact, measuring physiological responses and following up over many years. He identified patterns that distinguished couples who stayed together from those who divorced.",
+        "evidence_base": "Gottman's research is highly regarded in relationship psychology. The four horsemen model is supported by longitudinal studies showing predictive validity for relationship outcomes.",
+        "why_it_matters": "Gives concrete, observable behaviours to watch for and change. Provides antidotes that are learnable. Based on what actually predicts relationship success, not just theory.",
+        "common_applications": ["Couples therapy", "Relationship education", "Premarital counselling", "Conflict resolution training"],
+        "limitations": "Developed primarily with heterosexual married couples. Does not capture all relationship dynamics. Antidotes require practice and may not feel natural at first."
+      },
+
+      "structure": {
+        "horsemen": [
+          {
+            "name": "criticism",
+            "label": "Criticism",
+            "description": "Attacking your partner's character or personality rather than addressing a specific behaviour",
+            "sounds_like": ["You never think about anyone but yourself", "You always forget", "What is wrong with you?"],
+            "different_from": "Complaint, which addresses a specific issue without attacking character",
+            "impact": "Creates defensiveness and escalation. The attacked partner feels they cannot do anything right.",
+            "antidote": {
+              "name": "Gentle startup",
+              "description": "Raise issues without attacking. Use I statements. Describe what you observed and what you need.",
+              "sounds_like": ["I felt worried when you came home late. Can you let me know next time?", "I notice the dishes are still in the sink. I feel stressed when the kitchen is messy. Could we figure out a system?"],
+              "formula": "I feel [emotion] about [specific situation]. I need [specific request]."
+            }
+          },
+          {
+            "name": "contempt",
+            "label": "Contempt",
+            "description": "Treating your partner with disrespect, superiority, mockery or disgust",
+            "sounds_like": ["Eye rolling", "Sarcasm", "Name calling", "Sneering", "Mocking", "Hostile humour"],
+            "why_worst": "Contempt is the strongest predictor of divorce. It conveys disgust and is deeply corrosive to connection. It is hard to repair from contempt.",
+            "impact": "Makes the partner feel worthless and unloved. Erodes the foundation of respect the relationship needs.",
+            "antidote": {
+              "name": "Build a culture of appreciation",
+              "description": "Regularly express appreciation, respect and affection. Focus on what you value about your partner. Notice the positives.",
+              "sounds_like": ["I really appreciated when you", "One thing I love about you is", "Thank you for", "I noticed you"],
+              "practice": "Aim for 5 positive interactions for every 1 negative. Express appreciation daily."
+            }
+          },
+          {
+            "name": "defensiveness",
+            "label": "Defensiveness",
+            "description": "Deflecting responsibility, making excuses, or counter attacking when receiving feedback",
+            "sounds_like": ["That is not my fault", "You are the one who", "I only did that because you", "Yes but you"],
+            "function": "Protects self esteem but blocks repair and escalates conflict. Signals that you are not willing to look at your part.",
+            "impact": "The partner feels unheard and that their concerns do not matter. Conflict escalates.",
+            "antidote": {
+              "name": "Take responsibility",
+              "description": "Accept some part of the responsibility, even if small. Acknowledge your partner's perspective before explaining your own.",
+              "sounds_like": ["You are right, I did forget. I am sorry.", "I can see how that would be frustrating.", "My part in this was", "I understand why you feel that way"],
+              "note": "You do not have to agree with everything. Just acknowledge the valid part of their experience."
+            }
+          },
+          {
+            "name": "stonewalling",
+            "label": "Stonewalling",
+            "description": "Withdrawing from interaction, shutting down, refusing to engage",
+            "looks_like": ["Walking away", "Silent treatment", "Busy with phone", "Monosyllabic responses", "Blank stare", "Leaving the room"],
+            "function": "Often happens when flooded or overwhelmed. A self soothing attempt that blocks resolution. More common in men.",
+            "impact": "The partner feels abandoned and shut out. Issues remain unresolved. Distance grows.",
+            "antidote": {
+              "name": "Physiological self soothing",
+              "description": "When overwhelmed, take a break to calm down, then return to the conversation. Do not just disappear.",
+              "how_to": [
+                "Notice when you are becoming flooded (heart racing, feeling overwhelmed)",
+                "Ask for a break: I need 20 minutes to calm down, then I will come back",
+                "Actually calm down (do not stew or rehearse arguments)",
+                "Return to the conversation when regulated"
+              ],
+              "note": "The break needs to be at least 20 minutes for physiology to calm. Agree on a time to return."
+            }
+          }
+        ],
+        "flooding": {
+          "description": "Stonewalling often occurs when someone is flooded, meaning their nervous system is overwhelmed and they cannot process information well.",
+          "signs": ["Heart rate above 100 bpm", "Feeling attacked", "Cannot think clearly", "Fight or flight activation"],
+          "what_helps": "Taking a break to physiologically calm down before continuing the conversation"
+        }
+      },
+
+      "use_in_sections": ["relationship_patterns", "communication_skills", "self_awareness", "conflict_resolution"],
+      "best_for": ["relationships", "communication"],
+      "cognitive_levels": [2, 3, 4],
+      "application_note": "Use for awareness, not as weapons. Help people recognise their own patterns rather than diagnosing their partner.",
+      "pairs_well_with": ["nvc", "repair_attempts", "flooding"]
+    },
+
+    "nvc": {
+      "id": "nvc",
+      "name": "Nonviolent Communication",
+      "source": {
+        "creator": "Marshall Rosenberg",
+        "year": 1960,
+        "publication": "Nonviolent Communication: A Language of Life (1999)",
+        "field": "Communication, conflict resolution"
+      },
+
+      "descriptions": {
+        "professional": "A communication framework designed to facilitate compassionate connection by focusing on universal human needs. The model distinguishes between observations and evaluations, feelings and thoughts, needs and strategies, and requests and demands. By expressing clearly and receiving empathically, individuals can navigate conflict while maintaining connection and meeting needs.",
+        "peer_led": "NVC is a way of communicating that focuses on what you observe, how you feel, what you need and what you would like to happen. Instead of attacking or blaming, you get clear about what is actually going on for you and ask for what would help. It takes practice, but it can transform difficult conversations from fights into genuine problem solving."
+      },
+
+      "background": {
+        "origin": "Rosenberg developed NVC influenced by Carl Rogers' client centred approach and his own experiences growing up in Detroit during racial tensions. He wanted to create a practical method for peaceful communication.",
+        "evidence_base": "Widely used in conflict resolution, education, therapy and organisations. Research support is growing, particularly in reducing aggression and improving empathy. The emphasis on needs aligns with self determination theory.",
+        "why_it_matters": "Provides a concrete alternative to blame and criticism. Focuses on underlying needs rather than surface positions. Applicable to personal relationships, workplaces and larger conflicts.",
+        "common_applications": ["Conflict resolution", "Couples therapy", "Parenting", "Workplace communication", "Mediation", "Education"],
+        "limitations": "Can sound formulaic when used rigidly. Takes practice to use naturally. Some find the focus on needs unfamiliar or uncomfortable."
+      },
+
+      "structure": {
+        "steps": [
+          {
+            "name": "observations",
+            "label": "Observations",
+            "description": "What happened, described factually without evaluation or judgement",
+            "guidance": "Describe what a camera would record. Avoid words like always, never, should, too much. Separate what you saw from what you think it means.",
+            "examples": {
+              "evaluation": "You were rude to me at dinner",
+              "observation": "When you looked at your phone while I was talking about my day"
+            },
+            "practice": "Describe the facts. Leave out your interpretation."
+          },
+          {
+            "name": "feelings",
+            "label": "Feelings",
+            "description": "The emotions you experienced, using genuine feeling words",
+            "guidance": "Use actual emotion words. Avoid faux feelings that are really thoughts or judgements. Take ownership of your feelings.",
+            "examples": {
+              "not_feelings": ["I feel ignored", "I feel like you do not care", "I feel manipulated"],
+              "actual_feelings": ["I felt hurt", "I felt lonely", "I felt sad", "I felt frustrated"]
+            },
+            "note": "Faux feelings usually involve the other person (ignored, abandoned, manipulated). Real feelings are about your internal state."
+          },
+          {
+            "name": "needs",
+            "label": "Needs",
+            "description": "The universal human need connected to the feeling",
+            "guidance": "Identify the underlying need. Needs are universal (connection, respect, autonomy, safety). They are not specific to one person or strategy.",
+            "common_needs": ["Connection", "Understanding", "Respect", "Autonomy", "Safety", "Meaning", "Play", "Rest", "Contribution", "To matter"],
+            "example": "Because I need connection and to feel that what I share matters to you",
+            "note": "Needs are never about what someone else should do. They are about what you require to thrive."
+          },
+          {
+            "name": "requests",
+            "label": "Requests",
+            "description": "A clear, positive, doable request (not a demand)",
+            "guidance": "Ask for what you want, not what you do not want. Be specific and concrete. Make it a request, not a demand (they can say no).",
+            "examples": {
+              "demand": "Stop ignoring me",
+              "vague": "Be more present",
+              "request": "Would you be willing to put your phone away during dinner so we can talk?"
+            },
+            "characteristics": ["Specific", "Positive (what to do, not what to stop)", "Doable now", "Genuinely a request (they can say no)"]
+          }
+        ],
+        "formula": "When [observation], I feel [feeling] because I need [need]. Would you be willing to [request]?",
+        "empathic_listening": {
+          "description": "NVC also involves receiving others with empathy, guessing at their feelings and needs",
+          "example": "Are you feeling frustrated because you need more support?",
+          "purpose": "Helps the other person feel understood, even in conflict"
+        }
+      },
+
+      "use_in_sections": ["communication_skills", "conflict_resolution", "assertiveness", "relationship_building"],
+      "best_for": ["relationships", "communication", "difficult_conversations"],
+      "cognitive_levels": [2, 3, 4],
+      "application_note": "Works best when genuine rather than formulaic. The goal is connection, not winning.",
+      "pairs_well_with": ["gottman_four_horsemen", "active_listening", "empathy_skills"]
+    },
+
+    "attachment_styles": {
+      "id": "attachment_styles",
+      "name": "Attachment Styles",
+      "source": {
+        "creator": "John Bowlby (theory), Mary Ainsworth (research and classification)",
+        "year": "1950s-1970s",
+        "publication": "Bowlby, Attachment and Loss trilogy; Ainsworth, Patterns of Attachment (1978)",
+        "field": "Developmental psychology"
+      },
+
+      "descriptions": {
+        "professional": "A framework describing characteristic patterns of relating to attachment figures, developed through early caregiving experiences. The original three categories (secure, anxious, avoidant) were later expanded to include disorganised attachment. These patterns influence how individuals seek proximity, respond to threat, and regulate emotions in close relationships throughout life. Importantly, attachment patterns are not fixed and can change with corrective relational experiences.",
+        "peer_led": "Your attachment style is the pattern of how you connect with people you are close to. It forms early based on how your caregivers responded to your needs, but it can change over time. Some people feel comfortable with closeness (secure). Some worry about being abandoned and need lots of reassurance (anxious). Some feel uncomfortable when things get too close (avoidant). Some people experience a mix of wanting closeness but also fearing it (disorganised). Knowing your pattern helps you understand your reactions in relationships."
+      },
+
+      "background": {
+        "origin": "Bowlby developed attachment theory drawing on ethology, developmental psychology and psychoanalysis. Ainsworth tested and categorised attachment patterns through her Strange Situation research with infants and caregivers.",
+        "evidence_base": "One of the most researched areas in developmental and relationship psychology. Strong evidence links early attachment to later relationship patterns, though the relationship is not deterministic.",
+        "why_it_matters": "Explains recurring patterns in relationships. Normalises struggles with intimacy and trust. Shows that patterns can change with awareness and secure relationships.",
+        "common_applications": ["Couples therapy", "Individual therapy", "Parenting support", "Relationship education", "Self understanding"],
+        "limitations": "Styles are generalisations and individuals are complex. Early attachment is influential but not deterministic. Cultural factors affect expression of attachment."
+      },
+
+      "structure": {
+        "styles": [
+          {
+            "name": "secure",
+            "label": "Secure Attachment",
+            "description": "Comfortable with intimacy and independence. Trusts others and self.",
+            "in_relationships": ["Can ask for needs", "Tolerates conflict", "Trusts partners", "Balances closeness and autonomy", "Repairs after ruptures"],
+            "origin": "Caregivers were consistently responsive and available",
+            "inner_belief": "I am worthy of love. Others can be trusted.",
+            "strengths": ["Flexible", "Can self soothe and seek support", "Handles conflict well"],
+            "percentage": "Approximately 50 to 60 percent of population"
+          },
+          {
+            "name": "anxious",
+            "label": "Anxious Attachment",
+            "also_called": "Anxious-preoccupied",
+            "description": "Fears abandonment. Highly attuned to signs of rejection. Seeks reassurance.",
+            "in_relationships": ["Needs lots of closeness and reassurance", "Worries about rejection", "May seem clingy or demanding", "Hypervigilant to partner's mood"],
+            "origin": "Caregivers were inconsistently available",
+            "inner_belief": "I am not sure I am worthy. I need others to confirm my value.",
+            "strengths": ["Attuned to others", "Values connection", "Works hard on relationships"],
+            "growth_edges": ["Self soothing", "Tolerating uncertainty", "Trusting without constant reassurance"],
+            "percentage": "Approximately 15 to 20 percent of population"
+          },
+          {
+            "name": "avoidant",
+            "label": "Avoidant Attachment",
+            "also_called": "Dismissive-avoidant",
+            "description": "Discomfort with closeness. Values independence highly. Downplays need for connection.",
+            "in_relationships": ["Pulls away when things get close", "Values space and autonomy", "May seem distant or dismissive", "Uncomfortable with emotional demands"],
+            "origin": "Caregivers were emotionally unavailable or rejecting of needs",
+            "inner_belief": "I do not really need others. I can rely on myself.",
+            "strengths": ["Self reliant", "Independent", "Does not get overwhelmed by others' emotions"],
+            "growth_edges": ["Allowing vulnerability", "Recognising need for connection", "Staying present when things get close"],
+            "percentage": "Approximately 20 to 25 percent of population"
+          },
+          {
+            "name": "disorganised",
+            "label": "Disorganised Attachment",
+            "also_called": "Fearful-avoidant",
+            "description": "Mixed pattern. Wants closeness but also fears it. May show contradictory behaviours.",
+            "in_relationships": ["Push and pull dynamic", "Difficulty with consistent relating", "Fear of both abandonment and engulfment", "May swing between anxious and avoidant strategies"],
+            "origin": "Caregivers were frightening or frightened, often involving trauma or loss",
+            "inner_belief": "I want to be close but closeness is dangerous.",
+            "strengths": ["Often very perceptive", "Survivors", "Can develop strong insight with healing"],
+            "growth_edges": ["Building safety in relationships", "Healing trauma", "Developing consistent patterns"],
+            "percentage": "Approximately 5 to 10 percent of population"
+          }
+        ],
+        "key_points": [
+          "Styles exist on spectrums, not in rigid categories",
+          "People may show different patterns in different relationships",
+          "Earned security is possible through healing relationships and therapy",
+          "Knowing your style helps you understand reactions, not excuse behaviour"
+        ],
+        "earned_security": {
+          "description": "People can develop a secure attachment style through corrective relational experiences, even if their early attachment was insecure",
+          "how": "Through therapy, secure relationships, self awareness and intentional practice"
+        }
+      },
+
+      "use_in_sections": ["self_discovery", "relationship_patterns", "psychoeducation", "understanding_reactions"],
+      "best_for": ["relationships", "self_discovery"],
+      "cognitive_levels": [2, 3, 4],
+      "application_note": "Use for self understanding, not labelling or diagnosing partners. Emphasise that change is possible.",
+      "pairs_well_with": ["window_of_tolerance", "inner_child_work", "relationship_patterns"]
+    }
+  },
+
+  "suggested_combinations": [
+    {
+      "frameworks": ["gottman_four_horsemen", "nvc"],
+      "use_for": "Communication skills training",
+      "how": "Use Four Horsemen to identify destructive patterns. Use NVC to provide the alternative, constructive approach."
+    },
+    {
+      "frameworks": ["attachment_styles", "gottman_four_horsemen"],
+      "use_for": "Understanding relationship dynamics",
+      "how": "Attachment styles explain underlying patterns. Four Horsemen identifies the surface behaviours that result."
+    }
+  ]
+}

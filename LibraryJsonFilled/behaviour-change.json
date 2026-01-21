@@ -1,0 +1,333 @@
+{
+  "_meta": {
+    "id": "behaviour-change-frameworks",
+    "name": "Behaviour Change Frameworks",
+    "category": "behaviour_change",
+    "description": "Frameworks for understanding and supporting behaviour change",
+    "use_when": "Content focuses on changing habits, building new behaviours, or understanding why change is hard",
+    "version": "1.0.0",
+    "last_updated": "2026-01-12",
+    "language": "Australian English"
+  },
+
+  "frameworks": {
+
+    "stages_of_change": {
+      "id": "stages_of_change",
+      "name": "Stages of Change (Transtheoretical Model)",
+      "source": {
+        "creator": "James Prochaska and Carlo DiClemente",
+        "year": 1983,
+        "publication": "Stages and Processes of Self-Change of Smoking",
+        "field": "Health psychology, addiction"
+      },
+
+      "descriptions": {
+        "professional": "An integrative model proposing that behaviour change occurs through a series of discrete stages, each characterised by distinct attitudes, intentions and behaviours. The model suggests that interventions should be matched to the individual's current stage to maximise effectiveness. Originally developed in the context of smoking cessation, the model has been applied across a wide range of health and behaviour change contexts.",
+        "peer_led": "People go through predictable stages when making a change. First you are not even thinking about it. Then you start considering it but feel torn. Then you start getting ready and planning. Then you actually make the change. Then you work on keeping it going. Sometimes you slip back, and that is normal. Knowing which stage you are in helps you understand what kind of support you need right now."
+      },
+
+      "background": {
+        "origin": "Prochaska and DiClemente noticed that people who successfully quit smoking went through similar stages. They also noticed that people in different stages responded differently to the same interventions.",
+        "evidence_base": "One of the most widely used models in health behaviour change. Applied to smoking, alcohol, exercise, diet, medication adherence and more. Some debate exists about whether stages are truly discrete or more fluid.",
+        "why_it_matters": "Explains why the same advice works for some people and not others. Prevents frustration by normalising ambivalence and relapse. Helps tailor support to where someone actually is, not where we think they should be.",
+        "common_applications": ["Smoking cessation", "Addiction treatment", "Health coaching", "Motivational interviewing", "Behaviour change programmes"],
+        "limitations": "Stages may not be as discrete as the model suggests. Some question whether stage matching actually improves outcomes. The model focuses on individual change rather than environmental factors."
+      },
+
+      "structure": {
+        "stages": [
+          {
+            "name": "precontemplation",
+            "label": "Precontemplation",
+            "description": "Not currently thinking about change",
+            "mindset": "I do not have a problem. I do not need to change.",
+            "what_helps": "Raising awareness gently. Providing information without pressure. Planting seeds.",
+            "what_hinders": "Pushing for action. Listing reasons to change. Arguing.",
+            "content_approach": "Psychoeducation, normalising experiences, gentle awareness raising, no action demands"
+          },
+          {
+            "name": "contemplation",
+            "label": "Contemplation",
+            "description": "Thinking about change but feeling ambivalent",
+            "mindset": "I can see there might be a problem, but I am not sure I want to or can change.",
+            "what_helps": "Exploring pros and cons. Addressing ambivalence. Building motivation. Respecting uncertainty.",
+            "what_hinders": "Rushing to action. Dismissing concerns. Taking sides in their ambivalence.",
+            "content_approach": "Decisional balance exercises, values exploration, addressing barriers, motivational content"
+          },
+          {
+            "name": "preparation",
+            "label": "Preparation",
+            "description": "Getting ready to take action soon",
+            "mindset": "I am going to do this. I am figuring out how.",
+            "what_helps": "Concrete planning. Skill building. Removing barriers. Building confidence.",
+            "what_hinders": "More awareness raising. Dwelling on whether to change. Overwhelming with options.",
+            "content_approach": "Action planning, skill practice, barrier problem solving, implementation intentions"
+          },
+          {
+            "name": "action",
+            "label": "Action",
+            "description": "Actively making the change",
+            "mindset": "I am doing this. It is hard but I am committed.",
+            "what_helps": "Support and encouragement. Problem solving challenges. Reinforcing progress. Managing slips.",
+            "what_hinders": "Assuming it is easy now. Leaving them without support. Catastrophising slips.",
+            "content_approach": "Progress tracking, troubleshooting, support strategies, slip management"
+          },
+          {
+            "name": "maintenance",
+            "label": "Maintenance",
+            "description": "Sustaining the change over time",
+            "mindset": "This is becoming part of who I am. I need to stay vigilant.",
+            "what_helps": "Preventing relapse. Building identity around the change. Long term strategies. Celebrating progress.",
+            "what_hinders": "Assuming they are done. Removing support too soon. Ignoring ongoing challenges.",
+            "content_approach": "Relapse prevention, identity work, long term planning, maintenance strategies"
+          },
+          {
+            "name": "relapse",
+            "label": "Relapse",
+            "description": "Returning to old behaviour after a period of change",
+            "mindset": "I have failed. I am back to square one.",
+            "what_helps": "Normalising relapse as part of the process. Learning from it. Re-engaging without shame.",
+            "what_hinders": "Treating it as failure. Shaming. Giving up.",
+            "content_approach": "Normalising, learning orientation, re-engagement support, compassionate reframing"
+          }
+        ]
+      },
+
+      "use_in_sections": ["introduction", "self_assessment", "goal_setting", "content_matching"],
+      "best_for": ["behaviour_change", "motivation", "readiness_assessment"],
+      "cognitive_levels": [1, 2, 3, 4],
+      "application_note": "Content for someone in contemplation looks very different from content for someone in action. Assess stage before prescribing action.",
+      "pairs_well_with": ["com_b", "motivational_interviewing", "decisional_balance"]
+    },
+
+    "com_b": {
+      "id": "com_b",
+      "name": "COM-B Model of Behaviour",
+      "source": {
+        "creator": "Susan Michie, Maartje van Stralen and Robert West",
+        "year": 2011,
+        "publication": "The Behaviour Change Wheel: A new method for characterising and designing behaviour change interventions",
+        "field": "Behavioural science, health psychology"
+      },
+
+      "descriptions": {
+        "professional": "A comprehensive model proposing that behaviour occurs as a result of three interacting conditions: capability (physical and psychological capacity), opportunity (physical and social environmental factors), and motivation (reflective and automatic processes). The model provides a systematic framework for diagnosing behavioural barriers and selecting appropriate interventions. It forms the hub of the Behaviour Change Wheel, which links behavioural analysis to intervention design.",
+        "peer_led": "For any behaviour to happen, three things need to be in place. You need to be able to do it (capability). You need the chance to do it (opportunity). And you need to want to do it (motivation). When a behaviour is not happening, it is usually because one of these three is missing. Figuring out which one helps you know what to work on."
+      },
+
+      "background": {
+        "origin": "Michie and colleagues reviewed 19 existing behaviour change frameworks and synthesised them into this comprehensive model. They wanted a framework that could apply across all behaviours and contexts.",
+        "evidence_base": "Widely adopted in public health, policy design and behaviour change research. The associated Behaviour Change Wheel and Taxonomy provide systematic methods for intervention design.",
+        "why_it_matters": "Prevents jumping to motivation focused solutions when the problem is actually capability or opportunity. Provides a diagnostic framework rather than a one size fits all approach.",
+        "common_applications": ["Public health interventions", "Behaviour change programme design", "Policy development", "Individual behaviour change planning"],
+        "limitations": "Can be complex to apply rigorously. Interaction between components is not always clear. Less focused on the change process over time."
+      },
+
+      "structure": {
+        "components": [
+          {
+            "name": "capability",
+            "label": "Capability",
+            "description": "The individual's psychological and physical capacity to engage in the behaviour",
+            "subtypes": {
+              "physical": "Having the physical skills, strength or stamina to do the behaviour",
+              "psychological": "Having the knowledge, cognitive skills and psychological strength to do the behaviour"
+            },
+            "diagnostic_questions": [
+              "Do they know how to do it?",
+              "Do they have the skills?",
+              "Are they physically able?",
+              "Can they regulate their emotions and thoughts enough to do it?"
+            ],
+            "interventions": ["Training", "Education", "Skill development", "Enablement"]
+          },
+          {
+            "name": "opportunity",
+            "label": "Opportunity",
+            "description": "Factors outside the individual that make the behaviour possible or prompt it",
+            "subtypes": {
+              "physical": "Environmental factors like time, resources, locations, cues and physical barriers",
+              "social": "Social influences including cultural norms, social support and interpersonal influences"
+            },
+            "diagnostic_questions": [
+              "Do they have time and resources?",
+              "Does the environment support the behaviour?",
+              "Do the people around them support it?",
+              "Is it socially acceptable?"
+            ],
+            "interventions": ["Environmental restructuring", "Social support", "Modelling", "Enablement"]
+          },
+          {
+            "name": "motivation",
+            "label": "Motivation",
+            "description": "Brain processes that energise and direct behaviour",
+            "subtypes": {
+              "reflective": "Conscious decision making, intentions, beliefs about consequences, goals",
+              "automatic": "Emotions, impulses, habits, desires that arise without deliberation"
+            },
+            "diagnostic_questions": [
+              "Do they want to do it?",
+              "Do they believe it will help?",
+              "Is it a habit?",
+              "Do they feel positive or negative about it?"
+            ],
+            "interventions": ["Persuasion", "Incentivisation", "Modelling", "Enablement"]
+          }
+        ],
+        "interaction": "The three components interact continuously. Behaviour can influence future capability, opportunity and motivation. Motivation can influence how people seek capability and opportunity."
+      },
+
+      "use_in_sections": ["barrier_identification", "action_planning", "intervention_design", "self_assessment"],
+      "best_for": ["behaviour_change", "barrier_analysis", "intervention_design"],
+      "cognitive_levels": [1, 2, 3],
+      "application_note": "Use to diagnose why change is not happening before selecting solutions. Often capability or opportunity issues are mistaken for motivation problems.",
+      "pairs_well_with": ["stages_of_change", "implementation_intentions", "habit_loop"]
+    },
+
+    "implementation_intentions": {
+      "id": "implementation_intentions",
+      "name": "Implementation Intentions",
+      "source": {
+        "creator": "Peter Gollwitzer",
+        "year": 1999,
+        "publication": "Implementation intentions: Strong effects of simple plans",
+        "field": "Social psychology, motivation"
+      },
+
+      "descriptions": {
+        "professional": "A self regulatory strategy that specifies when, where and how a goal directed behaviour will be performed. Unlike goal intentions (I intend to do X), implementation intentions take the form of if then plans (If situation Y occurs, then I will perform behaviour Z). Research demonstrates that forming implementation intentions significantly increases the likelihood of goal attainment by delegating control of behaviour to situational cues rather than relying on willpower.",
+        "peer_led": "Deciding to do something is not the same as actually doing it. Implementation intentions are specific plans that connect a situation to an action. Instead of saying I will exercise more, you say When I get home from work, I will put on my running shoes. This simple shift makes you much more likely to follow through because you have already decided what to do when the moment comes."
+      },
+
+      "background": {
+        "origin": "Gollwitzer was interested in the gap between intending to do something and actually doing it. He found that linking intentions to specific situations dramatically improved follow through.",
+        "evidence_base": "One of the most robust findings in behaviour change research. Meta analyses show significant effects across domains including health, academic and environmental behaviours.",
+        "why_it_matters": "Closes the intention behaviour gap. Reduces reliance on willpower and memory. Makes good behaviour more automatic.",
+        "common_applications": ["Health behaviour change", "Goal setting programmes", "Habit formation", "Study skills", "Therapy homework"],
+        "limitations": "Works best for simple behaviours. Complex behaviours may need multiple plans. Effectiveness can decline if plans are forgotten or situations change."
+      },
+
+      "structure": {
+        "format": "When [situation] happens, I will [behaviour]",
+        "components": [
+          {
+            "name": "situation",
+            "description": "A specific cue, time, place or internal state that triggers the plan",
+            "good_examples": ["When I finish dinner", "When I feel anxious", "When I sit down at my desk in the morning"],
+            "poor_examples": ["Sometime today", "When I have time", "When I feel like it"]
+          },
+          {
+            "name": "behaviour",
+            "description": "A specific action that can be performed immediately",
+            "good_examples": ["I will take three deep breaths", "I will open my journal", "I will text one friend"],
+            "poor_examples": ["I will relax", "I will be more organised", "I will try harder"]
+          }
+        ],
+        "key_principles": [
+          "Be specific about both situation and behaviour",
+          "Choose situations you will definitely encounter",
+          "Make the behaviour simple enough to do immediately",
+          "Write the plan down",
+          "Rehearse the plan mentally"
+        ]
+      },
+
+      "use_in_sections": ["action_planning", "practice_protocol", "implementation", "habit_building"],
+      "best_for": ["behaviour_change", "habit_building", "goal_achievement"],
+      "cognitive_levels": [2, 3, 4, 5],
+      "application_note": "All planning sections should use this format. The more specific the plan, the more likely it is to be followed.",
+      "pairs_well_with": ["smart_goals", "woop", "habit_loop"]
+    },
+
+    "habit_loop": {
+      "id": "habit_loop",
+      "name": "The Habit Loop",
+      "source": {
+        "creator": "Charles Duhigg (populariser), based on research by multiple scientists",
+        "year": 2012,
+        "publication": "The Power of Habit",
+        "related_work": "James Clear, Atomic Habits (2018) expanded the model to four stages",
+        "field": "Behavioural psychology, neuroscience"
+      },
+
+      "descriptions": {
+        "professional": "A neurological model describing the structure of habitual behaviour. Habits form through a loop comprising a cue (trigger), a routine (the behaviour itself) and a reward (the reinforcing outcome). The brain encodes this loop into the basal ganglia, allowing the behaviour to become automatic. This creates efficiency but also means habits persist even when no longer consciously desired. Understanding the loop enables targeted intervention at any stage.",
+        "peer_led": "Habits work in a loop. Something triggers the behaviour (the cue). You do the behaviour (the routine). Then you get something from it (the reward). Your brain learns this pattern and starts doing it automatically. Understanding this loop means you can change habits by changing the cue, swapping the routine, or adjusting the reward. You do not have to fight your brain. You can work with it."
+      },
+
+      "background": {
+        "origin": "Research on the habit loop comes from neuroscience studies, particularly work on the basal ganglia. Duhigg synthesised this research for popular audiences. James Clear later expanded the model.",
+        "evidence_base": "Strong neuroscience foundation. The cue routine reward structure is well supported. Clear's addition of craving aligns with research on wanting versus liking.",
+        "why_it_matters": "Habits drive much of daily behaviour with little conscious effort. Understanding the mechanism allows for intentional habit design and change.",
+        "common_applications": ["Habit building", "Breaking unwanted habits", "Product design", "Behaviour change programmes"],
+        "limitations": "Not all behaviour is habitual. Complex behaviours involve multiple interacting habits. Social and environmental factors are sometimes underemphasised."
+      },
+
+      "structure": {
+        "four_stage_model": [
+          {
+            "name": "cue",
+            "label": "Cue",
+            "description": "The trigger that initiates the behaviour. Tells your brain to go into automatic mode.",
+            "types": ["Time", "Location", "Preceding event", "Emotional state", "Other people"],
+            "for_building_habits": "Make cues obvious. Put them in your environment. Stack new habits onto existing cues.",
+            "for_breaking_habits": "Make cues invisible. Remove them from your environment. Avoid trigger situations."
+          },
+          {
+            "name": "craving",
+            "label": "Craving",
+            "description": "The motivational force. The desire for the reward or change in state.",
+            "note": "Added by James Clear. The craving is not for the behaviour itself but for the change in state it delivers.",
+            "for_building_habits": "Make it attractive. Connect to identity and values. Pair with something you enjoy.",
+            "for_breaking_habits": "Reframe the craving. Highlight the downsides. Create competing cravings."
+          },
+          {
+            "name": "response",
+            "label": "Response",
+            "description": "The actual behaviour or habit you perform.",
+            "note": "This is what we typically think of as the habit. It can be a thought, action or emotion.",
+            "for_building_habits": "Make it easy. Reduce friction. Start with two minutes.",
+            "for_breaking_habits": "Make it difficult. Add friction. Increase the steps required."
+          },
+          {
+            "name": "reward",
+            "label": "Reward",
+            "description": "The benefit you get from the behaviour. Satisfies the craving and teaches the brain to repeat the loop.",
+            "types": ["Immediate pleasure", "Removal of discomfort", "Social approval", "Sense of achievement"],
+            "for_building_habits": "Make it satisfying. Add immediate reward. Track progress visibly.",
+            "for_breaking_habits": "Make it unsatisfying. Add immediate consequences. Create accountability."
+          }
+        ],
+        "four_laws_summary": {
+          "to_build": ["Make it obvious", "Make it attractive", "Make it easy", "Make it satisfying"],
+          "to_break": ["Make it invisible", "Make it unattractive", "Make it difficult", "Make it unsatisfying"]
+        }
+      },
+
+      "use_in_sections": ["habit_design", "behaviour_analysis", "action_planning", "breaking_patterns"],
+      "best_for": ["behaviour_change", "habit_building", "understanding_patterns"],
+      "cognitive_levels": [2, 3, 4],
+      "application_note": "Use for both building new habits and changing existing ones. The four laws provide practical levers for change.",
+      "pairs_well_with": ["implementation_intentions", "com_b", "environment_design"]
+    }
+  },
+
+  "suggested_combinations": [
+    {
+      "frameworks": ["stages_of_change", "com_b"],
+      "use_for": "Understanding where someone is and what barriers they face",
+      "how": "Use stages of change to assess readiness. Use COM-B to identify specific barriers at their current stage."
+    },
+    {
+      "frameworks": ["implementation_intentions", "habit_loop"],
+      "use_for": "Building new habits effectively",
+      "how": "Use habit loop to design the cue, routine and reward. Use implementation intentions to lock in the cue-behaviour link."
+    },
+    {
+      "frameworks": ["com_b", "implementation_intentions"],
+      "use_for": "Turning motivation into action",
+      "how": "Use COM-B to ensure capability and opportunity are addressed. Use implementation intentions to translate motivation into specific plans."
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "_meta": {
+    "id": "emotional-processing-frameworks",
+    "name": "Emotional Processing Frameworks",
+    "category": "emotional_processing",
+    "description": "Frameworks for working with difficult emotions",
+    "use_when": "Content addresses emotional regulation, processing feelings, or understanding emotional reactions",
+    "version": "1.0.0",
+    "last_updated": "2026-01-12",
+    "language": "Australian English"
+  },
+
+  "frameworks": {
+
+    "rain": {
+      "id": "rain",
+      "name": "RAIN",
+      "source": {
+        "creator": "Michele McDonald (original), Tara Brach (popularised and developed)",
+        "year": "1980s (original), 2013 (Brach's version)",
+        "publication": "Tara Brach, True Refuge (2013)",
+        "field": "Mindfulness, Buddhist psychology"
+      },
+
+      "descriptions": {
+        "professional": "A mindfulness based emotional processing framework that guides individuals through four stages of relating to difficult inner experiences. The practice combines elements of mindfulness (recognition, allowing) with self inquiry (investigation) and self compassion (nurturing). It represents a shift from reactive patterns of resistance or over identification toward a more spacious, compassionate relationship with one's inner life.",
+        "peer_led": "RAIN is a simple way to work with difficult feelings instead of fighting them or getting lost in them. You notice what you are feeling (Recognise). You let it be there without trying to fix it (Allow). You get curious about it with kindness (Investigate). Then you offer yourself some care (Nurture). It helps you move through hard emotions instead of getting stuck."
+      },
+
+      "background": {
+        "origin": "The original RAIN acronym was created by insight meditation teacher Michele McDonald. Tara Brach adapted and popularised it, changing the final step from Non-identification to Nurture to emphasise self compassion.",
+        "evidence_base": "Draws on mindfulness research, self compassion research and acceptance based approaches. Individual components have strong empirical support. The integrated RAIN practice is widely used in therapeutic contexts.",
+        "why_it_matters": "Provides a simple, memorable framework for emotional regulation. Combines mindfulness with compassion. Can be used in the moment or for deeper reflection.",
+        "common_applications": ["Emotional regulation", "Anxiety management", "Self compassion practice", "Therapy homework", "Mindfulness training"],
+        "limitations": "May require some mindfulness foundation to use effectively. Not intended for acute crisis or overwhelming trauma without support. Works better with practice over time."
+      },
+
+      "structure": {
+        "steps": [
+          {
+            "letter": "R",
+            "name": "Recognise",
+            "description": "Notice what is happening inside you right now",
+            "guidance": "Pause and ask yourself: What is happening inside me right now? Name the emotion, thought or sensation. Just notice it, like seeing a cloud in the sky.",
+            "prompts": ["What am I feeling right now?", "What is happening in my body?", "What thoughts are present?"],
+            "common_blocks": "Trying to analyse or fix. Moving too quickly.",
+            "duration": "Brief, just noticing"
+          },
+          {
+            "letter": "A",
+            "name": "Allow",
+            "description": "Let the experience be there without trying to change it",
+            "guidance": "See if you can let this feeling be here, even if you do not like it. You are not agreeing with it or keeping it forever. You are just not fighting it right now.",
+            "prompts": ["Can I let this be here?", "What happens if I stop fighting it?", "Can I make room for this?"],
+            "common_blocks": "Confusing allowing with approving. Pushing for immediate change.",
+            "duration": "A few breaths"
+          },
+          {
+            "letter": "I",
+            "name": "Investigate",
+            "description": "Explore the experience with gentle curiosity",
+            "guidance": "Get curious about the feeling. Where do you feel it in your body? What does it need? What is it trying to tell you? Approach it with kindness, like you would a scared child.",
+            "prompts": ["Where do I feel this in my body?", "What does this feeling need?", "What is this trying to tell me?", "What is my deepest fear here?"],
+            "common_blocks": "Getting lost in analysis. Intellectual rather than felt investigation.",
+            "duration": "Take your time here"
+          },
+          {
+            "letter": "N",
+            "name": "Nurture",
+            "description": "Offer yourself compassion and care",
+            "guidance": "Place a hand on your heart or another soothing gesture. Ask yourself: What do I need right now? What would I say to a friend feeling this way? Offer yourself that same kindness.",
+            "prompts": ["What do I need right now?", "What would I say to a friend?", "Can I offer myself some kindness?"],
+            "common_blocks": "Self criticism. Feeling undeserving of care. Rushing past this step.",
+            "duration": "Allow this to land"
+          }
+        ],
+        "after_rain": "After completing RAIN, notice what has shifted. You might rest in a more spacious awareness. The feeling may not be gone, but your relationship to it may have changed."
+      },
+
+      "use_in_sections": ["emotional_processing", "self_compassion", "mindfulness_exercise", "coping_skills"],
+      "best_for": ["emotional_processing", "self_compassion", "mindfulness"],
+      "cognitive_levels": [2, 3, 4],
+      "application_note": "Can be used in the moment for emotional regulation or as a longer reflective practice. The Nurture step is essential and should not be rushed.",
+      "pairs_well_with": ["self_compassion_break", "window_of_tolerance", "grounding"]
+    },
+
+    "window_of_tolerance": {
+      "id": "window_of_tolerance",
+      "name": "Window of Tolerance",
+      "source": {
+        "creator": "Daniel J. Siegel",
+        "year": 1999,
+        "publication": "The Developing Mind",
+        "field": "Interpersonal neurobiology"
+      },
+
+      "descriptions": {
+        "professional": "A conceptual model describing the optimal zone of arousal within which an individual can effectively process information, manage emotions and respond flexibly to demands. When arousal exceeds this window (hyperarousal) or falls below it (hypoarousal), the individual experiences dysregulation and diminished capacity for cognitive processing and adaptive functioning. The therapeutic goal is both to expand the window over time and to develop skills for returning to it when dysregulated.",
+        "peer_led": "Your window of tolerance is the zone where you feel okay. Not perfectly calm, but able to cope. You can think clearly, feel your feelings without being overwhelmed, and respond rather than react. When stress pushes you above the window, you might feel anxious, angry, panicky or overwhelmed. When it drops you below, you might feel numb, disconnected, foggy or shut down. Both are your nervous system trying to protect you. The goal is to notice when you are outside your window and use skills to come back."
+      },
+
+      "background": {
+        "origin": "Siegel developed this concept as part of interpersonal neurobiology, integrating findings from attachment research, neuroscience and clinical observation.",
+        "evidence_base": "Aligns with research on stress response, arousal, trauma and emotional regulation. Widely used in trauma treatment and emotional regulation training.",
+        "why_it_matters": "Gives people a simple visual map for understanding their nervous system states. Normalises both hyper and hypo arousal as protective responses. Creates a clear goal for regulation work.",
+        "common_applications": ["Trauma therapy", "Emotional regulation training", "Anxiety treatment", "Stress management", "Psychoeducation"],
+        "limitations": "Is a simplification of complex nervous system processes. The window is not static throughout the day or contexts. Some people may not easily identify their zone."
+      },
+
+      "structure": {
+        "zones": [
+          {
+            "name": "hyperarousal",
+            "label": "Hyperarousal Zone",
+            "position": "Above the window",
+            "state": "Too much activation",
+            "signs": ["Anxiety", "Panic", "Racing thoughts", "Anger", "Hypervigilance", "Restlessness", "Difficulty sleeping", "Feeling overwhelmed"],
+            "nervous_system": "Sympathetic activation (fight or flight)",
+            "what_helps": ["Grounding", "Slow breathing", "Physical discharge", "Sensory soothing", "Orienting to safety"],
+            "feels_like": "Everything is too much. I cannot slow down. I am on high alert."
+          },
+          {
+            "name": "window",
+            "label": "Window of Tolerance",
+            "position": "The optimal zone",
+            "state": "Regulated arousal",
+            "signs": ["Present", "Thinking clearly", "Emotionally regulated", "Able to connect", "Flexible responses", "Curious", "Open"],
+            "nervous_system": "Ventral vagal (social engagement)",
+            "what_maintains_it": ["Regular self care", "Connection", "Meaning", "Rest", "Boundaries"],
+            "feels_like": "I can handle this. I am present. I can think and feel at the same time."
+          },
+          {
+            "name": "hypoarousal",
+            "label": "Hypoarousal Zone",
+            "position": "Below the window",
+            "state": "Too little activation",
+            "signs": ["Numbness", "Disconnection", "Foggy thinking", "Fatigue", "Feeling empty", "Dissociation", "Collapse", "Hopelessness"],
+            "nervous_system": "Dorsal vagal (freeze or shutdown)",
+            "what_helps": ["Gentle movement", "Sensory stimulation", "Cold water", "Orienting", "Connection", "Grounding in body"],
+            "feels_like": "I cannot feel anything. Everything is far away. I do not have energy for anything."
+          }
+        ],
+        "key_concepts": {
+          "window_width": "The window can be wider or narrower depending on factors like sleep, stress, trauma history and current support. A wider window means more capacity.",
+          "expansion": "The goal of regulation work is to expand the window over time, building capacity to handle more without becoming dysregulated.",
+          "returning": "When outside the window, the goal is to use skills to return rather than staying stuck in hyper or hypo arousal."
+        }
+      },
+
+      "use_in_sections": ["psychoeducation", "self_awareness", "regulation_skills", "coping_planning"],
+      "best_for": ["emotional_processing", "regulation", "trauma_informed", "self_awareness"],
+      "cognitive_levels": [1, 2, 3, 4],
+      "application_note": "Often used alongside polyvagal theory for a more complete nervous system education. Visual representations help understanding.",
+      "pairs_well_with": ["polyvagal", "grounding_categories", "rain"]
+    }
+  },
+
+  "suggested_combinations": [
+    {
+      "frameworks": ["rain", "window_of_tolerance"],
+      "use_for": "Comprehensive emotional processing content",
+      "how": "Use window of tolerance to help people understand their current state. Use RAIN as a practice for working with difficult emotions once within or near the window."
+    },
+    {
+      "frameworks": ["window_of_tolerance", "polyvagal"],
+      "use_for": "Nervous system psychoeducation",
+      "how": "These models complement each other. Polyvagal explains the why (nervous system states). Window of tolerance provides the what (the zones and how to recognise them)."
+    }
+  ]
+}

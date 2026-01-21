@@ -1,0 +1,1376 @@
+Missing / Under-Explicit Modules
+
+These are not features — they are ownership gaps.
+None of them invalidate what you’ve built; they complete it.
+
+1. Governance System
+1.1 _RulesEngine
+
+System: governance/
+Intention: Central, declarative rule execution
+Role:
+
+Evaluate brand, content, AI, and publishing rules
+
+Enforce constraints consistently
+
+Act as single source of truth for “is this allowed?”
+
+Owns
+
+Rule evaluation logic
+
+Rule prioritisation
+
+Pass / fail / warn outcomes
+
+Does NOT
+
+Store rules (libraries do)
+
+Fix content (checks/review do)
+
+1.2 _PolicyRegistry
+
+System: governance/
+Intention: Register and version policies
+Role:
+
+Store active policies
+
+Manage policy versions
+
+Resolve applicable policies per context
+
+Owns
+
+Policy lifecycle
+
+Policy version resolution
+
+1.3 _ComplianceChecker
+
+System: governance/
+Intention: Hard compliance validation
+Role:
+
+Enforce legal, ethical, safety constraints
+
+Block unsafe or disallowed outputs
+
+Owns
+
+Compliance decisions
+
+Block / escalate signals
+
+2. State & Context System
+2.1 _StateManager
+
+System: state/
+Intention: Canonical source of truth
+Role:
+
+Track workflow, content, and AI execution state
+
+Provide deterministic replay
+
+Enable recovery and rollback
+
+Owns
+
+Current state
+
+State transitions
+
+State snapshots
+
+2.2 _ContextAssembler
+
+System: state/
+Intention: Assemble execution context
+Role:
+
+Merge brand, audience, theme, template, user, and job context
+
+Provide a stable execution object
+
+Owns
+
+Context shape
+
+Context resolution order
+
+2.3 _StateTransitionValidator
+
+System: state/
+Intention: Prevent illegal transitions
+Role:
+
+Validate allowed workflow moves
+
+Stop invalid lifecycle jumps
+
+Owns
+
+Transition rules
+
+Error signalling
+
+3. Observability System
+3.1 _MetricsCollector
+
+System: observability/
+Intention: Measure system behaviour
+Role:
+
+Collect timings, counts, throughput
+
+Provide raw metrics
+
+Owns
+
+Metric schemas
+
+Aggregation rules
+
+3.2 _AIQualityMonitor
+
+System: observability/
+Intention: Evaluate AI output quality
+Role:
+
+Track hallucinations, drift, failure patterns
+
+Score AI reliability over time
+
+Owns
+
+AI quality signals
+
+Degradation detection
+
+3.3 _CostMonitor
+
+System: observability/
+Intention: Financial observability
+Role:
+
+Aggregate AI costs
+
+Detect abnormal spend
+
+Owns
+
+Cost summaries
+
+Alerts
+
+3.4 _TraceLogger
+
+System: observability/
+Intention: End-to-end execution tracing
+Role:
+
+Correlate logs across systems
+
+Provide trace IDs
+
+Owns
+
+Trace propagation
+
+Cross-system visibility
+
+4. Human Control & Review System
+4.1 _ReviewQueue
+
+System: review/
+Intention: Human decision routing
+Role:
+
+Queue items needing approval
+
+Prioritise by severity/risk
+
+Owns
+
+Review lifecycle
+
+Status tracking
+
+4.2 _ApprovalManager
+
+System: review/
+Intention: Final authority decisions
+Role:
+
+Accept / reject / request changes
+
+Override automated decisions
+
+Owns
+
+Approval outcomes
+
+Audit trail
+
+4.3 _ManualOverride
+
+System: review/
+Intention: Human supremacy switch
+Role:
+
+Allow humans to override AI/rules
+
+Capture rationale
+
+Owns
+
+Override permissions
+
+Justification records
+
+5. Feedback & Learning System
+5.1 _FeedbackCollector
+
+System: feedback/
+Intention: Capture outcomes and opinions
+Role:
+
+Collect user edits, rejections, approvals
+
+Normalise feedback signals
+
+Owns
+
+Feedback schemas
+
+Feedback persistence
+
+5.2 _FeedbackAnalyzer
+
+System: feedback/
+Intention: Convert feedback into insight
+Role:
+
+Identify recurring issues
+
+Detect prompt or rule weaknesses
+
+Owns
+
+Pattern detection
+
+Insight generation
+
+5.3 _PromptFeedbackApplier
+
+System: feedback/
+Intention: Close the learning loop
+Role:
+
+Suggest prompt or rule changes
+
+Feed improvements into PromptBuilder / Governance
+
+Owns
+
+Suggested changes (not automatic changes)
+
+6. Integration System (Adapters)
+6.1 _IntegrationAdapter
+
+System: integrations/
+Intention: Normalize external APIs
+Role:
+
+Abstract auth, retries, rate limits
+
+Shield core logic from API quirks
+
+Owns
+
+Adapter contracts
+
+Failure translation
+
+6.2 _WebhookReceiver
+
+System: integrations/
+Intention: Handle inbound events
+Role:
+
+Receive platform callbacks
+
+Validate and route events
+
+Owns
+
+Webhook security
+
+Event parsing
+
+7. Versioning System
+7.1 _VersionManager
+
+System: versioning/
+Intention: Controlled evolution
+Role:
+
+Manage versions of templates, prompts, rules
+
+Enable rollback
+
+Owns
+
+Version graphs
+
+Compatibility rules
+
+7.2 _ChangeLog
+
+System: versioning/
+Intention: Human-readable history
+Role:
+
+Record why changes happened
+
+Support audits
+
+Owns
+
+Change narratives
+
+Attribution
+
+8. Publishing System
+8.1 _PublishController
+
+System: publishing/
+Intention: Final release gate
+Role:
+
+Decide when content is publishable
+
+Enforce final checks
+
+Owns
+
+Publish readiness
+
+Go / no-go decisions
+
+8.2 _DistributionManager
+
+System: publishing/
+Intention: Controlled dissemination
+Role:
+
+Push content to platforms
+
+Track delivery success
+
+Owns
+
+Distribution state
+
+Retry logic
+
+Based on a review of your SYSTEMS-INDEX.md and SYSTEMS-DETAILS.md, you have an exceptionally comprehensive architecture. However, given the complexity of the AI content generation, transformation frameworks, and validation layers you have described, there are a few specific infrastructure and logic gaps.Here are the recommended missing systems/services to complete your architecture.1. AI Memory & Context (Critical for RAG/Validation)You mention "embedding-based checks" in _ContentAlignment and "semantic similarity" for validation. However, there is no dedicated service to handle vector storage or embedding generation.services/_VectorStore: Handles the storage and retrieval of vector embeddings. You need this to store audience psychographics, brand voice samples, and theme concepts so _ContentAlignment can perform semantic comparison rather than just keyword matching.ai/_EmbeddingService: A specific handler (distinct from AICaller) to generate embeddings from text. This is cheaper and faster than LLM calls and is required to populate the _VectorStore.2. Feedback & Optimization LoopYour system is currently a "one-way" street: Input $\rightarrow$ Generation $\rightarrow$ Output. To improve quality over time, you need a way to ingest human feedback and adjust the system.system/_FeedbackHandler: Accepts user actions (e.g., "Accepted," "Regenerated," "Edited") and links them to the jobId and prompt.ai/_OptimizationLoop: Analyzes the data from _FeedbackHandler. If users consistently edit the "Hooks" of generated posts, this module flags the specific prompt template in _PromptBuilder as needing refinement.3. Data Hygiene & SecurityYou have _AuthHandler and _APIKeyManager, but you are sending brand data to third-party AIs.services/_DataSanitizer: A middleware that runs before AICaller. It scans prompts for PII (Personally Identifiable Information) or sensitive data that shouldn't be sent to OpenAI/Anthropic, ensuring compliance.system/_GarbageCollector: You have a _CacheHandler for the database, but you are generating PDFs, images, and temp files via renderers/. You need a service to clean up the file system (e.g., /temp/, /exports/) based on retention policies to prevent disk bloat.4. Simulation & EstimationYou have _CostTracker (which tracks actual spend) and _CostBudgetManager (which enforces limits). However, for batch operations, you need to know the cost before you start.orchestration/_JobSimulator: Before running a batch of 50 themes, this runs a "dry run." It calculates the prompt token size via _TokenManager, multiplies by the number of jobs, and provides an estimated cost and time validation to the user before they click "Go."5. Asset ManagementYou have _ImageCollections and _Librarian. However, you are dealing with high-fidelity branding.image/_AssetOptimizer: _ImageRenderer uses Sharp, but you likely need a dedicated service to auto-convert uploaded user assets (logos, raw photos) into web-optimized formats (WebP, correct aspect ratios) before they enter the generation pipeline.Summary of Added ModulesCategoryFolderModule NamePurposeAI Dataservices/_VectorStoreStores embeddings for semantic search/validation.AI Dataai/_EmbeddingServiceGenerates vector embeddings from text.Optimizationsystem/_FeedbackHandlerIngests user ratings/edits on content.Optimizationai/_OptimizationLoopTunes prompts based on feedback data.Securityservices/_DataSanitizerScrubs PII from prompts before API calls.Maintenancesystem/_GarbageCollectorCleans up temp files and stale exports.Planningorchestration/_JobSimulatorEstimates cost/time for batches pre-execution.Assetsimage/_AssetOptimizerCompresses and formats uploaded assets.
+
+# Missing Modules - Gap Analysis & Specifications
+
+> **Purpose:** Identify and document all missing modules needed to complete the content generation system
+> **Last Updated:** 2026-01-21
+> **Status:** Ready for Pre-Spec Development
+
+---
+
+## Priority Tiers
+
+### Tier 1: CRITICAL (System Won't Work Without These)
+These modules are blocking other system functions or represent core missing functionality.
+
+### Tier 2: HIGH (System Works But Is Inefficient)
+These modules improve system efficiency and quality but aren't blocking.
+
+### Tier 3: MEDIUM (Nice to Have, Future Enhancement)
+These modules add capability but can be deferred.
+
+---
+
+# TIER 1: CRITICAL MODULES
+
+## 1. PostCreationQualityDecider
+**Category:** `checks/` (Quality Decision Orchestration)
+
+**Role:** Decision Engine for Quality Checks
+
+**Intention:** 
+Takes outputs from PostCreationCheckManager (GrammarCheck, SpellingCheck, LanguageCheck, LayoutCheck, VisualCheck, ValuesCheck) and decides what to do with issues:
+- **Pass**: Content meets quality threshold → publish
+- **Retry**: Specific section fails → regenerate that section
+- **Manual Review**: Critical issues that can't auto-fix → flag for human
+- **Salvage**: Partial content passes → keep what's good, regenerate failures
+
+**Why Critical:**
+- PostCreationCheckManager runs checks but doesn't decide outcomes
+- Currently ambiguous who decides "is this content good enough?"
+- Blocks automated content publishing workflow
+
+**Key Responsibilities:**
+- Evaluate check results against quality policies (per brand)
+- Determine retry vs. salvage vs. manual review
+- Trigger regeneration if needed (call TemplateEngine for failed sections)
+- Track decision history (why was this salvaged? why manual?)
+- Return final content or escalation
+
+**Depends On:**
+- PostCreationCheckManager (consumes check results)
+- PolicyEngine (defines quality thresholds per brand)
+- TemplateEngine (regenerates failed sections)
+- FailureHandler (manages retry failures)
+- Logger (audit trail of decisions)
+
+**Feeds Into:**
+- PublishingOrchestrator (final output decision)
+- ContentSalvageModule (if partial salvage needed)
+
+**Data In/Out:**
+```javascript
+// Input: Check results from PostCreationCheckManager
+{
+  jobId: string,
+  content: object,
+  checks: {
+    grammar: { passed: boolean, issues: [] },
+    spelling: { passed: boolean, issues: [] },
+    language: { passed: boolean, issues: [] },
+    layout: { passed: boolean, issues: [] },
+    visual: { passed: boolean, issues: [] },
+    values: { passed: boolean, issues: [] }
+  }
+}
+
+// Output: Quality decision
+{
+  decision: "pass" | "retry" | "manual" | "salvage",
+  content: object,          // final or partially fixed
+  reason: string,
+  failedSections?: string[],
+  recommendedActions: string[],
+  needsManualReview: boolean,
+  escalationLevel: "none" | "warning" | "critical"
+}
+```
+
+---
+
+## 2. PublishingOrchestrator
+**Category:** `content-pipeline/` (NEW) or `orchestration/`
+
+**Role:** Master Orchestrator for Publishing Workflow
+
+**Intention:**
+Coordinates the entire publishing pipeline from finished content to multiple output formats and platforms:
+- Content → Render to multiple formats (PDF, DOCX, HTML, Canva, Google Docs)
+- Upload to platforms (Google Drive, Canva, S3, Cloudflare)
+- Schedule social media (if applicable)
+- Send notifications (email campaigns, system alerts)
+- Track publication status across all channels
+
+**Why Critical:**
+- Currently no module owns "what happens after content is generated?"
+- Renderers exist but no orchestration of the render sequence
+- Multi-format output needs coordination
+- Platform uploads scattered across integration modules
+
+**Key Responsibilities:**
+- Coordinate multi-format rendering (parallel or sequential)
+- Manage upload sequences to platforms
+- Handle platform-specific requirements (sizing, metadata, permissions)
+- Track publication status per platform
+- Retry failed uploads
+- Generate publication reports (what was published where/when)
+- Manage versioning (if content republished, track versions)
+
+**Depends On:**
+- PostCreationQualityDecider (quality decision before publishing)
+- HTMLRenderer, PDFRenderer, DOCXRenderer (format generation)
+- CanvaRenderer, GoogleDocsRenderer (platform-specific)
+- CanvaIntegration, GoogleIntegration (platform uploads)
+- FileManager (local file staging)
+- NotificationHandler (publish notifications)
+- Scheduler (delay publishing if needed)
+
+**Feeds Into:**
+- SocialMediaManager (if scheduling posts)
+- EmailManager (if sending campaigns)
+- AnalyticsHandler (publishing events)
+
+**Data In/Out:**
+```javascript
+// Input: Quality-approved content
+{
+  jobId: string,
+  content: object,
+  brandId: string,
+  formats: ["pdf", "docx", "html", "canva"],
+  platforms: ["googleDrive", "canva", "email"],
+  schedule?: { type: "now" | "scheduled", time?: Date },
+  metadata: {
+    title: string,
+    description: string,
+    tags: string[],
+    audience: string
+  }
+}
+
+// Output: Publication result
+{
+  jobId: string,
+  success: boolean,
+  published: {
+    formats: { pdf: URL, docx: URL, html: URL, canva: URL },
+    platforms: { googleDrive: { id, url }, canva: { id, url } },
+    timestamp: Date
+  },
+  failed: { format?: string[], platform?: string[] },
+  report: {
+    totalFormats: number,
+    successfulFormats: number,
+    failedFormats: number
+  }
+}
+```
+
+---
+
+## 3. ContentPersonalizer
+**Category:** `content/` or `brand/` 
+
+**Role:** Audience Adaptation Engine
+
+**Intention:**
+Applies audience-specific insights to generated content, adapting:
+- **Tone & voice** (clinical → conversational, formal → casual)
+- **Vocabulary** (technical jargon → plain language, or vice versa)
+- **Examples & case studies** (corporate example vs. family example)
+- **Complexity level** (academic vs. crisis-accessible)
+- **Cultural references** (age-appropriate, culturally relevant)
+- **Accessibility adjustments** (readability level, visual contrast)
+
+**Why Critical:**
+- AudienceManager exists but only profiles; doesn't apply insights
+- Same content generates for all audiences, no personalization
+- Your model emphasizes "solution-focused" language for all, but tone varies
+- Blocks audience-segmented content delivery
+
+**Key Responsibilities:**
+- Take generated content + audience profile
+- Identify adaptation points (tone, vocab, complexity, examples)
+- Apply transformations (search/replace vocab, rewrite examples, adjust tone)
+- Maintain therapeutic intent through adaptations
+- Validate adapted content doesn't lose core message
+- Track what adaptations were applied
+
+**Depends On:**
+- AudienceManager (audience profiles/segments)
+- BrandManager (brand voice anchor so adaptations stay on-brand)
+- LanguageCheck (ensure adapted language is correct)
+- ValuesCheck (ensure adapted content maintains values)
+- Librarian (access tone libraries, vocab guidelines, examples)
+
+**Feeds Into:**
+- TemplateEngine (if adapting during generation)
+- PostCreationCheckManager (adapted content needs re-validation)
+- ContentMetadataManager (track which audience it's for)
+
+**Data In/Out:**
+```javascript
+// Input: Generated content + audience
+{
+  content: object,
+  audienceSegment: {
+    id: string,
+    demographics: { age, education, profession },
+    needsLevel: "crisis" | "therapy" | "wellness",
+    readabilityLevel: 1-5,  // 1=academic, 5=plain language
+    culturalContext: string,
+    accessibility: { highContrast, simpleSyntax, audioReady }
+  }
+}
+
+// Output: Personalized content
+{
+  originalContent: object,
+  adaptedContent: object,
+  adaptations: [
+    { type: "tone", original: string, adapted: string },
+    { type: "vocabulary", original: string, adapted: string },
+    { type: "example", original: string, adapted: string }
+  ],
+  integrityScore: number,  // 0-100: how much did we preserve core message?
+  validated: boolean
+}
+```
+
+---
+
+## 4. MultiFormatOrchestrator
+**Category:** `content-pipeline/` (NEW) or `renderers/`
+
+**Role:** Multi-Format Output Coordinator
+
+**Intention:**
+Manages generation of same content across multiple output formats with format-specific optimizations:
+- **PDF**: Page breaks, headers/footers, print-safe colors
+- **DOCX**: Editable, formatted, table of contents
+- **HTML**: Responsive, interactive, accessibility features
+- **Canva**: Slide-optimized, visual-first, brand templates
+- **Google Docs/Slides**: Cloud-native, collaborative
+- **Email**: Plain-text fallback, responsive layout
+
+**Why Critical:**
+- You need content in 5+ formats (workbooks, emails, social, PDFs, web)
+- Currently no coordination—each renderer called independently
+- No validation that all formats have same core content
+- No format-specific optimization
+
+**Key Responsibilities:**
+- Coordinate rendering sequence (parallel vs. sequential)
+- Apply format-specific transformations (e.g., add page breaks for PDF)
+- Validate all formats contain same core content
+- Handle format conflicts (e.g., table doesn't fit in email)
+- Manage format priorities (if time/cost limited)
+- Generate format-specific assets (cover pages, email templates)
+- Track format generation performance/costs
+
+**Depends On:**
+- HTMLRenderer, PDFRenderer, DOCXRenderer, CanvaRenderer, etc.
+- FileManager (temp staging of intermediate formats)
+- CostTracker (rendering is expensive; track per-format costs)
+- ValidationManager (format-specific validation rules)
+- Librarian (format-specific templates/styles)
+
+**Feeds Into:**
+- PublishingOrchestrator (formatted content ready to publish)
+
+**Data In/Out:**
+```javascript
+// Input: Finalized content
+{
+  content: object,
+  formats: {
+    pdf: { margin: "1in", includeTableOfContents: true },
+    docx: { editableFields: true, trackChanges: false },
+    html: { responsive: true, dark-mode: true },
+    canva: { template: "workbook", slides: true },
+    email: { maxWidth: "600px", includeImages: true }
+  }
+}
+
+// Output: Multi-format result
+{
+  formats: {
+    pdf: { buffer: Buffer, pages: number, size: string },
+    docx: { buffer: Buffer, editableFields: number },
+    html: { html: string, responsive: boolean },
+    canva: { designId: string, url: string, slides: number },
+    email: { html: string, text: string }
+  },
+  validations: {
+    contentParity: boolean,  // all formats have same core content?
+    completeness: { pdf: true, docx: true, html: true }
+  }
+}
+```
+
+---
+
+## 5. ContentMetadataManager
+**Category:** `services/` or `content/`
+
+**Role:** Content Provenance & Metadata Tracker
+
+**Intention:**
+Tracks comprehensive metadata for generated content:
+- **Creation metadata**: timestamp, generator version, AI model used
+- **Source metadata**: which prompt? which theme? which template?
+- **Brand metadata**: brand ID, brand version at creation time
+- **Quality metadata**: check scores, decision history
+- **Audience metadata**: target audience, personalization applied
+- **Publication metadata**: where published, when, versions
+- **Performance metadata**: engagement, user feedback
+
+**Why Critical:**
+- No module currently tracks content lineage
+- Can't answer: "which prompt generated this?"
+- Can't debug: "why did this content fail quality checks?"
+- Can't learn: "which themes generate highest engagement?"
+- Blocks content reuse/adaptation (don't know source)
+
+**Key Responsibilities:**
+- Generate unique content ID (immutable reference)
+- Store creation metadata (what generated this)
+- Store quality metadata (how it scored)
+- Store publication metadata (where it went)
+- Update metadata as content evolves (variants, repurposing)
+- Provide metadata queries (find content by theme, by model, by date)
+- Archive old metadata when content deleted
+
+**Depends On:**
+- DatabaseHandler (persistent metadata storage)
+- Logger (audit trail integration)
+- Librarian (link to library entries)
+- BrandManager (brand versioning)
+- AISystemManager (model/prompt tracking)
+
+**Feeds Into:**
+- Librarian (content discoverability)
+- AnalyticsHandler (performance tracking)
+- ContentSalvageModule (recovery metadata)
+- FeedbackCollector (tie feedback to metadata)
+
+**Data In/Out:**
+```javascript
+// Input: Content + generation context
+{
+  content: object,
+  generationContext: {
+    theme: { id: string, version: number },
+    template: { id: string, version: number },
+    prompt: { id: string, version: number },
+    aiModel: string,
+    aiProvider: string,
+    jobId: string
+  },
+  brandContext: {
+    brandId: string,
+    brandVersion: string,
+    audience: string
+  }
+}
+
+// Output: Tracked metadata
+{
+  contentId: string,          // immutable reference
+  created: Date,
+  generator: {
+    version: string,
+    module: string,
+    jobId: string
+  },
+  sources: {
+    theme: { id: string, name: string, version: number },
+    template: { id: string, version: number },
+    prompt: { id: string, version: number },
+    aiModel: string,
+    aiProvider: string
+  },
+  quality: {
+    checkScores: { grammar: 95, spelling: 100, values: 88 },
+    decision: "pass",
+    decisionReason: string
+  },
+  publication: {
+    published: boolean,
+    platforms: string[],
+    urls: object,
+    timestamp: Date
+  },
+  audience: {
+    primary: string,
+    segments: string[],
+    personalization: string[]
+  },
+  lineage: {
+    parentContentId?: string,  // if variant
+    originalTheme?: string     // if adapted
+  }
+}
+```
+
+---
+
+# TIER 2: HIGH-PRIORITY MODULES
+
+## 6. VariantGenerator
+**Category:** `content/` or `content-pipeline/`
+
+**Role:** A/B Testing & Content Variation Engine
+
+**Intention:**
+Generates multiple variants of the same content with different angles/approaches:
+- **Tone variants** (empathetic vs. practical vs. humorous)
+- **Length variants** (short/medium/long)
+- **Approach variants** (evidence-based vs. story-based vs. question-based)
+- **Structure variants** (linear narrative vs. modular chunks vs. interactive)
+
+**Why High Priority:**
+- Therapeutic content benefits from variant testing
+- Your system generates 1 piece → could generate 3 variants for A/B testing
+- Currently no module owns variant generation
+- Enables "pick best performing variant" workflow
+
+**Key Responsibilities:**
+- Generate 2-3 variants per content request
+- Vary one dimension per variant (tone, approach, structure, length)
+- Ensure all variants maintain brand voice & core message
+- Track which variant "works" (engagement, feedback)
+- Store variant relationships (all variants of content X)
+
+**Depends On:**
+- TemplateEngine (generate each variant)
+- ThemeGenerator (ensure variants use same theme)
+- OutlineGenerator (create different outlines per variant)
+- PostCreationCheckManager (validate each variant)
+- Librarian (variant templates/prompts)
+
+**Feeds Into:**
+- ContentMetadataManager (mark as variants)
+- AnalyticsHandler (track variant performance)
+- FeedbackCollector (collect variant feedback)
+
+**Data In/Out:**
+```javascript
+// Input: Base content generation request + variant options
+{
+  baseContent: object,
+  variantStrategy: "tone" | "approach" | "length" | "structure",
+  variantCount: 2-3,
+  constraints: {
+    maxLength?: number,
+    minReadability?: number,
+    brandToneRange?: string[]
+  }
+}
+
+// Output: Variant set
+{
+  baseContentId: string,
+  variants: [
+    { contentId: string, approach: "empathetic", qualityScore: 92 },
+    { contentId: string, approach: "practical", qualityScore: 88 }
+  ],
+  variantSet: string,  // grouping ID
+  strategy: "tone"
+}
+```
+
+---
+
+## 7. ContentAdapterEngine
+**Category:** `content/` or `content-pipeline/`
+
+**Role:** Content Repurposing & Format Adaptation
+
+**Intention:**
+Takes completed content (e.g., workbook chapter) and adapts it for other uses:
+- **Workbook section → Social media posts** (extract key points, add hashtags)
+- **Email sequence → Blog post** (expand with examples, add navigation)
+- **Blog post → Video script** (add visual directions, break into scenes)
+- **Chapter → Infographic** (extract data, visualize)
+
+**Why High Priority:**
+- Massive efficiency gain: generate 1 piece, repurpose to 5 formats
+- Your multi-brand model means section in one workbook could fit another
+- Currently no module owns repurposing
+- Requires understanding source structure + target requirements
+
+**Key Responsibilities:**
+- Analyze source content (extract key sections, data, structure)
+- Map to target format requirements
+- Adapt content (remove/add/reorganize)
+- Generate format-specific elements (headlines, hashtags, metadata)
+- Validate adapted content is complete & on-brand
+- Track adaptation lineage
+
+**Depends On:**
+- ContentMetadataManager (understand source content structure)
+- Librarian (source + target format patterns)
+- BrandManager (maintain brand in all adaptations)
+- MultiFormatOrchestrator (understand target format specs)
+- PostCreationCheckManager (validate adapted output)
+
+**Feeds Into:**
+- PublishingOrchestrator (adapted content ready to publish)
+- SocialMediaManager (adapted social posts)
+
+**Data In/Out:**
+```javascript
+// Input: Source content + adaptation request
+{
+  sourceContentId: string,
+  sourceContent: object,
+  sourceFormat: "workbook" | "email" | "blog" | "script",
+  targetFormat: "social" | "blog" | "email" | "infographic",
+  targetPlatform?: "instagram" | "twitter" | "linkedin"
+}
+
+// Output: Adapted content
+{
+  adaptedContentId: string,
+  sourceContentId: string,
+  adaptation: {
+    format: string,
+    platform?: string,
+    extractedElements: string[],
+    addedElements: string[]
+  },
+  content: object,
+  validated: boolean
+}
+```
+
+---
+
+## 8. ContentSalvageModule
+**Category:** `content/` or `orchestration/`
+
+**Role:** Partial Content Recovery & Graceful Degradation
+
+**Intention:**
+When content generation fails mid-process, salvage what's complete rather than lose everything:
+- Section 1 ✓, Section 2 ✓, Section 3 ✗ → Return sections 1-2, flag section 3 for retry
+- Quality check fails on imagery but text passes → Keep text, flag images
+- Provider timeout on 3rd variant → Return completed variants 1-2
+- Format generation fails on Canva but succeeds on PDF → Publish PDF, retry Canva
+
+**Why High Priority:**
+- Prevents catastrophic loss of partial work
+- Enables graceful degradation (publish what's done, retry what failed)
+- Improves system resilience
+- Reduces wasted computation
+
+**Key Responsibilities:**
+- Track what succeeded vs. failed at each pipeline stage
+- Determine what's salvageable (complete sections, successful variants)
+- Merge salvaged + new content on retry
+- Flag salvaged content (note what's missing)
+- Provide retry strategy for failed portions
+
+**Depends On:**
+- FailureHandler (understand failure types)
+- PostCreationQualityDecider (decide salvage vs. regenerate)
+- ContentMetadataManager (track what succeeded/failed)
+- Logger (audit trail of salvage decisions)
+
+**Feeds Into:**
+- PublishingOrchestrator (salvaged content may be partial)
+- FailureHandler (retry recommendations)
+
+**Data In/Out:**
+```javascript
+// Input: Failed generation with partial results
+{
+  jobId: string,
+  failurePoint: string,  // "section_2_generation" | "format_pdf" | etc
+  completed: {
+    sections: { 1: object, 2: object },
+    formats: { html: string, pdf: null }
+  },
+  failed: {
+    sections: [3],
+    formats: ["pdf"]
+  }
+}
+
+// Output: Salvage decision
+{
+  action: "salvage" | "retry" | "abort",
+  salvaged: {
+    content: object,
+    completePercentage: number,
+    missingElements: string[]
+  },
+  recommendation: string,
+  retryStrategy?: { failedElement: string, approach: string }
+}
+```
+
+---
+
+## 9. FeedbackCollector
+**Category:** `services/` or `brand/`
+
+**Role:** User Feedback & Performance Data Collector
+
+**Intention:**
+Collects user feedback on generated content to improve future generation:
+- User ratings (1-5 stars on therapeutic usefulness)
+- Specific feedback (what worked, what didn't)
+- Engagement metrics (time spent, shares, saves)
+- A/B test results (variant X outperformed variant Y)
+- Failure reports (where did this content miss?)
+
+**Why High Priority:**
+- Therapeutic content improves with feedback loops
+- Currently no module collects this data
+- Blocks learning from real-world performance
+- Enables "prompt tuning" based on outcomes
+
+**Key Responsibilities:**
+- Collect user ratings/feedback on content
+- Link feedback to metadata (which prompt? which model? which theme?)
+- Aggregate feedback by theme/template/generator
+- Identify patterns (prompts that consistently get good feedback)
+- Flag underperforming generators for investigation
+- Surface top performers for reuse
+
+**Depends On:**
+- ContentMetadataManager (link feedback to content origin)
+- AnalyticsHandler (aggregate engagement data)
+- Librarian (find related content)
+- Logger (audit feedback source)
+
+**Feeds Into:**
+- PromptBuilder (tune prompts based on feedback)
+- ThemeGenerator (improve themes based on outcomes)
+- Librarian (surfaceTop performers)
+- AnalyticsHandler (performance dashboards)
+
+**Data In/Out:**
+```javascript
+// Input: User feedback
+{
+  contentId: string,
+  userId?: string,
+  rating: 1-5,
+  feedback: string,
+  tags: string[],  // "too-clinical", "perfect-length", "missing-examples"
+  engagement: {
+    timeSpent: number,
+    shared: boolean,
+    saved: boolean
+  }
+}
+
+// Output: Aggregated insights
+{
+  contentId: string,
+  feedback: {
+    avgRating: number,
+    totalResponses: number,
+    topComments: string[]
+  },
+  patterns: {
+    relatedTheme: { avgRating: number },
+    relatedTemplate: { avgRating: number },
+    relatedPrompt: { avgRating: number }
+  },
+  recommendation: string  // "prompt working well" or "theme needs revision"
+}
+```
+
+---
+
+## 10. GeneratedContentCatalog
+**Category:** `services/` (or new `libraries/` category)
+
+**Role:** Post-Generation Content Discovery & Indexing
+
+**Intention:**
+Creates searchable index of all generated content for discovery and reuse:
+- Search generated content by theme, template, brand, audience
+- Find similar content (theme-based grouping)
+- Discover reusable sections (extract from one workbook, use in another)
+- Track content lineage (which piece is variant/adaptation of which)
+- Enable "remixing" (combine best sections from multiple generations)
+
+**Why High Priority:**
+- You generate 20+ pieces/batch—need way to find/reuse them
+- Currently no module catalogs generated output
+- Librarian catalogs *templates*; this catalogs *generated content*
+- Blocks efficient content remixing
+
+**Key Responsibilities:**
+- Index new content on creation (theme, template, quality, audience)
+- Provide search interface (by theme, audience, quality, format)
+- Group related content (variants, adaptations)
+- Track content lineage (parent ← child relationships)
+- Suggest reuse opportunities (this section fits template Y)
+- Clean up old content (archive or delete)
+
+**Depends On:**
+- DatabaseHandler (persistent indexing)
+- ContentMetadataManager (indexed metadata)
+- Librarian (template linking)
+- FullTextSearch (search engine, if needed)
+
+**Feeds Into:**
+- ContentAdapterEngine (find source content to repurpose)
+- VariantGenerator (find existing variants to learn from)
+- AnalyticsHandler (content performance trends)
+
+**Data In/Out:**
+```javascript
+// Input: Generated content to catalog
+{
+  contentId: string,
+  metadata: ContentMetadataObject,
+  searchableText: string,
+  structure: { sections: [], themes: [], keywords: [] }
+}
+
+// Query: Search
+{
+  q?: string,
+  theme?: string,
+  template?: string,
+  brand?: string,
+  audience?: string,
+  quality?: { min: number, max: number },
+  dateRange?: { from: Date, to: Date }
+}
+
+// Output: Catalog entry + search results
+{
+  indexed: boolean,
+  searchResults: [
+    { contentId, title, theme, quality, preview },
+    ...
+  ],
+  reuseOpportunities: [
+    { section, suggestedTemplates: [] }
+  ]
+}
+```
+
+---
+
+# TIER 3: MEDIUM-PRIORITY MODULES
+
+## 11. OutputFormatterOrchestrator
+**Category:** `content-pipeline/` or `renderers/`
+
+**Role:** Format-Specific Output Optimization
+
+**Intention:**
+Applies format-specific transformations to ensure output is optimized for its delivery channel:
+- **Email**: Add tracking pixels, unsubscribe links, responsive fallbacks
+- **Canva**: Ensure slides fit template dimensions, optimize for previews
+- **PDF**: Add metadata, optimize for print, embed fonts
+- **Web**: Add structured data (schema.org), optimize for SEO
+- **Mobile**: Ensure readable at 320px width, touch-friendly CTAs
+
+**Why Medium Priority:**
+- Improves output quality across formats
+- Prevents format-specific rendering issues
+- Nice to have but not blocking
+- MultiFormatOrchestrator handles *generation*; this handles *optimization*
+
+**Key Responsibilities:**
+- Apply format-specific validation rules
+- Auto-optimize dimensions/sizing
+- Add platform-specific metadata
+- Insert platform-specific scripts (tracking, analytics)
+- Generate format-specific previews
+
+**Depends On:**
+- MultiFormatOrchestrator (knows all formats)
+- Librarian (format specifications)
+- FileManager (file output handling)
+
+**Feeds Into:**
+- PublishingOrchestrator (optimized content ready to publish)
+
+---
+
+## 12. PerformanceOptimizer
+**Category:** `orchestration/`
+
+**Role:** Batch Processing & Pipeline Performance Monitor
+
+**Intention:**
+Monitors and optimizes system performance across batch jobs:
+- Identify bottlenecks (which stage is slowest?)
+- Recommend parallelization (can we run these in parallel?)
+- Suggest retry strategy (retry fast vs. retry slow generators)
+- Track cost per job (which generation path is cheapest?)
+- Predict job time & cost before execution
+
+**Why Medium Priority:**
+- You run 20+ pieces/batch overnight—need efficiency
+- Currently no monitoring of pipeline performance
+- Helps debug "why did this batch take 8 hours?"
+- Nice to have but useful for optimization
+
+**Key Responsibilities:**
+- Track duration of each pipeline stage
+- Calculate cost per stage
+- Identify slow providers/models
+- Recommend parallelization opportunities
+- Predict total duration before starting
+
+**Depends On:**
+- Logger (access job logs)
+- CostTracker (cost data)
+- AnalyticsHandler (aggregate performance data)
+
+**Feeds Into:**
+- Scheduler (optimize job scheduling)
+- Orchestrator (improve orchestration logic)
+
+---
+
+## 13. TemplateLibraryManager
+**Category:** `template/` or `services/`
+
+**Role:** Template Versioning & Evolution Tracking
+
+**Intention:**
+Manages template versions and tracks how templates evolve:
+- Store template versions (template_v1 → v2 → v3)
+- Track template usage (which content used this template?)
+- Detect template drift (sections changed unexpectedly)
+- Archive old templates (when templates redesigned)
+- Link templates to generated content
+
+**Why Medium Priority:**
+- TemplateFactory writes templates; this manages versions
+- Currently ambiguous how template changes are tracked
+- Helps debug "why did this section format change?"
+- Enables roll-back if new template breaks content
+
+**Key Responsibilities:**
+- Version templates on update
+- Archive previous versions
+- Track template usage (which content used v2?)
+- Detect drift (alert if template structure changed)
+- Provide rollback capability
+
+**Depends On:**
+- TemplateFactory (reads/writes templates)
+- DatabaseHandler (version storage)
+- ContentMetadataManager (track content ↔ template links)
+
+**Feeds Into:**
+- OutlineGenerator (detect template drift)
+- PostCreationCheckManager (template-aware validation)
+
+---
+
+## 14. ContentLifecycleManager
+**Category:** `orchestration/` or `content/`
+
+**Role:** End-to-End Content Lifecycle Tracking
+
+**Intention:**
+Tracks content through entire lifecycle (generation → publication → performance → archival):
+- Draft stage (being generated)
+- QA stage (quality checks)
+- Ready to publish (approved)
+- Published (in field)
+- Archived (no longer used)
+- Retired (replaced by newer version)
+
+**Why Medium Priority:**
+- Useful for tracking content status across long workflows
+- Currently no module owns this
+- Blocks "what stage is this content in?" queries
+- Nice to have but improves workflow visibility
+
+**Key Responsibilities:**
+- Track content stage transitions
+- Notify when content needs review
+- Generate reports (how much content at each stage?)
+- Archive old content
+- Alert on stuck content (been in QA for 3 days?)
+
+**Depends On:**
+- ContentMetadataManager (track status)
+- Logger (lifecycle events)
+- NotificationHandler (alerts)
+
+**Feeds Into:**
+- AnalyticsHandler (content pipeline dashboards)
+
+---
+
+## 15. ImageAssetLibrary
+**Category:** `image/` or `services/`
+
+**Role:** Generated Image Cataloging & Discovery
+
+**Intention:**
+Catalogs AI-generated images and makes them discoverable:
+- Index generated images by theme, style, keyword
+- Track image usage (which content uses this image?)
+- Identify reusable images (same image in 3 pieces)
+- Optimize storage (delete duplicate images)
+- Enable image remixing (combine images from multiple generations)
+
+**Why Medium Priority:**
+- AIImageCreation generates images; this catalogs them
+- Currently no discovery mechanism for generated images
+- Enables image reuse (don't regenerate same image)
+- Reduces costs (fewer API calls if reusing images)
+
+**Key Responsibilities:**
+- Index images on creation
+- Provide search (by theme, style, keyword)
+- Track usage (which content uses image X?)
+- Identify duplicates
+- Suggest reuse opportunities
+
+**Depends On:**
+- AIImageCreation (image generation)
+- ContentMetadataManager (track usage)
+- Librarian (style/theme linking)
+- FileManager (storage management)
+
+**Feeds Into:**
+- ImageBrowser (complement to AI-generated images)
+- ContentAdapterEngine (find images for adapted content)
+
+---
+
+# SUMMARY TABLE
+
+| # | Module | Category | Tier | Blocking | Enables |
+|---|--------|----------|------|----------|---------|
+| 1 | PostCreationQualityDecider | checks/ | T1 | Quality automation | Automated publishing |
+| 2 | PublishingOrchestrator | content-pipeline/ | T1 | Multi-platform publishing | End-to-end workflow |
+| 3 | ContentPersonalizer | content/ | T1 | Audience adaptation | Segmented content |
+| 4 | MultiFormatOrchestrator | content-pipeline/ | T1 | Multi-format output | 5+ output formats |
+| 5 | ContentMetadataManager | services/ | T1 | Content lineage | Debugging & learning |
+| 6 | VariantGenerator | content/ | T2 | A/B testing | Content optimization |
+| 7 | ContentAdapterEngine | content/ | T2 | Content repurposing | 5x efficiency gain |
+| 8 | ContentSalvageModule | content/ | T2 | Failure recovery | Graceful degradation |
+| 9 | FeedbackCollector | services/ | T2 | Performance learning | Prompt tuning |
+| 10 | GeneratedContentCatalog | services/ | T2 | Content discovery | Content remixing |
+| 11 | OutputFormatterOrchestrator | content-pipeline/ | T3 | Format optimization | Better outputs |
+| 12 | PerformanceOptimizer | orchestration/ | T3 | Pipeline monitoring | Efficiency insights |
+| 13 | TemplateLibraryManager | template/ | T3 | Template versioning | Version rollback |
+| 14 | ContentLifecycleManager | orchestration/ | T3 | Lifecycle tracking | Workflow visibility |
+| 15 | ImageAssetLibrary | image/ | T3 | Image discovery | Image reuse |
+
+---
+
+## Recommended Implementation Order
+
+### Phase 1 Immediate - Blocking Workflow
+1. **PostCreationQualityDecider** (can't publish without this)
+2. **PublishingOrchestrator** (can't get content to platforms without this)
+3. **ContentMetadataManager** (needed by almost everything else)
+
+### Phase 2 High Impact
+4. **MultiFormatOrchestrator** (unblock multi-format output)
+5. **ContentPersonalizer** (enable audience segmentation)
+6. **VariantGenerator** (enable A/B testing)
+
+### Phase 3 Efficiency & Learning 
+7. **ContentAdapterEngine** (massive efficiency gains)
+8. **FeedbackCollector** (enable learning loops)
+9. **GeneratedContentCatalog** (enable discovery & reuse)
+
+### Phase 4 Polish & Optimization 
+10. **ContentSalvageModule** (graceful degradation)
+11. **OutputFormatterOrchestrator** (format optimization)
+12. **PerformanceOptimizer** (efficiency insights)
+13. **TemplateLibraryManager** (template version management)
+14. **ContentLifecycleManager** (workflow visibility)
+15. **ImageAssetLibrary** (image management)
+

@@ -1,0 +1,131 @@
+{
+  "_meta": {
+    "id": "recovery-frameworks",
+    "name": "Recovery Frameworks",
+    "category": "recovery",
+    "description": "Frameworks for maintaining change and managing setbacks",
+    "use_when": "Content focuses on sustaining progress, preventing relapse, or building ongoing wellness practices",
+    "version": "1.0.0",
+    "last_updated": "2026-01-12",
+    "language": "Australian English"
+  },
+
+  "frameworks": {
+
+    "relapse_prevention": {
+      "id": "relapse_prevention",
+      "name": "Relapse Prevention Model",
+      "source": {
+        "creator": "G. Alan Marlatt and Judith Gordon",
+        "year": 1985,
+        "publication": "Relapse Prevention: Maintenance Strategies in the Treatment of Addictive Behaviors",
+        "field": "Addiction psychology"
+      },
+      "descriptions": {
+        "professional": "A cognitive behavioural approach to maintaining behaviour change following treatment. The model identifies high risk situations, develops coping strategies, and addresses the abstinence violation effect. Central to the model is the distinction between a lapse (a single slip) and a relapse (a return to previous behaviour patterns).",
+        "peer_led": "Relapse prevention is about staying on track after you have made a change. It means knowing what situations put you at risk, having plans for handling them, and knowing what to do if you slip. A slip does not have to become a fall. The way you think about a lapse can make the difference between getting back on track and giving up."
+      },
+      "background": {
+        "origin": "Developed initially for addiction treatment but now applied across many behaviour change contexts.",
+        "evidence_base": "Strong support in addiction treatment. The abstinence violation effect is well documented.",
+        "why_it_matters": "Normalises the challenge of maintaining change. Provides practical strategies. Reframes slips as learning opportunities.",
+        "common_applications": ["Addiction treatment", "Eating disorder recovery", "Behaviour change maintenance", "Mental health recovery"],
+        "limitations": "Originally focused on abstinence models. May need adaptation for harm reduction approaches."
+      },
+      "structure": {
+        "components": ["High risk situations", "Coping strategies", "Warning signs", "Lifestyle balance", "Lapse vs relapse distinction", "Getting back on track plan"],
+        "key_concept": {
+          "abstinence_violation_effect": "The tendency for guilt and all or nothing thinking after a lapse to lead to full relapse. Antidote: A lapse is a slip, not a fall."
+        }
+      },
+      "use_in_sections": ["maintenance", "setback_planning", "recovery"],
+      "best_for": ["recovery", "behaviour_change", "maintenance"],
+      "cognitive_levels": [2, 3, 4],
+      "pairs_well_with": ["halt", "wrap", "stages_of_change"]
+    },
+
+    "halt": {
+      "id": "halt",
+      "name": "HALT",
+      "source": {
+        "creator": "Traditional recovery wisdom (12 step programmes)",
+        "year": "Mid 20th century onwards",
+        "publication": "Oral tradition, incorporated into recovery literature",
+        "field": "Addiction recovery"
+      },
+      "descriptions": {
+        "professional": "A simple self assessment mnemonic identifying four vulnerability states that increase risk of relapse or poor coping: Hungry, Angry, Lonely, and Tired. The model recognises that basic physiological and emotional needs, when unmet, impair self regulation and increase susceptibility to impulsive or self destructive behaviour.",
+        "peer_led": "HALT is a simple check in with yourself. When you feel off, ask: Am I Hungry? Am I Angry? Am I Lonely? Am I Tired? Often when we feel like we are falling apart, it is actually one of these basic needs. Sort out the basics first before making big decisions or tackling big feelings."
+      },
+      "background": {
+        "origin": "Emerged from recovery communities. Widely shared in 12 step programmes.",
+        "evidence_base": "Aligned with research on self regulation depletion, emotional eating, sleep deprivation and social isolation.",
+        "why_it_matters": "Addresses fundamental human needs. Easy to remember. Prevents complex explanations when simple solutions exist.",
+        "common_applications": ["Addiction recovery", "Emotional regulation", "Self care education", "Parenting", "Stress management"],
+        "limitations": "Does not address all vulnerabilities. Some people need expanded versions."
+      },
+      "structure": {
+        "letters": [
+          {"letter": "H", "name": "Hungry", "check": "Have I eaten? Is my blood sugar stable?", "why": "Low blood sugar impairs decision making and emotional regulation."},
+          {"letter": "A", "name": "Angry", "check": "Am I holding onto resentment or frustration?", "why": "Unexpressed anger builds pressure and drains energy."},
+          {"letter": "L", "name": "Lonely", "check": "Have I connected with anyone? Am I isolating?", "why": "Isolation increases vulnerability to depression and relapse."},
+          {"letter": "T", "name": "Tired", "check": "Have I slept? Am I rested?", "why": "Sleep deprivation impairs every aspect of functioning."}
+        ],
+        "how_to_use": "When struggling, run through HALT before doing anything else. Often addressing one of these needs shifts everything."
+      },
+      "use_in_sections": ["warning_signs", "self_check", "maintenance", "self_care"],
+      "best_for": ["recovery", "self_awareness", "prevention", "daily_check_in"],
+      "cognitive_levels": [3, 4, 5],
+      "pairs_well_with": ["relapse_prevention", "self_care_planning", "window_of_tolerance"]
+    },
+
+    "wrap": {
+      "id": "wrap",
+      "name": "Wellness Recovery Action Plan (WRAP)",
+      "source": {
+        "creator": "Mary Ellen Copeland",
+        "year": 1997,
+        "publication": "Wellness Recovery Action Plan",
+        "field": "Mental health recovery, peer support"
+      },
+      "descriptions": {
+        "professional": "A structured self management and recovery system developed by people with lived experience of mental health challenges. WRAP provides a framework for developing personalised wellness strategies across a continuum from daily maintenance to crisis planning. The approach is grounded in recovery principles including hope, personal responsibility, education, self advocacy and support.",
+        "peer_led": "WRAP is a plan you create for yourself to stay well and get through hard times. You figure out what helps you feel good day to day, what your early warning signs are, what to do when things start getting hard, and what you need if you are in crisis. It puts you in charge of your own wellbeing."
+      },
+      "background": {
+        "origin": "Developed by Mary Ellen Copeland in collaboration with people experiencing mental health challenges.",
+        "evidence_base": "Research supports WRAP's effectiveness in reducing symptoms, increasing hope and improving quality of life.",
+        "why_it_matters": "Puts the person at the centre of their own recovery. Focuses on wellness, not just illness management. Created by people with lived experience.",
+        "common_applications": ["Mental health recovery", "Chronic illness management", "Peer support programmes", "Personal wellness planning"],
+        "limitations": "Requires engagement and honest self reflection. Works best with facilitator support initially."
+      },
+      "structure": {
+        "sections": [
+          {"name": "Wellness Toolbox", "description": "A collection of things you can do to help yourself feel better"},
+          {"name": "Daily Maintenance Plan", "description": "What you do every day to stay well"},
+          {"name": "Triggers", "description": "Events or situations that might cause distress, with response plans"},
+          {"name": "Early Warning Signs", "description": "Subtle changes that indicate you might be starting to struggle"},
+          {"name": "When Things Are Breaking Down", "description": "More serious symptoms that require immediate action"},
+          {"name": "Crisis Plan", "description": "Instructions for others when you cannot make decisions for yourself"}
+        ]
+      },
+      "use_in_sections": ["comprehensive_planning", "maintenance", "crisis_preparation", "self_management"],
+      "best_for": ["recovery", "mental_health", "self_management", "crisis_planning"],
+      "cognitive_levels": [2, 3, 4],
+      "pairs_well_with": ["relapse_prevention", "halt", "safety_planning"]
+    }
+  },
+
+  "suggested_combinations": [
+    {
+      "frameworks": ["relapse_prevention", "halt"],
+      "use_for": "Comprehensive maintenance planning",
+      "how": "Use relapse prevention for the overall structure. Use HALT as a daily or moment to moment check in tool."
+    },
+    {
+      "frameworks": ["wrap", "relapse_prevention"],
+      "use_for": "Full recovery planning",
+      "how": "WRAP provides the comprehensive wellness structure. Relapse prevention adds specific behaviour change maintenance strategies."
+    }
+  ]
+}

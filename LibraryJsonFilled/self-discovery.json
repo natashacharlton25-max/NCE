@@ -1,0 +1,104 @@
+{
+  "_meta": {
+    "id": "self-discovery-frameworks",
+    "name": "Self Discovery Frameworks",
+    "category": "self_discovery",
+    "description": "Frameworks for understanding yourself and what matters to you",
+    "use_when": "Content focuses on self understanding, values clarification, or life assessment",
+    "version": "1.0.0",
+    "last_updated": "2026-01-12",
+    "language": "Australian English"
+  },
+
+  "frameworks": {
+
+    "values_card_sort": {
+      "id": "values_card_sort",
+      "name": "Values Card Sort",
+      "source": {
+        "creator": "Various, commonly associated with William R. Miller (Motivational Interviewing tradition)",
+        "year": "1980s onwards",
+        "publication": "Various MI and acceptance based therapy resources",
+        "field": "Motivational interviewing, acceptance and commitment therapy"
+      },
+      "descriptions": {
+        "professional": "A structured exercise for values clarification in which individuals sort a set of value cards into categories of importance, then prioritise their top values. The exercise externalises the abstract process of values identification, making it more concrete and less cognitively demanding. Values clarification is associated with improved wellbeing, clearer decision making and enhanced motivation for change.",
+        "peer_led": "Values are what matters most to you, what you want your life to be about. A values card sort is a simple way to figure out what your values are. You sort cards with different values into piles based on how important each one is to you. Then you pick your top ones. Knowing your values helps you make decisions, understand why some things bother you, and live a life that feels meaningful."
+      },
+      "background": {
+        "origin": "Values work has roots in humanistic psychology and has been developed extensively within motivational interviewing and acceptance and commitment therapy.",
+        "evidence_base": "Values clarification is associated with positive outcomes in therapy and behaviour change. The process of articulating values can strengthen commitment to aligned actions.",
+        "why_it_matters": "Many people struggle to articulate their values. Having clear values aids decision making, increases motivation and provides a sense of meaning.",
+        "common_applications": ["Motivational interviewing", "ACT", "Career counselling", "Life coaching", "Personal development"],
+        "limitations": "Values can conflict with each other. Cultural differences affect value expression. Values may change over time."
+      },
+      "structure": {
+        "process": [
+          {"step": 1, "action": "Present value cards or list", "detail": "Provide a comprehensive list of values (30 to 80 typically)."},
+          {"step": 2, "action": "Sort into importance categories", "detail": "Sort into three piles: Very Important, Somewhat Important, Not Important."},
+          {"step": 3, "action": "Narrow the Very Important pile", "detail": "From the Very Important pile, narrow to your top 10, then top 5."},
+          {"step": 4, "action": "Prioritise or rank", "detail": "Put your top 5 values in order."},
+          {"step": 5, "action": "Reflect on what they mean", "detail": "For each top value, reflect on what it means to you and how you live it."}
+        ],
+        "common_values": ["Family", "Honesty", "Freedom", "Security", "Creativity", "Achievement", "Connection", "Health", "Growth", "Adventure", "Peace", "Justice", "Compassion", "Independence", "Loyalty", "Respect", "Fun", "Spirituality", "Knowledge", "Love", "Responsibility", "Authenticity", "Contribution", "Balance"]
+      },
+      "use_in_sections": ["values_clarification", "self_discovery", "goal_alignment", "decision_making"],
+      "best_for": ["self_discovery", "values_work", "motivation", "meaning"],
+      "cognitive_levels": [2, 3, 4],
+      "pairs_well_with": ["woop", "acceptance_and_commitment", "life_design"]
+    },
+
+    "wheel_of_life": {
+      "id": "wheel_of_life",
+      "name": "Wheel of Life",
+      "source": {
+        "creator": "Unknown, widely attributed to Paul J. Meyer and coaching tradition",
+        "year": "Mid 20th century onwards",
+        "publication": "Various coaching and personal development resources",
+        "field": "Life coaching, personal development"
+      },
+      "descriptions": {
+        "professional": "A visual self assessment tool that measures subjective satisfaction across multiple life domains. The wheel metaphor illustrates that imbalance in any area creates a bumpy ride through life. The assessment identifies areas of relative strength and areas requiring attention, facilitating goal setting and prioritisation.",
+        "peer_led": "The Wheel of Life is a way to take a snapshot of how satisfied you are with different areas of your life right now. You rate areas like work, relationships, health and fun on a scale. Then you plot them on a wheel and see the shape. A bumpy wheel shows where life feels out of balance. It helps you see clearly where you might want to focus your energy."
+      },
+      "background": {
+        "origin": "Widely used in coaching and personal development. The exact origin is unclear but it became popular through life coaching programmes.",
+        "evidence_base": "Face valid and widely used, though limited formal research. Aligns with concepts of life balance and wellbeing.",
+        "why_it_matters": "Creates a visual overview of life satisfaction. Helps identify priorities for change. Tracks progress over time. Simple and accessible.",
+        "common_applications": ["Life coaching", "Personal development", "Therapy goal setting", "Career planning", "Wellness programmes"],
+        "limitations": "Categories may not fit everyone. Subjective ratings can fluctuate. Does not capture complexity of how areas interact."
+      },
+      "structure": {
+        "typical_categories": [
+          {"name": "Career or Work", "description": "Satisfaction with your work, career progress, sense of purpose in work"},
+          {"name": "Finances", "description": "Satisfaction with your financial situation, security, relationship with money"},
+          {"name": "Health and Fitness", "description": "Satisfaction with physical health, fitness, energy levels, self care"},
+          {"name": "Family and Friends", "description": "Satisfaction with family relationships and friendships, sense of belonging"},
+          {"name": "Romance or Partner", "description": "Satisfaction with romantic relationship or dating life"},
+          {"name": "Personal Growth", "description": "Satisfaction with learning, development, becoming who you want to be"},
+          {"name": "Fun and Recreation", "description": "Satisfaction with leisure, hobbies, play, enjoyment"},
+          {"name": "Physical Environment", "description": "Satisfaction with home, surroundings, possessions, living space"}
+        ],
+        "process": [
+          {"step": 1, "action": "Rate each area", "detail": "Score each life area from 1 to 10 based on current satisfaction."},
+          {"step": 2, "action": "Plot on the wheel", "detail": "Mark your score on each spoke of the wheel and connect the dots."},
+          {"step": 3, "action": "Reflect on the shape", "detail": "Notice which areas are high and which are low."},
+          {"step": 4, "action": "Identify priorities", "detail": "Choose one or two areas to focus on."},
+          {"step": 5, "action": "Set goals", "detail": "For your priority areas, set specific goals."}
+        ]
+      },
+      "use_in_sections": ["life_assessment", "goal_setting", "self_discovery", "review_and_reflection"],
+      "best_for": ["self_discovery", "life_balance", "coaching", "goal_prioritisation"],
+      "cognitive_levels": [3, 4, 5],
+      "pairs_well_with": ["values_card_sort", "goal_setting", "life_design"]
+    }
+  },
+
+  "suggested_combinations": [
+    {
+      "frameworks": ["values_card_sort", "wheel_of_life"],
+      "use_for": "Comprehensive life assessment and direction setting",
+      "how": "Use values card sort to clarify what matters. Use wheel of life to assess current satisfaction. Compare to identify gaps between values and life."
+    }
+  ]
+}

@@ -1,0 +1,422 @@
+{
+  "_meta": {
+    "id": "proprietary-frameworks",
+    "name": "Proprietary Therapeutic Frameworks",
+    "path": "therapeutic/frameworks/proprietary",
+    "description": "Mind the Box original methodologies and frameworks for therapeutic content creation",
+    "version": "1.0.0",
+    "last_updated": "2026-01-12",
+    "owner": "Mind the Box CIC"
+  },
+
+  "frameworks": {
+    "wardrobe": {
+      "id": "wardrobe",
+      "name": "The Wardrobe Framework",
+      "description": "A therapeutic approach using the metaphor of a wardrobe to help people understand emotional patterns and coping mechanisms",
+      "status": "core",
+
+      "core_reframe": {
+        "common_belief": "Step outside your comfort zone",
+        "truth": "What people call 'comfort zone' is actually a 'controlled zone' - a small cramped space where they experience familiar, predictable pain",
+        "insight": "They stay not because it's comfortable, but because the pain is controllable"
+      },
+
+      "metaphor": {
+        "wardrobe": {
+          "represents": "The controlled zone",
+          "characteristics": ["cramped", "predictable", "familiar pain", "feels safe because known"],
+          "why_people_stay": "The pain is controllable, not because it's comfortable"
+        },
+        "room": {
+          "represents": "The actual comfort zone",
+          "characteristics": ["spacious", "full of potential", "genuine ease", "regulated nervous system"],
+          "why_it_feels_unsafe": "Trauma once entered uninvited, so the space feels dangerous"
+        },
+        "trauma": {
+          "rule": "Stays outside. You go to it when ready - it doesn't get invited in",
+          "boundary": "I will meet trauma where it is, I won't invite it in",
+          "key_insight": "The room doesn't disappear when you leave it. It's there, waiting, full of everything you put in it."
+        }
+      },
+
+      "healing_process": {
+        "sequence": [
+          {
+            "step": 1,
+            "action": "Learning you can protect the room",
+            "meaning": "Resilience = 'wrong room, please leave'"
+          },
+          {
+            "step": 2,
+            "action": "Opening the wardrobe door when ready",
+            "meaning": "Choice, not force"
+          },
+          {
+            "step": 3,
+            "action": "Adding things to the room",
+            "meaning": "So it feels full, not empty and frightening"
+          },
+          {
+            "step": 4,
+            "action": "Building a space so safe and joyful",
+            "meaning": "You don't need the wardrobe anymore"
+          }
+        ],
+        "what_this_is": "Pre-therapy, alongside-therapy, or instead-of-therapy-for-now. Building capacity to eventually do deeper work if you choose.",
+        "what_this_is_not": "Processing trauma from inside the wardrobe. That's retraumatising, not healing."
+      },
+
+      "pillars": {
+        "joy": {
+          "question": "Does this bring genuine pleasure/fulfilment?",
+          "role": "Compass for expansion - growth happens as side effect of reaching toward joy",
+          "application": "If it doesn't feel joyful, adjust until it does, but keep safety and values"
+        },
+        "safety": {
+          "question": "Do I feel secure and regulated?",
+          "role": "Foundation - the non-negotiable baseline",
+          "application": "If it doesn't feel safe, make it smaller until it does, but keep joy and values"
+        },
+        "values": {
+          "question": "Does this align with what matters to me? Does it increase my capacity to live my values?",
+          "role": "Purpose - ensures choices aren't just distraction but build who you want to be",
+          "application": "If it doesn't connect to values, find the link, or adjust until it builds who you want to be"
+        }
+      },
+
+      "no_compromise_principle": {
+        "description": "Joy, safety, and values go together. Never choose between them.",
+        "core_insight": "It's about increasing your capacity to live your values. Setting boundaries increases capacity for honesty. Speaking kindly to yourself increases capacity for kindness to others. Choosing joy increases capacity to show up fully for what matters.",
+        "failures": {
+          "joy_without_safety": {
+            "result": "You won't sustain it",
+            "example": "Excitement that burns out or hurts you"
+          },
+          "safety_without_joy": {
+            "result": "You're back in the wardrobe",
+            "example": "Familiar, controlled, but cramped"
+          },
+          "joy_and_safety_without_values": {
+            "result": "Just distraction",
+            "example": "Pleasant but empty, doesn't build anything"
+          },
+          "values_without_joy_or_safety": {
+            "result": "Becomes duty or burns you out",
+            "example": "Martyrdom, resentment, exhaustion"
+          }
+        }
+      },
+
+      "section_flow": {
+        "description": "Each section moves the reader through a cycle of choosing, trying, observing, and choosing again. By the end, they've practised the skill of choosing joy so many times it becomes natural.",
+        "core_message": "It's safe to choose. It's safe to change. It's safe to try.",
+        "reframe": "Real control isn't staying in the controlled zone. Real control is the power to choose.",
+        "sections": [
+          {
+            "section": 1,
+            "name": "Identify joy",
+            "action": "Introduce the concept, framed through joy. What would this look like if it brought you joy?",
+            "choice": "Choose what joy looks like for them"
+          },
+          {
+            "section": 2,
+            "name": "Joy + safety + values",
+            "action": "Find the version that's joyful, safe, AND increases capacity to live values. No compromise.",
+            "choice": "Choose to have all three"
+          },
+          {
+            "section": 3,
+            "name": "Try",
+            "action": "Do the thing, notice emotions (joy or not joy, safe or not safe, connected to values or not)",
+            "choice": "Choose to experiment"
+          },
+          {
+            "section": 4,
+            "name": "Reflect",
+            "action": "Observe what happened, decide: continue, refine, or choose something different",
+            "choice": "Choose what happens next"
+          },
+          {
+            "section": 5,
+            "name": "Try again",
+            "action": "Same thing or something different, getting closer to joy + safety + values",
+            "choice": "Choose to keep going"
+          },
+          {
+            "section": 6,
+            "name": "Plan for hard moments",
+            "action": "When it feels scary, what's my joy choice that keeps me safe and builds my values?",
+            "choice": "Choose to build the skill"
+          },
+          {
+            "section": 7,
+            "name": "Apply as real choice",
+            "action": "Use joy choice in a real moment, all three together",
+            "choice": "Choose in the moment, when it matters"
+          }
+        ]
+      },
+
+      "application_in_content": [
+        "Use wardrobe metaphor when discussing emotional patterns",
+        "Emphasise 'addition not subtraction' in all growth messaging",
+        "Frame coping mechanisms as previously useful, now expandable",
+        "Every section gives the reader a choice - control through choosing",
+        "Never force people out of the wardrobe - invite them to open the door",
+        "Always check: is this joyful? Is this safe? Does this build capacity to live values? All three?"
+      ],
+
+      "key_phrases": [
+        "Your comfort zone might actually be your controlled zone",
+        "Familiar doesn't mean comfortable",
+        "Cramped but predictable",
+        "The room doesn't disappear when you leave it",
+        "You go to trauma when you're ready - it doesn't get invited in",
+        "It's safe to choose. It's safe to change. It's safe to try.",
+        "Real control is the power to choose"
+      ]
+    },
+
+    "controlled_vs_comfort": {
+      "id": "controlled_vs_comfort",
+      "name": "Controlled Zone vs Comfort Zone",
+      "description": "Reframes the common 'get out of your comfort zone' advice",
+      "status": "core",
+      "parent_framework": "wardrobe",
+
+      "structure": {
+        "controlled_zone": {
+          "common_name": "Comfort zone",
+          "actual_nature": "Predictable, known, but often cramped and limiting",
+          "why_people_stay": "Familiar pain is controllable",
+          "characteristics": ["familiar", "predictable", "cramped", "limiting", "known pain"]
+        },
+        "comfort_zone": {
+          "actual_nature": "Regulated nervous system, genuine ease, expansion",
+          "characteristics": ["spacious", "genuinely comfortable", "regulated", "room to grow"]
+        }
+      },
+
+      "key_insight": "We mistake familiarity for comfort. Familiar doesn't mean comfortable.",
+
+      "application": [
+        "Use when discussing avoidance patterns",
+        "Use when encouraging growth without shaming current patterns",
+        "Helps explain why change is hard even when people want it"
+      ],
+
+      "key_phrases": [
+        "Your comfort zone might actually be your controlled zone",
+        "Familiar doesn't mean comfortable",
+        "Cramped but predictable",
+        "Known pain feels safer than unknown possibility"
+      ]
+    },
+
+    "addition_not_subtraction": {
+      "id": "addition_not_subtraction",
+      "name": "Addition Not Subtraction",
+      "description": "Core principle that growth comes from adding capacity, not removing coping mechanisms",
+      "status": "core",
+
+      "principle": {
+        "statement": "Never take away without offering something better",
+        "rationale": "Coping mechanisms exist for a reason. They kept you safe. They're not wrong - they're just not the only option anymore.",
+        "application": "Build a bigger wardrobe. More outfits for more situations. The old ones don't have to go."
+      },
+
+      "in_practice": {
+        "wrong_approach": "Stop doing X (shaming, forcing, removing)",
+        "right_approach": "What if you could also do Y? (expanding, inviting, adding)",
+        "examples": [
+          {
+            "topic": "Emotional eating",
+            "subtraction": "Stop eating when you're stressed",
+            "addition": "What else could you reach for when you're stressed? The food can stay as an option."
+          },
+          {
+            "topic": "People pleasing",
+            "subtraction": "Stop saying yes to everything",
+            "addition": "What would it feel like to have 'maybe' or 'let me think about it' as options too?"
+          },
+          {
+            "topic": "Avoidance",
+            "subtraction": "Stop avoiding difficult conversations",
+            "addition": "What would make having that conversation feel safer? Let's build that first."
+          }
+        ]
+      },
+
+      "connection_to_wardrobe": "Just as a wardrobe contains different clothes for different occasions, we develop different emotional 'outfits' for different situations. You can add new outfits without throwing out old ones.",
+
+      "key_phrases": [
+        "Addition, not subtraction",
+        "You can add new options without removing old ones",
+        "Your coping mechanisms aren't wrong - they're just not the only option",
+        "Build capacity, don't force change",
+        "The old ways can stay. We're just adding more."
+      ]
+    },
+
+    "choice_as_safety": {
+      "id": "choice_as_safety",
+      "name": "Choice as Safety",
+      "description": "The understanding that having choice creates safety, and safety enables choice",
+      "status": "core",
+      "parent_framework": "wardrobe",
+
+      "principle": {
+        "statement": "Control through choosing, not through staying still",
+        "core_message": "It's safe to choose. It's safe to change. It's safe to try.",
+        "reframe": "Real control isn't staying in the controlled zone. Real control is the power to choose - what enters your room, what you reach toward, what you do when things feel hard."
+      },
+
+      "application": [
+        "Every section gives the reader a choice",
+        "Frame exercises as invitations, not instructions",
+        "Honour 'not yet' as a valid choice",
+        "Resistance is information, not failure"
+      ],
+
+      "key_phrases": [
+        "It's safe to choose",
+        "It's safe to change",
+        "It's safe to try",
+        "You get to decide",
+        "This is an invitation, not an instruction"
+      ]
+    },
+
+    "no_failure_only_signals": {
+      "id": "no_failure_only_signals",
+      "name": "No Failure, Only Signals",
+      "description": "Reframes setbacks as information rather than evidence of failure",
+      "status": "core",
+
+      "principle": {
+        "statement": "Old patterns returning = need more of what you were giving yourself",
+        "rationale": "If a coping mechanism resurfaces, it's because you needed what it provides. That's not failure - that's your system communicating.",
+        "application": "Instead of 'I failed', ask 'What was I needing? How else could I get that?'"
+      },
+
+      "examples": [
+        {
+          "pattern": "Returned to emotional eating after weeks of not doing it",
+          "old_frame": "I failed. I'm back to square one.",
+          "new_frame": "I needed comfort and my system reached for what it knows. What else could provide that comfort?"
+        },
+        {
+          "pattern": "Snapped at partner after practising calm communication",
+          "old_frame": "I can't do this. I'll never change.",
+          "new_frame": "I was dysregulated. What happened before that? What did I need?"
+        }
+      ],
+
+      "key_phrases": [
+        "No failure, only signals",
+        "What were you needing?",
+        "Your system is communicating, not failing",
+        "This is information, not evidence against you"
+      ]
+    },
+
+    "resilience_before_processing": {
+      "id": "resilience_before_processing",
+      "name": "Resilience Before Processing",
+      "description": "The principle that capacity must be built before trauma can be safely approached",
+      "status": "core",
+      "parent_framework": "wardrobe",
+
+      "principle": {
+        "statement": "Don't process trauma from inside the wardrobe. Build the room first.",
+        "rationale": "Processing trauma requires a safe base to return to. Without the room, there's nowhere to land.",
+        "sequence": "Safety → Capacity → Choice to approach (if and when ready)"
+      },
+
+      "what_this_means": {
+        "workbook_role": "Pre-therapy, alongside-therapy, or instead-of-therapy-for-now",
+        "goal": "Building the capacity to eventually do deeper work if you choose to",
+        "not_goal": "Processing trauma directly"
+      },
+
+      "trauma_boundary": {
+        "rule": "Trauma stays outside. You go to it when you're ready.",
+        "how": "On neutral ground. With support. On your terms.",
+        "key_insight": "When you're strong enough, standing in your room, feeling solid - you can choose to step outside and meet it. That's not avoidance. That's sovereignty."
+      },
+
+      "key_phrases": [
+        "Build the room first",
+        "Resilience before processing",
+        "You go to trauma when you're ready - it doesn't come to you",
+        "That's not avoidance. That's sovereignty."
+      ]
+    },
+
+    "small_steps_toward_joy": {
+      "id": "small_steps_toward_joy",
+      "name": "Small Steps Toward Joy",
+      "description": "Growth through reaching toward joy rather than pushing through fear",
+      "status": "core",
+
+      "principle": {
+        "statement": "Expand by reaching toward joy, not by forcing yourself through fear",
+        "contrast": {
+          "traditional": "Push through your comfort zone. Do the scary thing.",
+          "this_approach": "What's one small thing that would bring joy? Start there."
+        }
+      },
+
+      "mechanism": {
+        "how_it_works": "Each step toward joy is an invitation, not a challenge. Growth happens as a side effect.",
+        "why_it_works": "Joy is sustainable motivation. Fear-based pushing leads to burnout and rebound."
+      },
+
+      "key_phrases": [
+        "Small steps toward joy",
+        "Each step an invitation, not a challenge",
+        "Growth happens as a side effect of reaching toward joy",
+        "What's one small thing that would bring joy?"
+      ]
+    }
+  },
+
+  "framework_relationships": {
+    "core": "wardrobe",
+    "derived_from_wardrobe": [
+      "controlled_vs_comfort",
+      "choice_as_safety",
+      "resilience_before_processing"
+    ],
+    "supporting_principles": [
+      "addition_not_subtraction",
+      "no_failure_only_signals",
+      "small_steps_toward_joy"
+    ]
+  },
+
+  "content_application": {
+    "always": [
+      "Frame coping mechanisms as previously useful, now expandable",
+      "Give the reader choice in every section",
+      "Check for joy + safety + values alignment",
+      "Use addition language, not subtraction language"
+    ],
+    "never": [
+      "Shame existing patterns",
+      "Force people out of the wardrobe",
+      "Suggest processing trauma without safety first",
+      "Present only one right way"
+    ],
+    "language_patterns": {
+      "instead_of": [
+        {"avoid": "Stop doing X", "use": "What if you could also do Y?"},
+        {"avoid": "You need to", "use": "You might find it helpful to"},
+        {"avoid": "The problem is", "use": "What's happening is"},
+        {"avoid": "You should", "use": "One option is"},
+        {"avoid": "Get out of your comfort zone", "use": "What would feel like a stretch but still safe?"}
+      ]
+    }
+  }
+}

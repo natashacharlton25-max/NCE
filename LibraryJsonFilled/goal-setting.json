@@ -1,0 +1,180 @@
+{
+  "_meta": {
+    "id": "goal-setting-frameworks",
+    "name": "Goal Setting Frameworks",
+    "category": "goal_setting",
+    "description": "Frameworks for setting effective goals and creating action plans",
+    "use_when": "Content includes goal setting exercises or action planning sections",
+    "version": "1.0.0",
+    "last_updated": "2026-01-12",
+    "language": "Australian English"
+  },
+
+  "frameworks": {
+
+    "smart_goals": {
+      "id": "smart_goals",
+      "name": "SMART Goals",
+      "source": {
+        "creator": "George T. Doran",
+        "year": 1981,
+        "publication": "There's a S.M.A.R.T. way to write management's goals and objectives",
+        "field": "Management, goal setting"
+      },
+
+      "descriptions": {
+        "professional": "A mnemonic framework for goal setting that emphasises specificity, measurability, achievability, relevance and time boundedness. Originally developed for management contexts, the framework has been widely adopted across education, health, personal development and therapeutic settings. The criteria serve as a checklist to transform vague aspirations into concrete, actionable objectives.",
+        "peer_led": "SMART is a way to check if your goal is clear enough to actually achieve. A vague goal like get healthier is hard to act on. A SMART goal like walk for 20 minutes three times a week for the next month tells you exactly what to do, how to know if you did it, and by when. It takes fuzzy wishes and turns them into real plans."
+      },
+
+      "background": {
+        "origin": "Doran created the framework in the context of management by objectives. The specific letters have been interpreted differently by different authors over time.",
+        "evidence_base": "Goal setting research broadly supports the value of specific, challenging goals. The SMART framework is widely used though not always rigorously tested as a complete package.",
+        "why_it_matters": "Provides a simple checklist to improve goal quality. Prevents common goal setting mistakes. Creates accountability through clarity.",
+        "common_applications": ["Performance management", "Personal goal setting", "Therapy treatment planning", "Educational objectives", "Project management"],
+        "limitations": "Can feel mechanical or limiting for some. May not suit all goal types, particularly exploratory or learning goals. Sometimes overemphasises measurability at the expense of meaning."
+      },
+
+      "structure": {
+        "criteria": [
+          {
+            "letter": "S",
+            "name": "Specific",
+            "question": "What exactly will you do?",
+            "description": "The goal clearly states what will be accomplished. Who, what, where and why are defined.",
+            "poor_example": "Get fitter",
+            "better_example": "Go to the gym three times a week",
+            "prompts": ["What specifically will you do?", "Where will you do it?", "Who is involved?"]
+          },
+          {
+            "letter": "M",
+            "name": "Measurable",
+            "question": "How will you know you have done it?",
+            "description": "There is a clear way to track progress and know when the goal is achieved.",
+            "poor_example": "Exercise more",
+            "better_example": "Complete 12 gym sessions this month",
+            "prompts": ["How will you measure progress?", "What does success look like?", "How will you know when you have achieved it?"]
+          },
+          {
+            "letter": "A",
+            "name": "Achievable",
+            "question": "Is this realistic for you right now?",
+            "description": "The goal is challenging but possible given current resources, skills and constraints.",
+            "poor_example": "Run a marathon next week (never having run before)",
+            "better_example": "Complete a 5K in three months",
+            "prompts": ["Is this possible given your current situation?", "What resources do you need?", "What might get in the way?"]
+          },
+          {
+            "letter": "R",
+            "name": "Relevant",
+            "question": "Does this matter to you? Does it connect to your values?",
+            "description": "The goal aligns with broader objectives and values. It is worth doing.",
+            "poor_example": "Learn guitar because everyone says I should",
+            "better_example": "Learn guitar so I can play songs with my children",
+            "prompts": ["Why does this matter to you?", "How does this connect to what you value?", "Is this the right goal right now?"]
+          },
+          {
+            "letter": "T",
+            "name": "Time-bound",
+            "question": "By when?",
+            "description": "There is a clear deadline or timeframe for achievement.",
+            "poor_example": "Someday I will",
+            "better_example": "By the end of March",
+            "prompts": ["When will you start?", "When will you finish?", "What are the milestones along the way?"]
+          }
+        ]
+      },
+
+      "use_in_sections": ["goal_setting", "action_planning", "treatment_planning"],
+      "best_for": ["goal_setting", "planning", "accountability"],
+      "cognitive_levels": [1, 2, 3, 4],
+      "application_note": "Works well combined with implementation intentions. After setting SMART goal, create if then plans for when and how to work on it.",
+      "pairs_well_with": ["implementation_intentions", "woop", "action_planning"]
+    },
+
+    "woop": {
+      "id": "woop",
+      "name": "WOOP (Wish, Outcome, Obstacle, Plan)",
+      "source": {
+        "creator": "Gabriele Oettingen",
+        "year": 2014,
+        "publication": "Rethinking Positive Thinking: Inside the New Science of Motivation",
+        "field": "Motivation psychology"
+      },
+
+      "descriptions": {
+        "professional": "A four step mental contrasting strategy that combines positive visualisation of desired outcomes with realistic consideration of internal obstacles, followed by implementation intention formation. Research demonstrates that this approach outperforms either positive visualisation or obstacle focus alone. The method addresses the intention behaviour gap by anticipating barriers and pre programming responses.",
+        "peer_led": "WOOP is a way to turn wishes into plans that actually work. You start by thinking about what you want and imagining how good it would feel to achieve it. Then, instead of stopping there, you get realistic about what inside you might get in the way. Finally, you make a plan for what you will do when that obstacle shows up. Dreaming big works better when you also plan for the hard parts."
+      },
+
+      "background": {
+        "origin": "Oettingen researched why positive thinking alone often fails to produce results. She found that mental contrasting, combining positive fantasy with obstacle awareness, was more effective than either alone.",
+        "evidence_base": "Robust research support across multiple domains. Studies show effects on health behaviours, academic performance, relationships and professional goals.",
+        "why_it_matters": "Addresses the gap between positive intentions and reality. Builds in obstacle planning from the start. More effective than positive thinking alone.",
+        "common_applications": ["Personal goal achievement", "Health behaviour change", "Academic success", "Professional development", "Relationship improvement"],
+        "limitations": "Requires honest self reflection about obstacles. May feel pessimistic to those attached to pure positive thinking. Works best for goals within personal control."
+      },
+
+      "structure": {
+        "steps": [
+          {
+            "letter": "W",
+            "name": "Wish",
+            "description": "Identify a meaningful, challenging but achievable wish or goal",
+            "guidance": "Choose something that matters to you. It should be challenging enough to be exciting but realistic enough to be possible.",
+            "prompt": "What do you really want to achieve?",
+            "time": "Brief, just identify the wish"
+          },
+          {
+            "letter": "O",
+            "name": "Outcome",
+            "description": "Vividly imagine the best outcome of achieving your wish",
+            "guidance": "Close your eyes and really see it. How would you feel? What would be different? Let yourself experience the positive emotions.",
+            "prompt": "Imagine you have achieved this. What is the best thing about it? How does it feel?",
+            "time": "Take time here, really visualise"
+          },
+          {
+            "letter": "O",
+            "name": "Obstacle",
+            "description": "Identify the main internal obstacle that might prevent success",
+            "guidance": "Be honest with yourself. What inside you, your thoughts, feelings, habits or beliefs, might get in the way? Focus on internal obstacles you can control.",
+            "prompt": "What is the main thing within you that could hold you back?",
+            "time": "Reflect honestly"
+          },
+          {
+            "letter": "P",
+            "name": "Plan",
+            "description": "Create an if then plan to overcome the obstacle",
+            "guidance": "Use implementation intention format. When the obstacle appears, what will you do instead?",
+            "prompt": "If [obstacle] happens, then I will [action]",
+            "time": "Be specific"
+          }
+        ]
+      },
+
+      "use_in_sections": ["goal_setting", "obstacle_anticipation", "action_planning", "motivation"],
+      "best_for": ["goal_setting", "motivation", "realistic_planning"],
+      "cognitive_levels": [2, 3, 4],
+      "application_note": "The obstacle step is what makes this more effective than pure positive thinking. Do not skip or minimise it.",
+      "pairs_well_with": ["smart_goals", "implementation_intentions", "values_work"]
+    }
+  },
+
+  "suggested_combinations": [
+    {
+      "frameworks": ["smart_goals", "implementation_intentions"],
+      "use_for": "Any goal setting section",
+      "how": "Use SMART to define the goal clearly. Use implementation intentions to create specific when then plans for action."
+    },
+    {
+      "frameworks": ["woop", "smart_goals"],
+      "use_for": "Comprehensive goal planning",
+      "how": "Use WOOP to explore motivation and obstacles. Use SMART to refine the goal into concrete terms."
+    },
+    {
+      "frameworks": ["woop", "implementation_intentions"],
+      "use_for": "Motivationally rich planning",
+      "how": "WOOP already includes an implementation intention in the P step. Can add additional if then plans for other potential obstacles."
+    }
+  ]
+}

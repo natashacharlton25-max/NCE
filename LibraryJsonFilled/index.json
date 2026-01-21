@@ -1,0 +1,159 @@
+{
+  "_meta": {
+    "id": "evidence-based-frameworks-index",
+    "name": "Evidence-Based Frameworks Index",
+    "description": "Master index for all evidence-based therapeutic framework libraries",
+    "path": "therapeutic/frameworks/evidence-based",
+    "version": "1.0.0",
+    "last_updated": "2026-01-12",
+    "language": "Australian English",
+    "usage_note": "These frameworks provide structural credibility. Apply brand voice, cognitive level and proprietary philosophy on top."
+  },
+
+  "categories": [
+    {
+      "id": "skill_building",
+      "name": "Skill Building",
+      "file": "skill-building.json",
+      "description": "Frameworks for understanding how people learn and develop new skills",
+      "use_when": "Designing content that teaches a skill or builds competence over time",
+      "frameworks": ["kolb_experiential", "dreyfus_model", "deliberate_practice"]
+    },
+    {
+      "id": "behaviour_change",
+      "name": "Behaviour Change",
+      "file": "behaviour-change.json",
+      "description": "Frameworks for understanding and supporting behaviour change",
+      "use_when": "Content focuses on changing habits, building new behaviours, or understanding why change is hard",
+      "frameworks": ["stages_of_change", "com_b", "implementation_intentions", "habit_loop"]
+    },
+    {
+      "id": "goal_setting",
+      "name": "Goal Setting",
+      "file": "goal-setting.json",
+      "description": "Frameworks for setting effective goals and creating action plans",
+      "use_when": "Content includes goal setting exercises or action planning sections",
+      "frameworks": ["smart_goals", "woop"]
+    },
+    {
+      "id": "emotional_processing",
+      "name": "Emotional Processing",
+      "file": "emotional-processing.json",
+      "description": "Frameworks for working with difficult emotions",
+      "use_when": "Content addresses emotional regulation, processing feelings, or understanding emotional reactions",
+      "frameworks": ["rain", "window_of_tolerance"]
+    },
+    {
+      "id": "cognitive_work",
+      "name": "Cognitive Work",
+      "file": "cognitive-work.json",
+      "description": "Frameworks for understanding and changing thought patterns",
+      "use_when": "Content focuses on thoughts, beliefs, cognitive patterns or CBT approaches",
+      "frameworks": ["cognitive_triangle", "abcde"]
+    },
+    {
+      "id": "relationships",
+      "name": "Relationships",
+      "file": "relationships.json",
+      "description": "Frameworks for understanding and improving relationships",
+      "use_when": "Content addresses communication, relationship patterns, conflict or connection",
+      "frameworks": ["gottman_four_horsemen", "nvc", "attachment_styles"]
+    },
+    {
+      "id": "recovery",
+      "name": "Recovery",
+      "file": "recovery.json",
+      "description": "Frameworks for maintaining change and managing setbacks",
+      "use_when": "Content focuses on sustaining progress, preventing relapse, or building ongoing wellness practices",
+      "frameworks": ["relapse_prevention", "halt", "wrap"]
+    },
+    {
+      "id": "self_discovery",
+      "name": "Self Discovery",
+      "file": "self-discovery.json",
+      "description": "Frameworks for understanding yourself and what matters to you",
+      "use_when": "Content focuses on self understanding, values clarification, or life assessment",
+      "frameworks": ["values_card_sort", "wheel_of_life"]
+    },
+    {
+      "id": "trauma_informed",
+      "name": "Trauma Informed",
+      "file": "trauma-informed.json",
+      "description": "Frameworks for understanding and working with trauma",
+      "use_when": "Content needs to be trauma sensitive, addresses nervous system regulation, or supports trauma recovery",
+      "frameworks": ["polyvagal", "hermans_phases", "grounding_categories"]
+    }
+  ],
+
+  "all_frameworks": {
+    "kolb_experiential": {"category": "skill_building", "name": "Kolb's Experiential Learning Cycle"},
+    "dreyfus_model": {"category": "skill_building", "name": "Dreyfus Model of Skill Acquisition"},
+    "deliberate_practice": {"category": "skill_building", "name": "Deliberate Practice"},
+    "stages_of_change": {"category": "behaviour_change", "name": "Stages of Change (Transtheoretical Model)"},
+    "com_b": {"category": "behaviour_change", "name": "COM-B Model of Behaviour"},
+    "implementation_intentions": {"category": "behaviour_change", "name": "Implementation Intentions"},
+    "habit_loop": {"category": "behaviour_change", "name": "The Habit Loop"},
+    "smart_goals": {"category": "goal_setting", "name": "SMART Goals"},
+    "woop": {"category": "goal_setting", "name": "WOOP"},
+    "rain": {"category": "emotional_processing", "name": "RAIN"},
+    "window_of_tolerance": {"category": "emotional_processing", "name": "Window of Tolerance"},
+    "cognitive_triangle": {"category": "cognitive_work", "name": "Cognitive Triangle"},
+    "abcde": {"category": "cognitive_work", "name": "ABCDE Model"},
+    "gottman_four_horsemen": {"category": "relationships", "name": "The Four Horsemen"},
+    "nvc": {"category": "relationships", "name": "Nonviolent Communication"},
+    "attachment_styles": {"category": "relationships", "name": "Attachment Styles"},
+    "relapse_prevention": {"category": "recovery", "name": "Relapse Prevention Model"},
+    "halt": {"category": "recovery", "name": "HALT"},
+    "wrap": {"category": "recovery", "name": "WRAP"},
+    "values_card_sort": {"category": "self_discovery", "name": "Values Card Sort"},
+    "wheel_of_life": {"category": "self_discovery", "name": "Wheel of Life"},
+    "polyvagal": {"category": "trauma_informed", "name": "Polyvagal Theory"},
+    "hermans_phases": {"category": "trauma_informed", "name": "Herman's Three Stages"},
+    "grounding_categories": {"category": "trauma_informed", "name": "Grounding Techniques"}
+  },
+
+  "content_type_recommendations": {
+    "skill_building_workbook": {
+      "primary": ["kolb_experiential", "deliberate_practice"],
+      "supporting": ["implementation_intentions", "dreyfus_model"]
+    },
+    "behaviour_change_workbook": {
+      "primary": ["stages_of_change", "com_b", "habit_loop"],
+      "supporting": ["implementation_intentions", "woop"]
+    },
+    "emotional_wellbeing_workbook": {
+      "primary": ["rain", "window_of_tolerance"],
+      "supporting": ["grounding_categories", "polyvagal"]
+    },
+    "relationship_workbook": {
+      "primary": ["gottman_four_horsemen", "nvc"],
+      "supporting": ["attachment_styles"]
+    },
+    "recovery_workbook": {
+      "primary": ["relapse_prevention", "wrap"],
+      "supporting": ["halt", "stages_of_change"]
+    },
+    "self_discovery_workbook": {
+      "primary": ["values_card_sort", "wheel_of_life"],
+      "supporting": ["woop"]
+    },
+    "trauma_recovery_workbook": {
+      "primary": ["hermans_phases", "polyvagal", "window_of_tolerance"],
+      "supporting": ["grounding_categories", "rain"]
+    }
+  },
+
+  "adapting_by_cognitive_level": {
+    "level_1_academic": "Use full technical terminology. Cite sources. Include theoretical nuance.",
+    "level_2_technical_with_support": "Use technical terms with explanations. Reference sources.",
+    "level_3_informed": "Use accessible language. Focus on practical application. Light attribution.",
+    "level_4_accessible": "Use simple language. Focus on the what and how. Skip theoretical background.",
+    "level_5_crisis_accessible": "Use only essential information. Very concrete. Immediate application."
+  },
+
+  "usage_guidance": {
+    "framework_provides": ["Structure", "Credibility", "Evidence base", "Established steps or components"],
+    "still_needed": ["Brand voice and tone", "Cognitive level adjustment", "Exercises and reflection prompts", "Connection to reader's life", "Proprietary therapeutic philosophy", "Warmth and humanity"],
+    "combining_frameworks": "Many workbooks use multiple frameworks together. See content_type_recommendations for suggested combinations."
+  }
+}

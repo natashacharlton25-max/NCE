@@ -1,0 +1,235 @@
+{
+  "_meta": {
+    "id": "skill-building-frameworks",
+    "name": "Skill Building Frameworks",
+    "category": "skill_building",
+    "description": "Frameworks for understanding how people learn and develop new skills",
+    "use_when": "Designing content that teaches a skill or builds competence over time",
+    "version": "1.0.0",
+    "last_updated": "2026-01-12",
+    "language": "Australian English"
+  },
+
+  "frameworks": {
+
+    "kolb_experiential": {
+      "id": "kolb_experiential",
+      "name": "Kolb's Experiential Learning Cycle",
+      "source": {
+        "creator": "David Kolb",
+        "year": 1984,
+        "publication": "Experiential Learning: Experience as the Source of Learning and Development",
+        "field": "Educational psychology"
+      },
+
+      "descriptions": {
+        "professional": "A cyclical model of experiential learning proposing that effective skill acquisition occurs through a four stage process. Learners move from concrete experience through reflective observation to abstract conceptualisation and finally active experimentation. The cycle then repeats, with each iteration deepening understanding and competence. The model recognises different learning style preferences, with some learners favouring certain stages over others.",
+        "peer_led": "Learning works best when you actually do something, then think about what happened, figure out what it means, and try it a different way next time. It is a cycle that keeps going. Each time round you get better at it. Some people prefer jumping in and trying things. Others prefer watching and thinking first. Both are valid ways to learn."
+      },
+
+      "background": {
+        "origin": "Kolb developed this model building on earlier work by John Dewey, Kurt Lewin and Jean Piaget. He was interested in how adults learn from experience rather than from instruction alone.",
+        "evidence_base": "Widely used in education, professional development and therapeutic contexts. Research supports the value of experiential learning, though the specific learning styles component has received mixed empirical support.",
+        "why_it_matters": "Moves away from passive learning models. Recognises that real skill development requires doing, not just understanding. Validates reflection as an active part of learning.",
+        "common_applications": ["Professional training", "Therapy skill practice", "Personal development workbooks", "Coaching programmes"],
+        "limitations": "The learning styles component is sometimes overemphasised. The cycle is not always linear in practice. Some experiences require more processing time before experimentation."
+      },
+
+      "structure": {
+        "stages": [
+          {
+            "name": "concrete_experience",
+            "label": "Concrete Experience",
+            "description": "Having a direct experience. Doing the thing.",
+            "what_happens": "The learner engages with a real situation or activity. This creates raw material for learning.",
+            "content_application": "Exercises, try it now prompts, real world application tasks, role plays, simulations",
+            "prompts": ["Try this now", "Notice what happens when you", "Have a go at"]
+          },
+          {
+            "name": "reflective_observation",
+            "label": "Reflective Observation",
+            "description": "Stepping back to think about what happened.",
+            "what_happens": "The learner reviews the experience from different angles. What worked. What did not. What was surprising.",
+            "content_application": "Reflection questions, journaling prompts, what did you notice sections, debrief exercises",
+            "prompts": ["What did you notice?", "How did that feel?", "What stood out?", "What surprised you?"]
+          },
+          {
+            "name": "abstract_conceptualisation",
+            "label": "Abstract Conceptualisation",
+            "description": "Making sense of the experience. Finding patterns and meaning.",
+            "what_happens": "The learner connects the experience to broader concepts. They form theories about how things work.",
+            "content_application": "Psychoeducation, explaining the why, connecting to theory, pattern identification",
+            "prompts": ["What does this tell you about", "The pattern here is", "This connects to"]
+          },
+          {
+            "name": "active_experimentation",
+            "label": "Active Experimentation",
+            "description": "Planning how to apply the learning next time.",
+            "what_happens": "The learner decides what to try differently. They form a plan for the next experience.",
+            "content_application": "Action planning, next steps, implementation intentions, what will you try sections",
+            "prompts": ["What will you try next time?", "How could you apply this?", "What is one thing you will do differently?"]
+          }
+        ],
+        "cycle_note": "The cycle repeats. Each round deepens skill and understanding. Entry can happen at any stage."
+      },
+
+      "use_in_sections": ["skill_practice", "reflection", "application", "experiential_exercises"],
+      "best_for": ["skill_building", "experiential_exercise", "practice_based_learning"],
+      "cognitive_levels": [1, 2, 3, 4, 5],
+      "pairs_well_with": ["deliberate_practice", "dreyfus_model"]
+    },
+
+    "dreyfus_model": {
+      "id": "dreyfus_model",
+      "name": "Dreyfus Model of Skill Acquisition",
+      "source": {
+        "creator": "Stuart Dreyfus and Hubert Dreyfus",
+        "year": 1980,
+        "publication": "A Five-Stage Model of the Mental Activities Involved in Directed Skill Acquisition",
+        "field": "Philosophy, cognitive science"
+      },
+
+      "descriptions": {
+        "professional": "A phenomenological model describing five distinct stages of skill development from novice to expert. The model proposes that learners progress from rigid rule following through pattern recognition to intuitive, contextual expertise. A key insight is that expert performance often transcends explicit rules, operating through embodied intuition developed through extensive experience.",
+        "peer_led": "When you learn something new, you start by following rules step by step. As you get better, you start recognising patterns and knowing what to do without thinking about it. Experts often cannot explain exactly how they do what they do because it has become second nature. Everyone goes through these stages. Knowing where you are helps you know what kind of practice you need."
+      },
+
+      "background": {
+        "origin": "Developed by the Dreyfus brothers while studying how pilots, chess players and language learners develop expertise. They were challenging the idea that expertise is just more sophisticated rule following.",
+        "evidence_base": "Influential in nursing education, medical training, teaching and professional development. The model aligns with research on expertise and deliberate practice.",
+        "why_it_matters": "Helps set realistic expectations for skill development. Explains why beginners need clear rules while experts need space to use judgement. Prevents frustration by normalising the learning curve.",
+        "common_applications": ["Professional training design", "Curriculum development", "Skill assessment", "Mentoring frameworks"],
+        "limitations": "Progression is not always linear. Some skills may plateau. The model focuses on individual skill rather than collaborative expertise."
+      },
+
+      "structure": {
+        "stages": [
+          {
+            "name": "novice",
+            "label": "Novice",
+            "characteristics": ["Follows explicit rules", "Needs step by step instruction", "Context free understanding", "Limited situational awareness"],
+            "what_they_need": "Clear rules, explicit steps, structured guidance, permission to be slow",
+            "content_approach": "Simple frameworks, checklists, step by step guides, worked examples"
+          },
+          {
+            "name": "advanced_beginner",
+            "label": "Advanced Beginner",
+            "characteristics": ["Recognises situational elements", "Still relies on rules", "Beginning to see patterns", "Limited big picture view"],
+            "what_they_need": "Examples, pattern recognition practice, guidance on when rules apply",
+            "content_approach": "Case studies, when to use guidance, common situations, pattern spotting exercises"
+          },
+          {
+            "name": "competent",
+            "label": "Competent",
+            "characteristics": ["Plans and prioritises", "Handles complexity", "Takes responsibility for outcomes", "Can troubleshoot"],
+            "what_they_need": "Decision frameworks, prioritisation tools, permission to make judgements",
+            "content_approach": "Decision trees, priority frameworks, scenario practice, troubleshooting guides"
+          },
+          {
+            "name": "proficient",
+            "label": "Proficient",
+            "characteristics": ["Sees situations holistically", "Intuition developing", "Recognises when things deviate from normal", "Adjusts approach fluidly"],
+            "what_they_need": "Nuance, edge cases, space for intuition, peer discussion",
+            "content_approach": "Complex scenarios, exception handling, reflective practice, case discussions"
+          },
+          {
+            "name": "expert",
+            "label": "Expert",
+            "characteristics": ["Intuitive and fluid", "Transcends explicit rules", "Sees what others miss", "Responds to subtle cues"],
+            "what_they_need": "Novel challenges, peer level discussion, opportunity to innovate",
+            "content_approach": "Advanced concepts, research discussions, innovation prompts, mentoring others"
+          }
+        ]
+      },
+
+      "use_in_sections": ["skill_overview", "practice_sequence", "self_assessment", "learning_design"],
+      "best_for": ["skill_building", "progressive_learning", "curriculum_design"],
+      "cognitive_levels": [1, 2, 3],
+      "application_note": "Match exercises to current stage. Do not expect expert performance from novices. Do not bore experts with basic rules.",
+      "pairs_well_with": ["kolb_experiential", "deliberate_practice"]
+    },
+
+    "deliberate_practice": {
+      "id": "deliberate_practice",
+      "name": "Deliberate Practice",
+      "source": {
+        "creator": "K. Anders Ericsson",
+        "year": 1993,
+        "publication": "The Role of Deliberate Practice in the Acquisition of Expert Performance",
+        "field": "Psychology of expertise"
+      },
+
+      "descriptions": {
+        "professional": "A structured approach to skill development characterised by purposeful, focused practice with immediate feedback. Distinguished from naive practice by its emphasis on working at the edge of current ability, targeting specific sub skills, and continuous refinement based on performance feedback. Research indicates that deliberate practice, rather than innate talent or mere experience, accounts for most individual differences in expert performance.",
+        "peer_led": "Getting good at something is not just about putting in hours. It is about how you practice. Deliberate practice means focusing on the bits you find hard, getting feedback quickly so you know if you are doing it right, and pushing yourself just beyond what is comfortable. It is harder work than just going through the motions, but it is how real improvement happens."
+      },
+
+      "background": {
+        "origin": "Ericsson studied expert performers across domains including music, chess, sports and medicine. He found that what separated the best from the rest was not talent but the quality and quantity of their practice.",
+        "evidence_base": "Strong research support across multiple domains. The 10,000 hours concept (popularised by Malcolm Gladwell) comes from this research, though Ericsson emphasised quality over quantity.",
+        "why_it_matters": "Shifts focus from talent to effort. Provides actionable principles for designing effective practice. Explains why some people improve quickly while others plateau.",
+        "common_applications": ["Sports coaching", "Music education", "Professional skill development", "Therapeutic skill practice"],
+        "limitations": "Requires access to feedback and coaching. Can be mentally demanding. Some domains have clearer feedback loops than others. Does not account for all aspects of expertise."
+      },
+
+      "structure": {
+        "principles": [
+          {
+            "name": "specific_goals",
+            "label": "Specific Goals",
+            "description": "Focus on particular sub skills, not vague improvement",
+            "application": "Break complex skills into components. Work on one element at a time.",
+            "example": "Instead of practise conversations, practise reflecting back what someone said before responding"
+          },
+          {
+            "name": "full_concentration",
+            "label": "Full Concentration",
+            "description": "Practice with complete attention, not while distracted",
+            "application": "Set aside dedicated practice time. Remove distractions. Be fully present.",
+            "example": "Ten minutes of focused practice beats an hour of half attention"
+          },
+          {
+            "name": "immediate_feedback",
+            "label": "Immediate Feedback",
+            "description": "Know quickly whether you are doing it correctly",
+            "application": "Build in feedback mechanisms. Record yourself. Get input from others.",
+            "example": "After a difficult conversation, reflect immediately on what worked and what did not"
+          },
+          {
+            "name": "outside_comfort_zone",
+            "label": "Outside Comfort Zone",
+            "description": "Work at the edge of current ability, not in the easy zone",
+            "application": "Seek challenges that stretch you. If it feels easy, increase difficulty.",
+            "example": "Practice the situations you find hardest, not the ones you have already mastered"
+          },
+          {
+            "name": "repetition_with_refinement",
+            "label": "Repetition with Refinement",
+            "description": "Repeat with adjustments, not mindless repetition",
+            "application": "Each repetition should incorporate learning from the last. Adjust and try again.",
+            "example": "Try the skill, notice what happened, adjust one thing, try again"
+          }
+        ]
+      },
+
+      "use_in_sections": ["technique_breakdown", "practice_sequence", "skill_development"],
+      "best_for": ["skill_building", "performance_improvement"],
+      "cognitive_levels": [1, 2, 3, 4],
+      "application_note": "Design exercises that follow these principles for maximum skill development. Acknowledge that deliberate practice is effortful and requires motivation.",
+      "pairs_well_with": ["kolb_experiential", "dreyfus_model", "implementation_intentions"]
+    }
+  },
+
+  "suggested_combinations": [
+    {
+      "frameworks": ["kolb_experiential", "deliberate_practice"],
+      "use_for": "Designing effective skill practice sequences",
+      "how": "Use Kolb for the overall learning cycle structure. Use deliberate practice principles within the concrete experience and active experimentation phases."
+    },
+    {
+      "frameworks": ["dreyfus_model", "kolb_experiential"],
+      "use_for": "Progressive skill building curriculum",
+      "how": "Use Dreyfus to assess current level and set appropriate challenge. Use Kolb to structure each learning experience."
+    }
+  ]
+}

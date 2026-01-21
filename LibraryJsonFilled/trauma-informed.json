@@ -1,0 +1,211 @@
+{
+  "_meta": {
+    "id": "trauma-informed-frameworks",
+    "name": "Trauma Informed Frameworks",
+    "category": "trauma_informed",
+    "description": "Frameworks for understanding and working with trauma",
+    "use_when": "Content needs to be trauma sensitive, addresses nervous system regulation, or supports trauma recovery",
+    "version": "1.0.0",
+    "last_updated": "2026-01-12",
+    "language": "Australian English"
+  },
+
+  "frameworks": {
+
+    "polyvagal": {
+      "id": "polyvagal",
+      "name": "Polyvagal Theory",
+      "source": {
+        "creator": "Stephen Porges",
+        "year": 1994,
+        "publication": "The Polyvagal Theory: Neurophysiological Foundations of Emotions, Attachment, Communication, and Self-regulation (2011)",
+        "field": "Neuroscience, psychology"
+      },
+      "descriptions": {
+        "professional": "A neurobiological framework proposing that the autonomic nervous system operates through three hierarchically organised subsystems that evolved sequentially. The newest system (ventral vagal) supports social engagement and calm states. The sympathetic system mobilises fight or flight responses. The oldest system (dorsal vagal) mediates immobilisation and shutdown. The theory introduces neuroception, the unconscious detection of safety or threat, as a key mechanism determining which system is activated.",
+        "peer_led": "Your nervous system has three main settings. The first is calm and connected, where you can think clearly and relate to others. The second is fight or flight, where your body gets ready for action because it senses danger. The third is shutdown, where you freeze, feel numb or want to disappear. Your body chooses these settings automatically based on whether it feels safe or threatened. Understanding this helps you work with your nervous system rather than against it."
+      },
+      "background": {
+        "origin": "Porges developed polyvagal theory from his research on the vagus nerve and heart rate variability. The theory explains why social connection and safety are fundamental to wellbeing.",
+        "evidence_base": "Influential in trauma treatment. Some aspects remain debated scientifically. Clinical applications are widely adopted.",
+        "why_it_matters": "Explains trauma responses without pathologising them. Shows why safety must come before processing. Provides a roadmap for regulation and healing.",
+        "common_applications": ["Trauma therapy", "Attachment work", "Emotional regulation", "Understanding anxiety and depression", "Somatic therapies"],
+        "limitations": "Some scientific criticism of specific claims. Can be oversimplified. The three states are not as distinct as sometimes presented."
+      },
+      "structure": {
+        "states": [
+          {
+            "name": "ventral_vagal",
+            "label": "Ventral Vagal State",
+            "nickname": "Safe and Social",
+            "colour": "Green",
+            "state": "Calm, connected, present",
+            "signs": ["Feeling safe", "Able to connect with others", "Thinking clearly", "Curious and open", "Flexible responses"],
+            "feels_like": "I am okay. I can handle this. I feel connected.",
+            "access_to": "Full range of responses, social engagement, rest and digest"
+          },
+          {
+            "name": "sympathetic",
+            "label": "Sympathetic Activation",
+            "nickname": "Fight or Flight",
+            "colour": "Yellow or Red",
+            "state": "Activated, mobilised, ready for action",
+            "signs": ["Anxiety", "Anger", "Restlessness", "Racing heart", "Hypervigilance", "Overwhelm"],
+            "feels_like": "Something is wrong. I need to do something. I cannot calm down.",
+            "access_to": "Action, escape, defence, but reduced access to social engagement"
+          },
+          {
+            "name": "dorsal_vagal",
+            "label": "Dorsal Vagal State",
+            "nickname": "Shutdown or Freeze",
+            "colour": "Blue",
+            "state": "Collapsed, disconnected, shut down",
+            "signs": ["Numbness", "Feeling disconnected", "Foggy thinking", "Exhaustion", "Hopelessness", "Dissociation"],
+            "feels_like": "I cannot do anything. Nothing matters. I am not really here.",
+            "access_to": "Conservation of energy, protection through disappearing, but very limited functioning"
+          }
+        ],
+        "key_concepts": {
+          "neuroception": "Your nervous system constantly scans for safety or danger without conscious awareness.",
+          "hierarchy": "The states work in order. Ventral vagal is default when safe. When that fails, sympathetic activates. When that fails, dorsal takes over.",
+          "co_regulation": "We regulate each other's nervous systems through connection. A calm presence can help someone else calm down."
+        }
+      },
+      "use_in_sections": ["psychoeducation", "nervous_system", "regulation", "trauma_education"],
+      "best_for": ["trauma_informed", "regulation", "self_awareness", "understanding_reactions"],
+      "cognitive_levels": [1, 2, 3, 4],
+      "pairs_well_with": ["window_of_tolerance", "grounding_categories", "co_regulation"]
+    },
+
+    "hermans_phases": {
+      "id": "hermans_phases",
+      "name": "Herman's Three Stages of Trauma Recovery",
+      "source": {
+        "creator": "Judith Herman",
+        "year": 1992,
+        "publication": "Trauma and Recovery",
+        "field": "Trauma psychology, psychiatry"
+      },
+      "descriptions": {
+        "professional": "A stage model of trauma recovery proposing that healing occurs through three overlapping phases. The first phase focuses on establishing safety and stabilisation. The second phase involves remembrance and mourning, processing traumatic memories and grieving losses. The third phase addresses reconnection with ordinary life, relationships and identity. The model emphasises that phases are not strictly linear and that safety must be established before trauma processing.",
+        "peer_led": "Trauma recovery happens in stages, and the order matters. First you need to feel safe and stable. You cannot process difficult memories when you are still in crisis. Once you have built that foundation, you can start to work through what happened and grieve what you lost. Finally, you rebuild your life and reconnect with who you are. These stages overlap and you might move back and forth, but safety always comes first."
+      },
+      "background": {
+        "origin": "Herman wrote Trauma and Recovery as a landmark text integrating clinical experience with trauma survivors and historical understanding of trauma.",
+        "evidence_base": "Widely influential in trauma treatment. The phase based approach is supported by clinical experience and research on trauma processing.",
+        "why_it_matters": "Provides a roadmap for trauma recovery. Prevents premature processing that can retraumatise. Emphasises that healing is possible.",
+        "common_applications": ["Trauma therapy", "Treatment planning", "Psychoeducation", "Peer support", "Recovery planning"],
+        "limitations": "Stages are not always linear. Some people may not need phase two processing. Cultural factors affect the recovery process."
+      },
+      "structure": {
+        "phases": [
+          {
+            "phase": 1,
+            "name": "Safety and Stabilisation",
+            "focus": "Establishing safety in body, relationships and environment. Stabilising symptoms. Building resources and coping skills.",
+            "goals": ["Physical safety", "Emotional regulation", "Building support", "Managing symptoms", "Self care"],
+            "not_yet": "Processing traumatic memories in detail. This phase is about building capacity.",
+            "signs_of_readiness": "Relative stability, adequate coping skills, support in place, ability to self regulate"
+          },
+          {
+            "phase": 2,
+            "name": "Remembrance and Mourning",
+            "focus": "Processing traumatic memories. Grieving losses. Making meaning of what happened.",
+            "goals": ["Telling the trauma story", "Processing memories", "Grieving losses", "Understanding impact"],
+            "requires": "Sufficient safety and stabilisation from phase one. Ongoing support. Therapeutic relationship."
+          },
+          {
+            "phase": 3,
+            "name": "Reconnection",
+            "focus": "Rebuilding life, relationships and identity. Moving forward with meaning and purpose.",
+            "goals": ["Reclaiming identity", "Building new relationships", "Finding meaning", "Creating a new future"],
+            "represents": "Integration and moving forward. The trauma becomes part of your story but not the whole story."
+          }
+        ],
+        "key_principles": [
+          "Never skip phase one. Safety must come first.",
+          "Phases overlap and are not strictly linear.",
+          "Not everyone needs detailed trauma processing.",
+          "The pace is set by the survivor, not the helper."
+        ]
+      },
+      "use_in_sections": ["psychoeducation", "treatment_planning", "self_understanding", "recovery_roadmap"],
+      "best_for": ["trauma_informed", "recovery_planning", "understanding_process"],
+      "cognitive_levels": [1, 2, 3],
+      "application_note": "Aligns with resilience before processing principle. Workbooks typically support phase one and three. Phase two is clinical work.",
+      "pairs_well_with": ["window_of_tolerance", "polyvagal", "grounding_categories"]
+    },
+
+    "grounding_categories": {
+      "id": "grounding_categories",
+      "name": "Grounding Techniques",
+      "source": {
+        "creator": "Various, widely used in trauma informed care",
+        "year": "Various",
+        "publication": "Multiple sources including Najavits, Seeking Safety (2002)",
+        "field": "Trauma therapy, crisis intervention"
+      },
+      "descriptions": {
+        "professional": "A collection of techniques designed to orient an individual to present moment awareness when experiencing dissociation, flashbacks, overwhelming emotion or crisis states. Grounding techniques work by engaging the senses and redirecting attention from internal distress to external reality. They activate the ventral vagal system and can help bring an individual back within their window of tolerance.",
+        "peer_led": "Grounding techniques help you come back to the present moment when you feel overwhelmed, spaced out or caught in difficult memories. They use your senses and your body to anchor you in the here and now. Different techniques work for different people and different situations. Having a toolkit of grounding skills gives you options when you need them."
+      },
+      "background": {
+        "origin": "Grounding techniques draw from multiple traditions including mindfulness, somatic therapies and crisis intervention.",
+        "evidence_base": "Individual techniques have varying research support. The overall approach of using sensory and cognitive strategies for regulation is well supported.",
+        "why_it_matters": "Provides practical, immediate tools for distress. Can be used anywhere. Builds sense of agency and control.",
+        "common_applications": ["Trauma treatment", "Anxiety management", "Crisis intervention", "Dissociation management", "Panic attacks"],
+        "limitations": "Not all techniques work for all people. Some may be triggering for certain individuals."
+      },
+      "structure": {
+        "categories": [
+          {
+            "name": "sensory",
+            "label": "Sensory Grounding",
+            "description": "Using the five senses to anchor in the present moment",
+            "techniques": ["5-4-3-2-1 (name things you see, hear, touch, smell, taste)", "Cold water on face or hands", "Strong scent like peppermint or coffee", "Textured object to hold and explore", "Strong taste like sour or spicy"]
+          },
+          {
+            "name": "physical",
+            "label": "Physical Grounding",
+            "description": "Using the body to anchor and regulate",
+            "techniques": ["Press feet firmly into the floor", "Push hands against a wall", "Body scan noticing sensations", "Movement like walking or stretching", "Butterfly hug (cross arms, tap shoulders)"]
+          },
+          {
+            "name": "mental",
+            "label": "Mental Grounding",
+            "description": "Using cognitive tasks to redirect attention",
+            "techniques": ["Categories game (name animals, countries, foods)", "Counting backwards from 100 by 7s", "Describe surroundings in detail", "Anchor statements (My name is, Today is, I am in, I am safe because)"]
+          },
+          {
+            "name": "soothing",
+            "label": "Soothing Grounding",
+            "description": "Self compassion and comfort focused techniques",
+            "techniques": ["Kind self talk", "Safe place imagery", "Comfort object", "Hand on heart with slow breathing"]
+          }
+        ],
+        "choosing_techniques": {
+          "for_hyperarousal": "Try physical discharge or sensory techniques",
+          "for_hypoarousal": "Try stimulating techniques like cold water or movement",
+          "for_dissociation": "Try strong sensory input and orienting statements"
+        }
+      },
+      "use_in_sections": ["coping_skills", "crisis_tools", "regulation", "safety_planning"],
+      "best_for": ["trauma_informed", "crisis", "regulation", "immediate_coping"],
+      "cognitive_levels": [3, 4, 5],
+      "pairs_well_with": ["window_of_tolerance", "polyvagal", "safety_planning"]
+    }
+  },
+
+  "suggested_combinations": [
+    {
+      "frameworks": ["polyvagal", "window_of_tolerance"],
+      "use_for": "Comprehensive nervous system psychoeducation",
+      "how": "Polyvagal explains the why (nervous system states). Window of tolerance provides the what (zones and how to recognise them)."
+    },
+    {
+      "frameworks": ["hermans_phases", "grounding_categories"],
+      "use_for": "Phase one trauma work",
+      "how": "Herman's model provides the overall framework. Grounding techniques are core skills for phase one stabilisation."
+    }
+  ]
+}
