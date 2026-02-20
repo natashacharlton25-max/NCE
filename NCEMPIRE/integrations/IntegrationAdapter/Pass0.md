@@ -1,93 +1,98 @@
-You are acting as a senior systems architect performing a PASS 0 SYSTEM REVIEW.
+# PASS 0 — Integration Viability Review
 
-This is an ASSESSMENT-ONLY task.
-You are NOT designing, refactoring, or proposing solutions.
-
-Target system: access
-
-You are given:
-- The system’s intended role/purpose
-- The current list of subsystems/modules (if available)
-
-Your task:
-Evaluate whether the existing subsystems are sufficient for the system to fulfil its role,
-AND estimate whether the system can be built while respecting maintainability constraints.
+Integration Name: IntegrationAdapter
+Integration Type: Base Adapter Pattern
+Status: Draft
 
 ---
 
-MANDATORY RULES:
-
-- Do NOT invent new subsystems
-- Do NOT propose fixes or designs
-- Do NOT rename modules
-- Do NOT write specs or schemas
-- If information is missing, say so explicitly
-- Treat file size as a DESIGN SIGNAL, not an optimisation problem
+## External Provider
+- Provider: (Generic — base pattern for all integrations)
+- Provider Domain: N/A
+- Provider Interface: Abstract
 
 ---
 
-BUILD SIZE CONSTRAINT:
+## Internal Authority (CRITICAL)
 
-- No single file should exceed ~1500 lines of code
-- If a responsibility implies a file >1500 LOC, flag it as a risk
-- Estimate LOC conservatively (order-of-magnitude is sufficient)
+This integration is **not authoritative**.
+
+Authoritative internal system(s):
+- (Varies by concrete implementation)
+
+The adapter provides shared patterns for all integrations to follow.
 
 ---
 
-OUTPUT FORMAT (STRICT):
+## Purpose
 
-## System Role Summary
-- Restate what this system is responsible for (1–2 sentences)
+Provide a base adapter pattern for:
+- Common authentication patterns
+- Standard error handling
+- Response normalisation
+- Rate limiting patterns
+- Retry logic
 
-## Coverage Assessment
+No domain meaning or decision logic is defined here.
 
-### Covered Responsibilities
-- …
+---
 
-### Partially Covered Responsibilities
-- …
+## Explicit Non-Goals (MANDATORY)
 
-### Uncovered Responsibilities
-- …
+This integration does **NOT**:
+- Define business intent
+- Own consent, permissions, or policy
+- Define domain entities as sources of truth
+- Make allow/deny decisions
+- Enforce brand, legal, or ethical rules
+- Replace internal systems of record
 
-## Subsystem Sufficiency Review
+---
 
-For each subsystem:
+## Scope Boundaries
 
-- <Subsystem Name>
-  - Sufficiency: Sufficient / Overloaded / Underdefined
-  - Reasoning: (1–2 sentences)
-  - Estimated LOC: ~<number>
-  - File Size Risk: Low / Medium / High
+### In Scope
+- Base adapter interface/abstract class
+- Common HTTP client patterns
+- Authentication helpers
+- Error normalisation utilities
+- Retry/backoff patterns
 
-File Size Risk Rules:
-- Low: <1000 LOC
-- Medium: 1000–1500 LOC
-- High: >1500 LOC (design smell)
+### Out of Scope
+- Provider-specific logic
+- Domain modelling
+- Cross-system coordination
+- Policy enforcement
 
-## Missing Capability Areas
-(List conceptual capability areas with no clear owner.
-Do NOT propose subsystems.)
+---
 
-- Capability:
-  - Impact: Low / Medium / High
-  - Estimated LOC: ~<number>
+## Replaceability
 
-## Boundary & Classification Issues
-(List any responsibility that appears to leak across systems or be misclassified.)
+This adapter is:
+- Internal infrastructure
+- Provides patterns, not provider-specific code
 
-## Overall Build Size Estimate
-- Estimated total system LOC: ~<number>
-- Largest expected file: ~<number> LOC
-- Overall size risk: Low / Medium / High
+Concrete integrations extend or follow this pattern.
 
-## Risk Assessment
-- Risk level: Low / Medium / High
-- Reasoning:
+---
+
+## Size & Complexity Signal
+
+- Expected size: 200–350 LOC
+- Subsystems: None expected
+- Complexity risk: Low
+
+---
+
+## Risks & Notes
+
+- Must remain generic and not leak provider-specific concerns
+- Changes here affect all integrations
+
+---
 
 ## Verdict
-- This system CAN / CANNOT reasonably fulfil its role
-  with the current subsystem set and size constraints.
 
-If anything is unclear, state it explicitly.
-Do NOT suggest how to fix it.
+☑ SAFE as an integration
+
+**Status:** Approved

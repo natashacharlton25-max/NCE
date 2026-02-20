@@ -1,93 +1,101 @@
-You are acting as a senior systems architect performing a PASS 0 SYSTEM REVIEW.
+# PASS 0 — Integration Viability Review
 
-This is an ASSESSMENT-ONLY task.
-You are NOT designing, refactoring, or proposing solutions.
-
-Target system: access
-
-You are given:
-- The system’s intended role/purpose
-- The current list of subsystems/modules (if available)
-
-Your task:
-Evaluate whether the existing subsystems are sufficient for the system to fulfil its role,
-AND estimate whether the system can be built while respecting maintainability constraints.
+Integration Name: Canva
+Integration Type: External Provider Adapter
+Status: Draft
 
 ---
 
-MANDATORY RULES:
-
-- Do NOT invent new subsystems
-- Do NOT propose fixes or designs
-- Do NOT rename modules
-- Do NOT write specs or schemas
-- If information is missing, say so explicitly
-- Treat file size as a DESIGN SIGNAL, not an optimisation problem
+## External Provider
+- Provider: Canva
+- Provider Domain: Design / Templates
+- Provider Interface: API
 
 ---
 
-BUILD SIZE CONSTRAINT:
+## Internal Authority (CRITICAL)
 
-- No single file should exceed ~1500 lines of code
-- If a responsibility implies a file >1500 LOC, flag it as a risk
-- Estimate LOC conservatively (order-of-magnitude is sufficient)
+This integration is **not authoritative**.
+
+Authoritative internal system(s):
+- template/
+- visual/
+
+The integration executes instructions from internal systems and reports provider-level events.
 
 ---
 
-OUTPUT FORMAT (STRICT):
+## Purpose
 
-## System Role Summary
-- Restate what this system is responsible for (1–2 sentences)
+Provide a bounded adapter between internal systems and Canva for:
+- Execution (create, export, sync designs)
+- Configuration (API keys, workspace settings)
+- Telemetry ingestion (design events, export statuses)
 
-## Coverage Assessment
+No domain meaning or decision logic is defined here.
 
-### Covered Responsibilities
-- …
+---
 
-### Partially Covered Responsibilities
-- …
+## Explicit Non-Goals (MANDATORY)
 
-### Uncovered Responsibilities
-- …
+This integration does **NOT**:
+- Define business intent
+- Own consent, permissions, or policy
+- Define domain entities as sources of truth
+- Make allow/deny decisions
+- Enforce brand, legal, or ethical rules
+- Replace internal systems of record
 
-## Subsystem Sufficiency Review
+Provider concepts are treated as **operational mirrors only**.
 
-For each subsystem:
+---
 
-- <Subsystem Name>
-  - Sufficiency: Sufficient / Overloaded / Underdefined
-  - Reasoning: (1–2 sentences)
-  - Estimated LOC: ~<number>
-  - File Size Risk: Low / Medium / High
+## Scope Boundaries
 
-File Size Risk Rules:
-- Low: <1000 LOC
-- Medium: 1000–1500 LOC
-- High: >1500 LOC (design smell)
+### In Scope
+- Canva API interaction
+- Authentication / credentials
+- Design export operations
+- Template sync operations
+- Webhook / event ingestion
+- Normalisation of Canva responses
 
-## Missing Capability Areas
-(List conceptual capability areas with no clear owner.
-Do NOT propose subsystems.)
+### Out of Scope
+- Domain modelling
+- Cross-system coordination
+- Long-term analytics interpretation
+- Policy enforcement
+- User-facing logic
 
-- Capability:
-  - Impact: Low / Medium / High
-  - Estimated LOC: ~<number>
+---
 
-## Boundary & Classification Issues
-(List any responsibility that appears to leak across systems or be misclassified.)
+## Replaceability
 
-## Overall Build Size Estimate
-- Estimated total system LOC: ~<number>
-- Largest expected file: ~<number> LOC
-- Overall size risk: Low / Medium / High
+This integration is:
+- Provider-specific
+- Swappable without changing internal domain logic
 
-## Risk Assessment
-- Risk level: Low / Medium / High
-- Reasoning:
+Internal systems must not depend on Canva-specific semantics.
+
+---
+
+## Size & Complexity Signal
+
+- Expected size: 300–500 LOC
+- Subsystems: None expected
+- Complexity risk: Low
+
+---
+
+## Risks & Notes
+
+- Rate limits on Canva API
+- Design export format compatibility
+
+---
 
 ## Verdict
-- This system CAN / CANNOT reasonably fulfil its role
-  with the current subsystem set and size constraints.
 
-If anything is unclear, state it explicitly.
-Do NOT suggest how to fix it.
+☑ SAFE as an integration
+
+**Status:** Approved

@@ -1,4 +1,5 @@
 # [Module Name] Module
+Do NOT invent functionality. If information is missing, leave TODO markers.
 
 > **Purpose:** [One sentence: "Generate [WHAT] using [HOW]"]
 > **Type:** [Category: AI Services / Visual Design / Data Management / etc.]

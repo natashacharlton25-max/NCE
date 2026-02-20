@@ -1,4 +1,5 @@
 # Pre-Spec Notes Checklist
+Do NOT invent functionality. If information is missing, leave TODO markers.
 
 > **Purpose:** Ensure placeholder specs capture all essential concerns before detailed spec writing.
 > **Applies to:** All module placeholders before moving to full spec phase.
