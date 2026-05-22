@@ -2,12 +2,25 @@
 
 ---
 Status: DRAFT | APPROVED
-Version: v0.1.0
+Version: v0.2.0 (enriched for NCE-V2)
 Last Updated: {{timestamp}}
 Owner: Claude | Human
-Pass: BUILD
+Pass: BUILD (Phase 11)
 Type: EXTERNAL INTEGRATION SERVICE
 Parent Provider: {{Provider Name}}
+---
+
+## NCE-V2 Project-Specific Fields
+
+| Field | Value |
+|-------|-------|
+| **Direction** | Inbound source / Outbound receiver / Downstream renderer / Combined |
+| **Output Form (if outbound)** | Rendered HTML / PDF blob / DOCX blob / JSON / Other |
+| **Asset Sink (if inbound binary)** | R2 via `assets/` system |
+| **Library Sink (if inbound metadata)** | D1 binding `{{NAME}}` via `library/` |
+| **Worker secret binding name** | `{{SECRET_NAME}}` |
+| **resilience/ involvement** | Yes (RateLimiter, RetryPolicyEngine, FallbackStrategyResolver) / No |
+
 ---
 
 ## Service Identity
@@ -25,7 +38,7 @@ Parent Provider: {{Provider Name}}
 (Why this specific service is needed. One sentence.)
 
 ## Intent
-(What capability this service provides to the project.)
+(What capability this service provides to NCE-V2.)
 
 ## Justification
 - Why this service is needed from this provider
@@ -34,7 +47,6 @@ Parent Provider: {{Provider Name}}
 ---
 
 ## Consuming Systems
-(Which of YOUR internal systems use this service.)
 
 | System | How It Uses This Service |
 |--------|--------------------------|
@@ -43,21 +55,12 @@ Parent Provider: {{Provider Name}}
 ---
 
 ## In Scope
-(What we WILL use this service for. Be specific.)
-
-- …
 - …
 
 ## Out of Scope
-(What we will NOT use this service for, even if it supports it.)
-
-- …
 - …
 
 ## Non-Goals
-(Things this service integration will never do.)
-
-- …
 - …
 
 ---
@@ -66,15 +69,15 @@ Parent Provider: {{Provider Name}}
 
 ### Data Sent to Service
 
-| Data Type | Sensitivity | Description |
-|-----------|-------------|-------------|
-| … | None / Low / Medium / High | … |
+| Data Type | Sensitivity | Form | Description |
+|-----------|-------------|------|-------------|
+| | None / Low / Medium / High | JSON / rendered HTML / binary | |
 
 ### Data Received from Service
 
-| Data Type | Validation Required | Description |
-|-----------|---------------------|-------------|
-| … | Yes / No | … |
+| Data Type | Validation Required | Sink Target | Description |
+|-----------|---------------------|-------------|-------------|
+| | Yes / No | `assets/` (R2) / library D1 / metadata-only | |
 
 ---
 
@@ -82,36 +85,40 @@ Parent Provider: {{Provider Name}}
 
 | Field | Value |
 |-------|-------|
-| **Method** | API Key / OAuth 2.0 / Service Account / Other |
+| **Method** | API Key / OAuth 2.0 / Service Account / Signed request |
 | **Scopes Required** | {{list specific scopes}} |
 | **Token Refresh** | Yes / No / N/A |
-| **Credentials Location** | {{reference only — never store actual credentials}} |
+| **Worker Secret Binding Name** | `{{SECRET_NAME}}` |
 
 ---
 
-## Service Constraints
+## Service Constraints (Worker context)
 
 ### Rate Limits
 
 | Limit Type | Value | Notes |
 |------------|-------|-------|
-| Requests per second | {{or Unknown}} | |
+| Requests per second | {{or Unknown}} | `resilience/RateLimiter` involvement? |
 | Requests per day | {{or Unknown}} | |
-| Payload size limit | {{or Unknown}} | |
+| Payload size limit | {{or Unknown}} | Worker 128 MB memory constraint |
 
 ### Quotas
 
 | Quota Type | Value | Notes |
 |------------|-------|-------|
-| {{e.g., Storage}} | {{or Unknown}} | |
-| {{e.g., API calls}} | {{or Unknown}} | |
+| | | |
 
 ### Cost
 
 | Usage | Cost | Notes |
 |-------|------|-------|
-| {{e.g., First 1000 calls}} | Free | |
-| {{e.g., Additional calls}} | {{rate}} | |
+| | | |
+
+### Latency (Worker 5-min CPU limit)
+
+| Metric | Value | Notes |
+|--------|-------|-------|
+| p99 latency | {{or Unknown}} | Multiple calls per Worker invocation? |
 
 ---
 
@@ -120,7 +127,6 @@ Parent Provider: {{Provider Name}}
 | Field | Value |
 |-------|-------|
 | API version used | {{version}} |
-| Version release date | {{or Unknown}} |
 | Deprecation status | Active / Deprecated / Sunset date: {{date}} |
 | Breaking change risk | Low / Medium / High |
 
@@ -129,49 +135,45 @@ Parent Provider: {{Provider Name}}
 ## Failure Contract
 (What failures must be tolerated. Not how to handle them.)
 
-| Failure Type | Expected Behaviour |
-|--------------|-------------------|
-| Service unavailable | … |
-| Auth failure / token expired | … |
-| Rate limit exceeded | … |
-| Timeout | … |
-| Invalid request | … |
-| Unexpected response format | … |
+| Failure Type | Expected Behaviour | resilience/ Pattern |
+|--------------|--------------------|---------------------| 
+| Service unavailable | | RetryPolicyEngine / FallbackStrategyResolver |
+| Auth failure / token expired | | |
+| Rate limit exceeded | | RateLimiter |
+| Timeout | | Worker CPU limit interaction |
+| Invalid request | | |
+| Unexpected response format | | |
 
 ---
 
 ## Dependencies
 
 ### Internal Dependencies
-(Your systems/subsystems this service depends on.)
 
-| Dependency | Reason |
-|------------|--------|
-| … | … |
+| Dependency | Binding | Reason |
+|------------|---------|--------|
+| | service / D1 / R2 | |
 
 ### Other Services from Same Provider
-(Other services from this provider that this service depends on.)
 
 | Service | Reason |
 |---------|--------|
-| {{e.g., OAuth}} | Authentication |
+| {{OAuth}} | Authentication |
 
 ### External Dependencies
-(Other providers this service depends on.)
 
 | Dependency | Reason |
 |------------|--------|
-| … | … |
+| | |
 
 ---
 
 ## Size Constraint
-This service integration is intended to remain under **~1,500 lines** of implementation code.
+This service integration is intended to remain under **~2000 LOC** of runtime TypeScript (exclusions applied).
 
 ---
 
 ## Notes
-(Assumptions, edge cases, or implementation considerations. No actual implementation.)
 
 ---
 
@@ -179,11 +181,11 @@ This service integration is intended to remain under **~1,500 lines** of impleme
 
 | Pass | Status | Owner | Date |
 |------|--------|-------|------|
-| Build | COMPLETE | Claude | {{timestamp}} |
-| Pass 0 | PENDING | — | — |
-| Pass 1 | PENDING | — | — |
-| Pass 2 | PENDING | — | — |
-| Pass 3 | PENDING | — | — |
-| Pass 4 | PENDING | — | — |
+| Phase 11 Build | COMPLETE | Claude | {{timestamp}} |
+| Phase 13 Pass 0 | PENDING | — | — |
+| Phase 14 Pass 1 | PENDING | — | — |
+| Phase 15 Pass 2 | PENDING | — | — |
+| Phase 16 Pass 3 | PENDING | — | — |
+| Phase 17 Pass 4 | PENDING | — | — |
 
 ## Pass Notes

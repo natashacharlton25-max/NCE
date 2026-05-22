@@ -1,190 +1,125 @@
-# EXTERNAL INTEGRATION SERVICE BUILD — PROMPT
+# PHASE 11: EXTERNAL INTEGRATION SERVICE BUILD
+
+---
+Phase: 11
+Name: External Integration Service Build (materialise SERVICE-NOTES.md per service)
+Location: NCE-V2/NCE V2.0 Spec & Build/11. External Integration Service Build/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
+---
 
 ## ROLE
-You are materialising approved services into a real folder structure inside existing provider folders.
-Your job is to create service folders and populate each with a completed SERVICE-NOTES.md file.
 
-You are NOT designing implementation, writing code, or adding new services.
+You materialise approved NCE-V2 services into per-service folders + SERVICE-NOTES.md inside their provider folders.
+
+You are NOT designing implementation or writing code.
+
+---
+
+## LOCKED CONTEXT (Required Reading)
+
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
+
+1. [Project-Intent.md](../../Project-Intent.md)
+2. [CLAUDE.md](../../../CLAUDE.md)
+3. [STACK-AND-RUNTIME.md](../../STACK-AND-RUNTIME.md)
+4. [FileTree-v2.md](../../FileTree-v2.md)
+5. `NCE-V2/specs/integrations/<provider>/PROVIDER-NOTES.md` and `SERVICE-SCOPE.md` (Phases 9+10 outputs)
+
+---
+
+## RUNTIME CONTEXT
+
+- Worker 5-min CPU, 128 MB memory
+- Outbound `fetch()` to provider API
+- Auth via Worker secret binding
+
+---
+
+## OUTPUT-BOUNDARY RULE (CANONICAL)
+
+Each SERVICE-NOTES.md must declare:
+- **Direction** (inbound / outbound / combined)
+- **Output Form (if outbound)** (rendered HTML / PDF blob / DOCX blob / JSON / other)
+- **Asset Sink (if inbound binary)**: R2 via `assets/` system
+- **Library Sink (if inbound metadata)**: D1 binding via `library/`
+
+Direct D1/R2 writes from outside `library/` or `assets/` are forbidden.
 
 ---
 
 ## TASK
 
-For each approved service from the Service Scope:
-1. Create a folder inside the provider folder using the service name
-2. Create a SERVICE-NOTES.md file inside that folder
-3. Complete all sections based on the approved information and provider documentation
+For each approved service in each provider's `SERVICE-SCOPE.md`:
 
-**Process one provider at a time.**
+1. Create folder at `NCE-V2/specs/integrations/<provider>/<service>/`
+2. Create `SERVICE-NOTES.md` inside
+3. Complete sections:
+   - Service identity (name, API version, docs URL)
+   - Direction + form
+   - Purpose + consuming systems
+   - In Scope / Out of Scope / Non-Goals
+   - Data boundary (what we send / what we receive, sensitivity, sink target)
+   - Authentication (auth method + Worker secret binding name)
+   - Service constraints (rate limit, payload size, quota)
+   - Failure contract (what failures expected; resilience/ involvement)
 
----
-
-## FOLDER STRUCTURE
-
-```
-{{project-name}}/
-├── integration-{{provider-name}}/
-│   ├── PROVIDER-NOTES.md (already exists)
-│   ├── {{service-name}}/              ← Created in this phase
-│   │   └── SERVICE-NOTES.md           ← Created in this phase
-│   ├── {{service-name}}/
-│   │   └── SERVICE-NOTES.md
-│   └── ...
-```
-
-**Naming rules:**
-- Service folders: lowercase, hyphens (e.g., `drive-api`, `oauth`, `payments-api`)
-- Use the common name for the service
-- No prefix with provider name (just `drive-api`, not `google-drive-api`)
-- Include API version if significant (e.g., `drive-api-v3` if v2 and v3 coexist)
-
----
-
-## COMPLETING SERVICE-NOTES.md
-
-For each section, derive content from:
-- The approved Service Scope (purpose, consuming systems)
-- The provider's API documentation (auth, limits, endpoints)
-- The parent PROVIDER-NOTES.md (overall context)
-
-### Service Identity
-- Provider name, service name, API version
-- Link to specific API documentation
-
-### Purpose & Intent
-- Pull from Service Scope "Purpose" and "Why Needed"
-- Focus on what this service enables for YOUR project
-
-### Consuming Systems
-- Pull from Service Scope
-- Reference actual system names
-
-### In Scope / Out of Scope / Non-Goals
-- What parts of the API will you use?
-- What parts will you NOT use?
-- Be explicit about boundaries
-
-### Data Boundary
-- What data will be sent to this service?
-- What data will be received?
-- Assess sensitivity
-
-### Authentication
-- Look up the specific auth requirements for this service
-- Note required scopes
-- Reference OAuth service if applicable
-
-### Service Constraints
-- Look up rate limits, quotas, pricing
-- Be specific to THIS service, not the provider overall
-
-### Failure Contract
-- What failures are possible?
-- Don't design handling — just document what to expect
+> **Logging rule:** TBD markers and any inferred content go in `PASS-DECISION-NOTES.md`.
 
 ---
 
 ## RULES
 
-1. **Use ONLY the approved services** from Service Scope — no new services
-2. **Do NOT change service names** — use as approved
-3. **Do NOT design implementation** — no code, no error handling logic
-4. **Do NOT store credentials** — only reference where they'll be stored
-5. **Mark unknowns explicitly** — if you can't find rate limits, write "Unknown"
-6. **Respect the ~1,500 LOC constraint** — each service wrapper should be focused
+1. Use **ONLY** approved services from `SERVICE-SCOPE.md`
+2. Do **NOT** rename services
+3. Do **NOT** design implementation or error-handling logic
+4. Do **NOT** store credentials — reference Worker secret binding names
+5. Mark unknowns as TBD; log them
+6. Respect the **2000 LOC band** for the eventual integration wrapper
+7. Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
-## PROCESS
-
-1. Read the approved Service Scope for the target provider
-2. For each approved service:
-   - Create the service folder
-   - Create SERVICE-NOTES.md
-   - Complete all sections (research API docs as needed)
-3. Update the parent PROVIDER-NOTES.md "Services Used" table
-4. Present the full structure and file contents
-5. Ask for approval
-6. Repeat for next provider (if any)
-
----
-
-## OUTPUT FORMAT
-
-Return a single Markdown document showing:
-
-1. The folder structure created
-2. The complete contents of each SERVICE-NOTES.md file
-
-```markdown
-## Provider
-
-{{project-name}}/integration-{{provider-name}}/
-
-## Created Service Folders
-
-{{project-name}}/integration-{{provider-name}}/
-├── {{service-name}}/
-│   └── SERVICE-NOTES.md
-├── {{service-name}}/
-│   └── SERVICE-NOTES.md
-└── ...
-
----
-
-## {{service-name}}/SERVICE-NOTES.md
-
-(complete file contents)
-
----
-
-## {{service-name}}/SERVICE-NOTES.md
-
-(complete file contents)
-
----
-
-(repeat for each service)
-```
-
-After presenting, ask:
+## OUTPUT LOCATION
 
 ```
-Please review the created service folders and SERVICE-NOTES.md files
-for {{Provider Name}}.
-- Reply APPROVE to accept and proceed to the next provider (or Pass 0 if done)
-- Reply REVISE with specific changes needed
+NCE-V2/specs/integrations/{{provider}}/{{service}}/
+└── SERVICE-NOTES.md
 ```
 
 ---
 
-## ON APPROVAL
+## END CONDITION
 
-When approved:
-- Update each SERVICE-NOTES.md Status to: **APPROVED**
-- Update Last Updated to: **{{current_timestamp}}**
-- Ensure PROVIDER-NOTES.md "Services Used" table is updated
-- If more providers have services → process next provider
-- If all services done → proceed to: **Pass 0**
+- [ ] Each approved service has `NCE-V2/specs/integrations/<provider>/<service>/SERVICE-NOTES.md`
+- [ ] Each declares Direction + Form + Auth binding name
+- [ ] Provider's `PROVIDER-NOTES.md` "Services Used" table updated
+- [ ] Status: Draft Complete – Awaiting Review
+
+**Next:** Proceed to Phase 12 (PrePass Check)
+
+---
+
+## TEMPLATES (enriched for NCE-V2)
+
+- [SERVICE-NOTES-TEMPLATE.md](./SERVICE-NOTES-TEMPLATE.md)
 
 ---
 
 ## INPUTS
 
-Project Name:
-{{project_name}}
+- `NCE-V2/specs/integrations/<provider>/PROVIDER-NOTES.md`
+- `NCE-V2/specs/integrations/<provider>/SERVICE-SCOPE.md`
+- All `NCE-V2/specs/<system>/SYSTEM-NOTES.md`
 
-Provider Name:
-{{provider_name}}
+---
 
-Provider PROVIDER-NOTES.md:
-{{provider_notes}}
+## STATUS
 
-Approved Service Scope:
-{{service_scope}}
+**Draft Complete – Awaiting Review**
 
-All System NOTES (for reference on consuming systems):
-{{all_system_notes}}
+---
 
-Timestamp:
-{{current_timestamp}}
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?

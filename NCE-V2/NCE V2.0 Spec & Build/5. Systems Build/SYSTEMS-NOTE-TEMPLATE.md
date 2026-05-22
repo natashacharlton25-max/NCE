@@ -2,75 +2,85 @@
 
 ---
 Status: DRAFT | APPROVED
-Version: v0.1.0
+Version: v0.2.0 (enriched for NCE-V2)
 Last Updated: {{timestamp}}
 Owner: Claude | Human
-Pass: BUILD
+Pass: BUILD (Phase 5)
+---
+
+## NCE-V2 Project-Specific Fields
+
+| Field | Value |
+|-------|-------|
+| **Output Form** | JSON / rendered artefact / library entry / metadata / mixed |
+| **Output Destination** | internal system / Astro / external provider / human / library |
+| **Worker Grouping** | own Worker / `platform` Worker |
+| **Library Ownership** | None / {{D1_BINDING_NAME(s)}} |
+| **Storage Touch** | none / D1 / R2 / KV / DO / Queue / Vectorize |
+
 ---
 
 ## Purpose
-(One clear sentence describing **why this system exists**. What responsibility does it own that no other system should?)
+(One clear sentence describing **why this system exists**.)
 
 ## Intent
-(What this system is trying to achieve at a high level. Focus on outcomes, not mechanics.)
+(What this system is trying to achieve at a high level.)
 
 ## Justification
-- Why this responsibility is required for the project
-- Why it deserves to be its own system
+- Why this responsibility is required for NCE-V2
+- Why it deserves its own system
+- Expected LOC band (Low <1500 / Medium 1500–2000 / High >2000)
 
 ---
 
 ## In Scope
-(Responsibilities this system explicitly owns. Be specific.)
-
-- …
 - …
 
 ## Out of Scope
-(Responsibilities this system must NOT take on. Include common temptations to avoid.)
-
 - …
-- …
+- (For renderer-adjacent systems: state explicitly if web rendering is excluded — per output-boundary rule)
 
 ## Non-Goals
-(Things this system will never do, even if they seem related.)
-
-- …
 - …
 
 ---
 
 ## Inputs
-(What this system consumes. Name source systems, not files or APIs.)
 
-| Input | Source System | Description |
-|-------|---------------|-------------|
-| … | … | … |
+| Input | Source System | Binding Type | Description |
+|-------|----------------|--------------|-------------|
+| | | service / D1 / R2 / KV / DO / Queue / in-Worker | |
 
 ## Outputs
-(What this system produces. Name consuming systems.)
 
-| Output | Consuming System | Description |
-|--------|------------------|-------------|
-| … | … | … |
+| Output | Consuming System | Form | Binding Type | Description |
+|--------|-------------------|------|--------------|-------------|
+| | | JSON / rendered / library / metadata | | |
 
 ## Dependencies
-(Systems this system depends on. Explain why.)
 
-| Dependency | Reason |
-|------------|--------|
-| … | … |
+| Dependency | Type | Binding | Reason |
+|------------|------|---------|--------|
+| | Hard / Soft / Build / Runtime / External | service / D1 / etc. | |
+
+---
+
+## Library Ownership (if applicable)
+
+| Library | D1 Binding | Type (core / derived / generated / reference) | Notes |
+|---------|-----------|------------------------------------------------|-------|
+| | `{{BINDING_NAME}}` | | |
 
 ---
 
 ## Size Constraint
-This system is intended to remain under **~1,500 lines** of implementation code.
-If this limit is at risk, the system must be decomposed into subsystems.
+This system is intended to remain under **~2000 LOC** of runtime TypeScript (excluding `*.debug.ts`, `*.test.ts`, `__debug__/`, `*.types.ts`, comments).
+
+If estimated >2000 LOC: log exception in `NCE-V2/admin/PASS-DECISION-NOTES.md` and consider Pass 0 split.
 
 ---
 
 ## Notes
-(Freeform clarifications, assumptions, or future considerations. No implementation details permitted at this stage.)
 
 ---
 
@@ -78,12 +88,12 @@ If this limit is at risk, the system must be decomposed into subsystems.
 
 | Pass | Status | Owner | Date |
 |------|--------|-------|------|
-| Build | COMPLETE | Claude | {{timestamp}} |
-| Pass 0 | PENDING | — | — |
-| Pass 1 | PENDING | — | — |
-| Pass 2 | PENDING | — | — |
-| Pass 3 | PENDING | — | — |
-| Pass 4 | PENDING | — | — |
+| Phase 5 Build | COMPLETE | Claude | {{timestamp}} |
+| Phase 6 Subsystem ID | PENDING | — | — |
+| Phase 13 Pass 0 | PENDING | — | — |
+| Phase 14 Pass 1 | PENDING | — | — |
+| Phase 15 Pass 2 | PENDING | — | — |
+| Phase 16 Pass 3 | PENDING | — | — |
+| Phase 17 Pass 4 | PENDING | — | — |
 
 ## Pass Notes
-(Record decisions, changes, or issues discovered during each pass.)

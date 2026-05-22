@@ -2,56 +2,58 @@
 
 ---
 Status: DRAFT | APPROVED
-Version: v0.1.0
+Version: v0.2.0 (enriched for NCE-V2)
 Last Updated: {{timestamp}}
 Owner: Human
 ---
 
 ## Concept Name
-(Short working name for the project. 1-3 words.)
+(Short working name. For NCE-V2: "NCE-V2" or the active concept name from Project-Intent.md.)
 
 ## One-Line Description
-(A single sentence describing the idea in plain language. No jargon.)
+(A single sentence describing the project in plain language. No jargon.)
+
+## NCE-V2 Project-Specific Fields
+
+| Field | Value |
+|-------|-------|
+| **Runtime** | TypeScript on Cloudflare Workers |
+| **Storage** | D1 (libraries), R2 (assets), KV (cache), DO (state), Vectorize (embeddings) |
+| **Source of system list** | NCE-V2/FileTree-v2.md (27 systems + lib/ utilities) |
+| **Source of project intent** | NCE-V2/Project-Intent.md |
 
 ## Problem Statement
 (What problem does this project exist to solve? Be specific.)
 
-(Who experiences this problem? Be specific about the person, not just "users".)
+(Who experiences this problem?)
 
 ## Target User
-(Primary user or customer type. One type only — if there are multiple, pick the most important.)
+(Primary user or customer type. One type only.)
 
 ## Context
-(Background, constraints, or situational context.)
-
 - Why now?
-- Why this approach?
-- What has been tried before (if anything)?
+- Why this approach (TypeScript + Cloudflare Workers)?
+- What has been tried before?
 
 ## Initial Constraints
-(Known limits. Leave blank or write "None known" if truly unconstrained.)
-
 - **Time:** 
 - **Budget:** 
-- **Platform:** 
+- **Platform:** TypeScript on Cloudflare Workers (fixed)
 - **Compliance:** 
 - **Team/Skills:** 
 - **Other:** 
 
 ## Known Unknowns
-(Things that are unclear or undecided. Be honest — this is not a weakness.)
-
 - …
 
 ## Explicit Non-Goals
-(What is this project NOT trying to do? What should we refuse to add?)
-
+- Web rendering — that's Astro's job (per output-boundary rule)
 - …
 
 ## Notes
-(Any additional thoughts, raw ideas, or context that doesn't fit above.)
+(Additional context.)
 
 ---
 
 ## Next Step
-When this document is APPROVED, proceed to: **Project Intention**
+When this document is APPROVED, proceed to: **Phase 2 — Project Intention**

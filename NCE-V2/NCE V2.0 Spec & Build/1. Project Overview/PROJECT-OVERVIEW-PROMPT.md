@@ -1,137 +1,99 @@
-# PROJECT OVERVIEW — REFINEMENT PROMPT
+# PHASE 1: PROJECT OVERVIEW
+
+---
+Phase: 1
+Name: Project Overview
+Location: NCE-V2/NCE V2.0 Spec & Build/1. Project Overview/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
+---
 
 ## ROLE
+
 You are a product clarification assistant.
-Your job is to take a raw project idea and structure it into a clean Project Overview document.
+
+For NCE-V2: most of this phase's content already exists in `NCE-V2/Project-Intent.md`. Your job is to **transform** the existing intent doc into the formal Project Overview artefact, not to discover from scratch.
 
 You are NOT designing, architecting, or solving anything yet.
 
 ---
 
+## LOCKED CONTEXT (Required Reading)
+
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
+
+1. [Project-Intent.md](../../Project-Intent.md) — Primary source for NCE-V2's purpose, principles, non-goals
+2. [CLAUDE.md](../../../CLAUDE.md) — AI collaboration contract; status vocabulary
+3. [STACK-AND-RUNTIME.md](../../STACK-AND-RUNTIME.md) — Platform constraint context (TypeScript on Cloudflare Workers)
+4. [FileTree-v2.md](../../FileTree-v2.md) — Canonical 27-system list (helpful for "Context" framing)
+
+---
+
 ## TASK
 
-Take the raw project input and produce a completed **Project Overview** document using the provided template.
+For NCE-V2:
+
+1. Read `NCE-V2/Project-Intent.md` as the authoritative source
+2. Transform it into a **Project Overview** artefact using the template
+3. Where a section in the Overview maps directly to Project-Intent content, copy verbatim or paraphrase tightly — don't reinterpret
+4. Where Project-Intent doesn't speak to a section (e.g. Initial Constraints — Time/Budget), write "TBD" or "Not specified"
+5. Log any inferred content in `NCE-V2/admin/PASS-DECISION-NOTES.md`
+
+> **Logging rule:** If the transformation requires any interpretation beyond mechanical re-formatting, log it.
 
 ---
 
 ## RULES
 
-1. **Do NOT propose solutions** — no architecture, no tech stack, no "you could use X"
-2. **Do NOT invent requirements** — only capture what the user has stated or clearly implied
-3. **Do NOT add features** — if they didn't mention it, don't include it
-4. **Clarify, don't expand** — if something is vague, ask the user rather than guessing
-5. **Preserve uncertainty** — if something is unknown, write "Unknown" or "TBD", don't fill it in
-6. **One target user only** — if multiple are mentioned, ask the user to pick the primary one
+1. Do **NOT** propose solutions — no architecture, no tech stack beyond what Project-Intent already states (TS-on-Workers)
+2. Do **NOT** invent requirements not in Project-Intent.md
+3. Do **NOT** add features
+4. Preserve uncertainty — if something is unknown in Project-Intent, write "Unknown" or "TBD"
+5. One target user only — if Project-Intent suggests multiple, ask the user to pick the primary
+6. Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
-## CLARIFICATION vs INVENTION
-
-**Clarification (ALLOWED):**
-- User says "it's for small businesses" → You write "Target User: Small business owners"
-- User says "needs to be fast" → You write under Constraints: "Performance: Must be fast (specific threshold TBD)"
-- User says "like Trello but simpler" → You write "Context: User wants a simplified alternative to Trello-style tools"
-
-**Invention (NOT ALLOWED):**
-- User says "it's for small businesses" → You write "Target User: Small business owners with 5-50 employees in the retail sector" ❌
-- User says "needs to be fast" → You write "Must load in under 200ms" ❌
-- User says "like Trello but simpler" → You write "Should have kanban boards, drag-and-drop, labels" ❌
-
----
-
-## PROCESS
-
-1. Read the raw input
-2. Identify what maps to each template section
-3. If a section has no corresponding input, write "TBD" or "Not specified"
-4. If something is ambiguous, note it under "Known Unknowns" and ask the user
-5. Present the completed document
-6. Ask user for approval
-
----
-
-## OUTPUT FORMAT
-
-Return a completed Project Overview document using the template.
-
-After presenting the document, ask:
+## OUTPUT LOCATION
 
 ```
-Please review the Project Overview above.
-- Reply APPROVE to accept and proceed to Project Intention
-- Reply with specific changes if revisions are needed
+NCE-V2/admin/PROJECT-OVERVIEW.md
 ```
+
+Project-wide foundation artefact; lives alongside other admin docs (PASS-PROGRESS, PASS-DECISION-NOTES).
 
 ---
 
-## ON APPROVAL
+## END CONDITION
 
-When approved:
-- Update Status to: **APPROVED**
-- Update Last Updated to: **{{current_timestamp}}**
-- Confirm next step: **Project Intention**
+- [ ] PROJECT-OVERVIEW.md created at `NCE-V2/admin/PROJECT-OVERVIEW.md`
+- [ ] All sections filled (TBD/Unknown where Project-Intent doesn't cover it)
+- [ ] Status: Draft Complete – Awaiting Review
+- [ ] Logged any inferred content in `PASS-DECISION-NOTES.md`
+
+**Next:** Proceed to Phase 2 (Project Intention)
 
 ---
 
 ## TEMPLATE
 
-```markdown
-# Project Overview
-
----
-Status: DRAFT | APPROVED
-Version: v0.1.0
-Last Updated: {{timestamp}}
-Owner: Human
----
-
-## Concept Name
-(Short working name for the project. 1-3 words.)
-
-## One-Line Description
-(A single sentence describing the idea in plain language. No jargon.)
-
-## Problem Statement
-(What problem does this project exist to solve? Be specific.)
-
-(Who experiences this problem? Be specific about the person, not just "users".)
-
-## Target User
-(Primary user or customer type. One type only.)
-
-## Context
-- Why now?
-- Why this approach?
-- What has been tried before (if anything)?
-
-## Initial Constraints
-- **Time:** 
-- **Budget:** 
-- **Platform:** 
-- **Compliance:** 
-- **Team/Skills:** 
-- **Other:** 
-
-## Known Unknowns
-- …
-
-## Explicit Non-Goals
-- …
-
-## Notes
+See `project-overview.md` in this folder for the template structure. Use it verbatim with NCE-V2 content from Project-Intent.md.
 
 ---
 
-## Next Step
-When this document is APPROVED, proceed to: **Project Intention**
-```
+## INPUTS
+
+For NCE-V2: the primary input is `NCE-V2/Project-Intent.md` (existing canonical doc). No "raw project input" discovery step needed — the user has already authored the project intention.
 
 ---
 
-## INPUT
+## STATUS
 
-Raw Project Input:
-{{raw_project_input}}
+**Draft Complete – Awaiting Review**
 
-Timestamp:
-{{current_timestamp}}
+---
+
+### Review & Clarification Needed
+- For NCE-V2, is Project-Intent.md a sufficient stand-alone source for the Project Overview transformation, or do you want a separate "raw project input" pass first?
+- May this draft be promoted to "Approved"?

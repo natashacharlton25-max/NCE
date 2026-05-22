@@ -2,11 +2,22 @@
 
 ---
 Status: DRAFT | APPROVED
-Version: v0.1.0
+Version: v0.2.0 (enriched for NCE-V2)
 Last Updated: {{timestamp}}
 Owner: Claude | Human
-Pass: BUILD
+Pass: BUILD (Phase 9)
 Type: EXTERNAL INTEGRATION PROVIDER
+---
+
+## NCE-V2 Project-Specific Fields
+
+| Field | Value |
+|-------|-------|
+| **Direction** | Outbound receiver / Inbound source / Downstream renderer / Mixed |
+| **FileTree-v2 subsystem** | `integrations/{{Provider}}Integration.ts` |
+| **Worker secret binding name** | `{{SECRET_NAME}}` |
+| **Worker fetch() pattern** | from owning system Worker / via `integrations/` Worker |
+
 ---
 
 ## Provider Identity
@@ -21,37 +32,33 @@ Type: EXTERNAL INTEGRATION PROVIDER
 ---
 
 ## Purpose
-(Why this provider is needed for the project. One sentence.)
+(Why this provider is needed for NCE-V2. One sentence.)
 
 ## Intent
-(What business/project capability this provider enables.)
+(What business capability this provider enables.)
 
 ## Justification
-- Why an external provider is needed (vs building in-house)
-- Why this specific provider was chosen over alternatives
+- Why an external provider is needed (vs in-house)
+- Why this specific provider was chosen
 
 ---
 
 ## Services Used
-(List of specific services/APIs from this provider that the project will use. Details in each service's SERVICE-NOTES.md.)
+(Filled in during Phase 10 Service Scope.)
 
-| Service | Purpose | Consuming System(s) |
-|---------|---------|---------------------|
-| {{e.g., Drive API}} | {{brief purpose}} | {{system-name}} |
-| {{e.g., OAuth 2.0}} | {{brief purpose}} | {{system-name}} |
+| Service | Purpose | Direction | Consuming System(s) |
+|---------|---------|-----------|---------------------|
+| {{Drive API}} | {{brief}} | Outbound | {{system-name}} |
 
 ---
 
 ## Services NOT Used
-(Explicit exclusions — services from this provider we will NOT use, even if available.)
-
-- {{e.g., Google Sheets API}} — not needed for this project
-- {{e.g., Google Calendar API}} — out of scope
+- {{service}} — reason
+- …
 
 ---
 
 ## Consuming Systems
-(Which of YOUR internal systems depend on this provider.)
 
 | System | How It Uses This Provider |
 |--------|---------------------------|
@@ -64,18 +71,17 @@ Type: EXTERNAL INTEGRATION PROVIDER
 | Field | Value |
 |-------|-------|
 | **Account Type** | Free / Paid / Enterprise / TBD |
-| **Account Owner** | {{role or person, not credentials}} |
-| **Billing** | {{who pays, or N/A for free tier}} |
+| **Account Owner** | {{role}} |
+| **Billing** | {{who pays}} |
 
 ---
 
 ## Authentication Overview
-(High-level auth approach for this provider. Service-specific details in SERVICE-NOTES.md.)
 
 | Field | Value |
 |-------|-------|
-| **Primary Auth Method** | API Key / OAuth 2.0 / Service Account / Other |
-| **Credentials Storage** | {{reference only — never store actual credentials}} |
+| **Primary Auth Method** | API Key / OAuth 2.0 / Service Account / Signed request |
+| **Worker Secret Binding Name** | `{{SECRET_NAME}}` (referenced, never stored in code) |
 | **Shared Across Services?** | Yes / No |
 
 ---
@@ -86,21 +92,21 @@ Type: EXTERNAL INTEGRATION PROVIDER
 
 | Tier | Limits | Cost |
 |------|--------|------|
-| {{e.g., Free}} | {{e.g., 15GB storage}} | Free |
-| {{e.g., Paid}} | {{e.g., 2TB storage}} | {{cost}} |
+| | | |
 
-### Global Rate Limits
-(Provider-wide limits. Service-specific limits in SERVICE-NOTES.md.)
+### Global Rate Limits (Worker context)
 
-| Limit Type | Value | Notes |
-|------------|-------|-------|
-| {{e.g., API calls per day}} | {{or Unknown}} | |
+| Limit Type | Value | Worker Impact |
+|------------|-------|---------------|
+| {{e.g., API calls per day}} | {{or Unknown}} | Per-Worker request count |
+| Burst limit | {{or Unknown}} | Need `resilience/RateLimiter` involvement? |
+| Latency p99 | {{or Unknown}} | Worker 5-min CPU limit constraint |
 
 ### Provider Stability
 
 | Field | Value |
 |-------|-------|
-| Provider maturity | Established / Growing / New / Unknown |
+| Provider maturity | Established / Growing / New |
 | API stability | Stable / Evolving / Unstable |
 | Deprecation policy | {{or Unknown}} |
 
@@ -110,29 +116,24 @@ Type: EXTERNAL INTEGRATION PROVIDER
 
 | Concern | Assessment |
 |---------|------------|
-| Data residency | {{where data is stored, or Unknown}} |
-| Compliance certifications | {{e.g., SOC2, GDPR, HIPAA, or Unknown}} |
+| Data residency | {{or Unknown}} |
+| Compliance certifications | {{e.g., SOC2, GDPR}} |
 | Vendor lock-in risk | Low / Medium / High |
-| Exit strategy | {{how hard to switch providers}} |
+| Exit strategy | {{how hard to switch}} |
 
 ---
 
 ## Non-Goals
-(Things we will NOT do with this provider, even if possible.)
-
-- …
 - …
 
 ---
 
 ## Size Constraint
-All services from this provider combined should remain under reasonable implementation size.
-Individual services should target **~1,500 lines** or less each.
+The integration wrapper for this provider should target **~2000 LOC** or less (runtime TypeScript, exclusions applied).
 
 ---
 
 ## Notes
-(Assumptions, considerations, or future concerns.)
 
 ---
 
@@ -140,11 +141,13 @@ Individual services should target **~1,500 lines** or less each.
 
 | Pass | Status | Owner | Date |
 |------|--------|-------|------|
-| Build | COMPLETE | Claude | {{timestamp}} |
-| Pass 0 | PENDING | — | — |
-| Pass 1 | PENDING | — | — |
-| Pass 2 | PENDING | — | — |
-| Pass 3 | PENDING | — | — |
-| Pass 4 | PENDING | — | — |
+| Phase 9 Build | COMPLETE | Claude | {{timestamp}} |
+| Phase 10 Service Scope | PENDING | — | — |
+| Phase 11 Service Build | PENDING | — | — |
+| Phase 13 Pass 0 | PENDING | — | — |
+| Phase 14 Pass 1 | PENDING | — | — |
+| Phase 15 Pass 2 | PENDING | — | — |
+| Phase 16 Pass 3 | PENDING | — | — |
+| Phase 17 Pass 4 | PENDING | — | — |
 
 ## Pass Notes

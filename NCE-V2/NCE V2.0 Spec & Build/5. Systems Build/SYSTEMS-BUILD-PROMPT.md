@@ -1,46 +1,75 @@
-# SYSTEM BUILD — PROMPT
+# PHASE 5: SYSTEMS BUILD
+
+---
+Phase: 5
+Name: Systems Build (materialise SYSTEM-NOTES.md per system)
+Location: NCE-V2/NCE V2.0 Spec & Build/5. Systems Build/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
+---
 
 ## ROLE
-You are materialising approved systems into a real project folder structure.
-Your job is to create folders and populate each with a completed SYSTEM-NOTES.md file.
+
+You are materialising the 27 approved NCE-V2 systems into per-system folders + SYSTEM-NOTES.md files.
 
 You are NOT designing internals, choosing technologies, or adding new systems.
 
 ---
 
-## TASK
+## LOCKED CONTEXT (Required Reading)
 
-For each approved system from the Systems Pre-build Check:
-1. Create a folder using the system name (lowercase, hyphens for spaces)
-2. Create a SYSTEM-NOTES.md file inside that folder
-3. Complete all sections of SYSTEM-NOTES.md based on the approved information
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
+
+1. [Project-Intent.md](../../Project-Intent.md)
+2. [CLAUDE.md](../../../CLAUDE.md)
+3. [STACK-AND-RUNTIME.md](../../STACK-AND-RUNTIME.md)
+4. [REFINEMENTS.md](../../REFINEMENTS.md)
+5. [FileTree-v2.md](../../FileTree-v2.md) — canonical system list
+6. [LIBRARY-TEMPLATE.md v2.0.0](../../docs/templates/LIBRARY-TEMPLATE.md) — for library-owning systems
+7. `NCE-V2/admin/SYSTEMS-CLARIFICATION.md` and `SYSTEMS-PREBUILD-CHECK.md` (Phases 3+4 outputs)
 
 ---
 
-## FOLDER STRUCTURE
+## RUNTIME CONTEXT
 
-```
-{{project-name}}/
-├── {{system-name}}/
-│   └── SYSTEM-NOTES.md
-├── {{system-name}}/
-│   └── SYSTEM-NOTES.md
-└── (repeat for each system)
-```
+- **2000 LOC band** per runtime file
+- TypeScript 1.3–1.5× more verbose than Python
+- Per-system Worker (except `services`/`system`/`state`/`library` grouped into `platform`)
 
-**Naming rules:**
-- Project folder: lowercase, hyphens (e.g., `task-manager`)
-- System folders: lowercase, hyphens (e.g., `user-identity`, `content-storage`)
-- No spaces, no special characters
+---
+
+## OUTPUT-BOUNDARY RULE (CANONICAL)
+
+> **NCE-V2 owns content authoring + the rendering of any artefact it itself ships to a final consumer.**
+
+Each SYSTEM-NOTES.md must declare:
+- **Output Form** (JSON / rendered / library entry / metadata / mixed)
+- **Output Destination** (internal system / Astro / external provider / human / library)
+
+---
+
+## TASK
+
+For each of the 27 approved systems from `SYSTEMS-PREBUILD-CHECK.md`:
+
+1. Create a folder at `NCE-V2/specs/<system-name>/` (already exists from initial setup — just verify)
+2. Create `SYSTEM-NOTES.md` inside that folder
+3. Complete all sections based on:
+   - The system's entry in `SYSTEMS-CLARIFICATION.md`
+   - The system's listing in `FileTree-v2.md`
+   - Project-Intent.md and STACK-AND-RUNTIME.md context
+
+> **Logging rule:** "TBD" markers go in `PASS-DECISION-NOTES.md` so they don't get silently filled later.
 
 ---
 
 ## COMPLETING SYSTEM-NOTES.md
 
-For each section, derive content from the approved Systems Clarification and Project Intention:
+For each section, derive content from approved sources only:
 
 ### Purpose
-- Pull from the system's "Purpose" in Systems Clarification
+- Pull from `SYSTEMS-CLARIFICATION.md`
 - Keep it to one sentence
 
 ### Intent
@@ -48,203 +77,84 @@ For each section, derive content from the approved Systems Clarification and Pro
 - Still high-level, no mechanics
 
 ### Justification
-- Pull from the system's "Justification" in Systems Clarification
+- Pull from `SYSTEMS-CLARIFICATION.md`
 
-### In Scope
+### Output Form / Destination (NCE-V2-specific)
+- Per the output-boundary rule
+
+### Library Ownership (if applicable)
+- For library-owning systems (brand, content, ai, template, social, assets, etc.)
+- Declare each library + D1 binding name (per LIBRARY-TEMPLATE.md)
+
+### Worker Grouping
+- own Worker / `platform` Worker (per STACK-AND-RUNTIME.md)
+
+### In Scope / Out of Scope / Non-Goals
 - Derive from the system's purpose
-- What must this system handle to fulfil its responsibility?
-- Be specific but not implementation-level
-
-### Out of Scope
-- What does this system NOT handle?
-- Reference other systems where appropriate ("Belongs to X system")
-- Include obvious temptations ("Will not handle Y even though related")
-
-### Non-Goals
-- Things this system will never do
-- Different from Out of Scope: these are permanent exclusions, not just "belongs elsewhere"
+- "Out of Scope" should reference other systems where appropriate ("Belongs to X system")
 
 ### Inputs / Outputs / Dependencies
-- Derive from the system relationships implied by the project
-- Use system names, not technical details
-- If unknown, write "TBD — to be determined in Pass 0"
+- Use system names from FileTree-v2.md
+- Include binding type for each (service / D1 / R2 / KV / DO / Queue)
+- If unknown, write "TBD — to be determined in Pass 0" and log
 
 ---
 
 ## RULES
 
-1. **Use ONLY the approved system names** — no new systems
-2. **Do NOT change system names** — use exactly as approved
-3. **Do NOT reference technologies, frameworks, or APIs** — responsibility-level only
-4. **Do NOT invent scope** — derive only from approved documents
-5. **Respect the ~1,500 LOC constraint** — if scope seems too large, note it
-6. **Mark unknowns as TBD** — don't guess at inputs/outputs/dependencies
+1. **Use ONLY the approved system names** from FileTree-v2.md — no new systems, no renames
+2. Do **NOT** reference technologies beyond what STACK-AND-RUNTIME.md states
+3. Do **NOT** invent scope — derive only from approved documents
+4. Respect the **2000 LOC band** — if scope seems larger, note it and log
+5. Mark unknowns as TBD; log them
+6. Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
-## PROCESS
-
-1. Read the approved Systems Clarification and Pre-build Check
-2. Create the project root folder
-3. For each system:
-   - Create the system folder
-   - Create SYSTEM-NOTES.md
-   - Complete all sections
-4. Present the full structure and file contents
-5. Ask for approval
-
----
-
-## OUTPUT FORMAT
-
-Return a single Markdown document showing:
-
-1. The folder structure created
-2. The complete contents of each SYSTEM-NOTES.md file
-
-```markdown
-## Project Structure
-
-{{project-name}}/
-├── {{system-name}}/
-│   └── SYSTEM-NOTES.md
-├── {{system-name}}/
-│   └── SYSTEM-NOTES.md
-└── ...
-
----
-
-## {{system-name}}/SYSTEM-NOTES.md
-
-(complete file contents)
-
----
-
-## {{system-name}}/SYSTEM-NOTES.md
-
-(complete file contents)
-
----
-
-(repeat for each system)
-```
-
-After presenting, ask:
+## OUTPUT LOCATION
 
 ```
-Please review the created system folders and SYSTEM-NOTES.md files.
-- Reply APPROVE to accept and proceed to Subsystem Identification
-- Reply REVISE with specific changes needed
+NCE-V2/specs/{{system}}/
+└── SYSTEM-NOTES.md
 ```
 
----
-
-## ON APPROVAL
-
-When approved:
-- Update each SYSTEM-NOTES.md Status to: **APPROVED**
-- Update Last Updated to: **{{current_timestamp}}**
-- Confirm next step: **Subsystem Identification**
+Per-system foundation artefact. Sits alongside future Pass 1+ outputs (SYSTEM.md, CONTRACT.md, etc.).
 
 ---
 
-## TEMPLATE: SYSTEM-NOTES.md
+## END CONDITION
 
-```markdown
-# {{System Name}}
+- [ ] All 27 systems have `NCE-V2/specs/<system>/SYSTEM-NOTES.md`
+- [ ] Each declares Output Form + Output Destination
+- [ ] Library-owning systems declare libraries + D1 bindings
+- [ ] Worker grouping declared
+- [ ] Status: Draft Complete – Awaiting Review
 
----
-Status: DRAFT | APPROVED
-Version: v0.1.0
-Last Updated: {{timestamp}}
-Owner: Claude | Human
-Pass: BUILD
----
-
-## Purpose
-(One clear sentence describing **why this system exists**.)
-
-## Intent
-(What this system is trying to achieve at a high level.)
-
-## Justification
-- Why this responsibility is required for the project
-- Why it deserves to be its own system
+**Next:** Proceed to Phase 6 (Subsystems Identification)
 
 ---
 
-## In Scope
-- …
-- …
+## TEMPLATES (enriched for NCE-V2)
 
-## Out of Scope
-- …
-- …
-
-## Non-Goals
-- …
-- …
-
----
-
-## Inputs
-
-| Input | Source System | Description |
-|-------|---------------|-------------|
-| … | … | … |
-
-## Outputs
-
-| Output | Consuming System | Description |
-|--------|------------------|-------------|
-| … | … | … |
-
-## Dependencies
-
-| Dependency | Reason |
-|------------|--------|
-| … | … |
-
----
-
-## Size Constraint
-This system is intended to remain under **~1,500 lines** of implementation code.
-
----
-
-## Notes
-
----
-
-## Pass Tracking
-
-| Pass | Status | Owner | Date |
-|------|--------|-------|------|
-| Build | COMPLETE | Claude | {{timestamp}} |
-| Pass 0 | PENDING | — | — |
-| Pass 1 | PENDING | — | — |
-| Pass 2 | PENDING | — | — |
-| Pass 3 | PENDING | — | — |
-| Pass 4 | PENDING | — | — |
-
-## Pass Notes
-```
+- [SYSTEMS-NOTE-TEMPLATE.md](./SYSTEMS-NOTE-TEMPLATE.md)
 
 ---
 
 ## INPUTS
 
-Project Name:
-{{project_name}}
+- `NCE-V2/admin/SYSTEMS-CLARIFICATION.md`
+- `NCE-V2/admin/SYSTEMS-PREBUILD-CHECK.md`
+- `NCE-V2/FileTree-v2.md`
+- `NCE-V2/Project-Intent.md`
 
-Approved Systems Clarification:
-{{systems_clarification}}
+---
 
-Approved Systems Pre-build Check:
-{{systems_prebuild_check}}
+## STATUS
 
-Project Intention:
-{{project_intention}}
+**Draft Complete – Awaiting Review**
 
-Timestamp:
-{{current_timestamp}}
+---
+
+### Review & Clarification Needed
+- Output to `NCE-V2/specs/<system>/SYSTEM-NOTES.md` (alongside future Pass 1+ SYSTEM.md) — confirm?
+- May this draft be promoted to "Approved"?

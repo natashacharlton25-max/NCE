@@ -1,183 +1,133 @@
-# EXTERNAL INTEGRATION PROVIDER BUILD — PROMPT
+# PHASE 9: EXTERNAL INTEGRATION PROVIDER BUILD
+
+---
+Phase: 9
+Name: External Integration Provider Build (materialise PROVIDER-NOTES.md per provider)
+Location: NCE-V2/NCE V2.0 Spec & Build/9. External Integration Provider Build/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
+---
 
 ## ROLE
-You are materialising approved external integration providers into a real folder structure.
-Your job is to create provider folders and populate each with a completed PROVIDER-NOTES.md file.
 
-You are NOT designing implementation, writing code, or selecting services yet.
+You are materialising NCE-V2's approved external integration providers into per-provider folders + PROVIDER-NOTES.md.
+
+For NCE-V2: providers are listed under `integrations/` in FileTree-v2.md — 15 of them (Canva, Google, IntegrationAdapter, WebhookReceiver, WebScraper, YouTube, Recraft, Pexels, Unsplash, Phosphor, Emailit, plus 4 moved-from-renderers Google services). Some entries in FileTree-v2 are renderer-style (GoogleDocsRenderer, GoogleSheetsRenderer, GoogleSlidesRenderer, CanvaRenderer) — treat these as services of their respective providers in this phase.
+
+You are NOT designing implementation or writing code.
+
+---
+
+## LOCKED CONTEXT (Required Reading)
+
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
+
+1. [Project-Intent.md](../../Project-Intent.md)
+2. [CLAUDE.md](../../../CLAUDE.md)
+3. [STACK-AND-RUNTIME.md](../../STACK-AND-RUNTIME.md) — Worker outbound `fetch()` patterns; secret bindings
+4. [FileTree-v2.md](../../FileTree-v2.md) — `integrations/` system contents
+5. `NCE-V2/admin/EXTERNAL-INTEGRATIONS-REGISTER.md` (Phase 3 output — list of approved providers)
+
+---
+
+## RUNTIME CONTEXT
+
+- Outbound from Workers via `fetch()`
+- Auth via Worker secret bindings (no credentials in code)
+- 5-min CPU limit, 128 MB memory per invocation
+- Rate limits + retry handled by `resilience/` system
+
+---
+
+## OUTPUT-BOUNDARY RULE (CANONICAL)
+
+Each provider has a direction:
+- **Outbound receiver**: receives rendered artefacts from NCE-V2 (e.g. Emailit, Canva, Google Docs/Sheets/Slides)
+- **Inbound source**: supplies raw inputs to NCE-V2 (e.g. Pexels, Unsplash, Recraft, Phosphor)
+- **Downstream renderer**: receives JSON from NCE-V2 (Astro — but Astro isn't an integration in `integrations/`; it's the downstream platform)
+
+PROVIDER-NOTES.md must declare the direction.
 
 ---
 
 ## TASK
 
-For each approved provider from the External Integrations Register:
-1. Create a folder at the project root using the provider name (prefixed with `integration-`)
-2. Create a PROVIDER-NOTES.md file inside that folder
-3. Complete all sections based on the approved information
+For each approved provider from `EXTERNAL-INTEGRATIONS-REGISTER.md`:
 
-**This phase runs AFTER Subsystem Build and BEFORE Service Scope.**
+1. Create folder at `NCE-V2/specs/integrations/<provider>/`
+2. Create `PROVIDER-NOTES.md` inside
+3. Complete all sections:
+   - Provider identity (name, website, API docs)
+   - Direction (Outbound receiver / Inbound source / Downstream renderer)
+   - Purpose: pull from `EXTERNAL-INTEGRATIONS-REGISTER.md`
+   - Services Used: "TBD — to be identified in Phase 10 (Service Scope)"
+   - Consuming Systems: from `EXTERNAL-INTEGRATIONS-REGISTER.md`
+   - Auth method + Worker secret binding name (placeholder if not yet decided)
+   - Constraints (rate limits, quotas, pricing — research public docs)
+   - Compliance & vendor risk
 
----
-
-## FOLDER STRUCTURE
-
-```
-{{project-name}}/
-├── {{system-name}}/
-│   └── SYSTEM-NOTES.md
-├── {{system-name}}/
-│   └── ...
-├── integration-{{provider-name}}/        ← Created in this phase
-│   └── PROVIDER-NOTES.md                 ← Created in this phase
-├── integration-{{provider-name}}/
-│   └── PROVIDER-NOTES.md
-└── admin/
-    └── EXTERNAL-INTEGRATIONS-REGISTER.md
-```
-
-**Naming rules:**
-- Provider folders: `integration-` prefix + provider name, lowercase, hyphens
-- Examples: `integration-google`, `integration-stripe`, `integration-canva`
-- Use the provider's common name, not the parent company (e.g., `integration-stripe` not `integration-stripe-inc`)
+> **Logging rule:** Anything researched from public provider docs that wasn't in the register goes into `PASS-DECISION-NOTES.md`.
 
 ---
 
-## COMPLETING PROVIDER-NOTES.md
+## SKIP CONDITION
 
-For each section, derive content from:
-- The External Integrations Register (capability, why needed, consuming systems)
-- Provider's public website and documentation
-- Your knowledge of the provider
-
-### Provider Identity
-- Official provider name
-- Links to website, developer portal, API docs
-
-### Purpose & Intent
-- Pull from the "Capability Needed" and "Why Needed" in the Register
-- Focus on what the provider enables for YOUR project
-
-### Services Used
-- Leave as placeholder table — will be filled in during Service Scope phase
-- Write "TBD — to be identified in Service Scope"
-
-### Services NOT Used
-- If already known, list explicit exclusions
-- Otherwise write "TBD"
-
-### Consuming Systems
-- Pull from the Register
-- Reference the actual system names from your project
-
-### Account & Access
-- Note account type if known
-- **Never store credentials** — only reference where they'll be stored
-
-### Provider Constraints
-- Look up pricing, rate limits from provider's public docs
-- If unknown, write "Unknown — verify before implementation"
-
-### Compliance & Risk
-- Note any known compliance certifications
-- Assess vendor lock-in risk
+If no external integrations approved: skip Phases 9–11 entirely.
+For NCE-V2: unlikely — `integrations/` has 15 provider subsystems.
 
 ---
 
 ## RULES
 
-1. **Use ONLY the approved providers** from the Register — no new providers
-2. **Use the provider name specified by the user** — don't rename
-3. **Do NOT select services yet** — that's the next phase (Service Scope)
-4. **Do NOT design implementation** — no code, no architecture
-5. **Do NOT store credentials** — only reference where they'll be stored
-6. **Mark unknowns explicitly** — if you can't find info, write "Unknown"
+1. Use **ONLY** approved providers from the register — no inventions
+2. Do **NOT** select services yet (that's Phase 10)
+3. Do **NOT** store credentials — reference Worker secret binding names only
+4. Mark unknowns explicitly ("Unknown — verify before implementation")
+5. Apply the output-boundary direction rule
+6. Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
-## WHEN TO SKIP THIS PHASE
-
-If the External Integrations Register shows "None identified":
-- Skip this phase entirely
-- Skip Service Scope and Service Build
-- Proceed directly to Pass 0
-
----
-
-## PROCESS
-
-1. Read the approved External Integrations Register
-2. For each provider with confirmed selection:
-   - Create the provider folder (`integration-{{provider}}`)
-   - Create PROVIDER-NOTES.md
-   - Complete all sections (research provider docs as needed)
-3. Present the full structure and file contents
-4. Ask for approval
-
----
-
-## OUTPUT FORMAT
-
-Return a single Markdown document showing:
-
-1. The folder structure created
-2. The complete contents of each PROVIDER-NOTES.md file
-
-```markdown
-## External Integration Provider Folders Created
-
-{{project-name}}/
-├── integration-{{provider-name}}/
-│   └── PROVIDER-NOTES.md
-├── integration-{{provider-name}}/
-│   └── PROVIDER-NOTES.md
-└── ...
-
----
-
-## integration-{{provider-name}}/PROVIDER-NOTES.md
-
-(complete file contents)
-
----
-
-## integration-{{provider-name}}/PROVIDER-NOTES.md
-
-(complete file contents)
-
----
-
-(repeat for each provider)
-```
-
-After presenting, ask:
+## OUTPUT LOCATION
 
 ```
-Please review the created provider folders and PROVIDER-NOTES.md files.
-- Reply APPROVE to accept and proceed to Service Scope
-- Reply REVISE with specific changes needed
+NCE-V2/specs/integrations/{{provider}}/
+└── PROVIDER-NOTES.md
 ```
 
 ---
 
-## ON APPROVAL
+## END CONDITION
 
-When approved:
-- Update each PROVIDER-NOTES.md Status to: **APPROVED**
-- Update Last Updated to: **{{current_timestamp}}**
-- Confirm next step: **External Integration Service Scope**
+- [ ] Each approved provider has `NCE-V2/specs/integrations/<provider>/PROVIDER-NOTES.md`
+- [ ] Direction declared for each
+- [ ] Worker secret binding name placeholder set
+- [ ] Status: Draft Complete – Awaiting Review
+
+**Next:** Proceed to Phase 10 (External Integration Service Scope)
+
+---
+
+## TEMPLATES (enriched for NCE-V2)
+
+- [PROVIDER-NOTES-TEMPLATE.md](./PROVIDER-NOTES-TEMPLATE.md)
 
 ---
 
 ## INPUTS
 
-Project Name:
-{{project_name}}
+- `NCE-V2/admin/EXTERNAL-INTEGRATIONS-REGISTER.md`
+- All `NCE-V2/specs/<system>/SYSTEM-NOTES.md` (for consuming-system context)
 
-Approved External Integrations Register:
-{{external_integrations_register}}
+---
 
-All System NOTES (for reference on consuming systems):
-{{all_system_notes}}
+## STATUS
 
-Timestamp:
-{{current_timestamp}}
+**Draft Complete – Awaiting Review**
+
+---
+
+### Review & Clarification Needed
+- Treating `GoogleDocsRenderer`/`GoogleSheetsRenderer`/`GoogleSlidesRenderer`/`CanvaRenderer` as services of their providers (Google, Canva) rather than separate providers — confirm?
+- May this draft be promoted to "Approved"?
