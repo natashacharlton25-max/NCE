@@ -1,228 +1,94 @@
-# Phase 61: CI/CD Pipeline
+# PHASE 61: CI/CD PIPELINE
 
 ---
 Phase: 61
-Section: 0h Prerelease
+Section: 0h. Prerelease
 Name: CI/CD Pipeline
-Status: TEMPLATE
+Location: NCE-V2/NCE V2.0 Spec & Build/61. CI-CD-Pipeline/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
 ---
 
-## Role
+## ROLE
 
-You are a **DevOps Engineer** setting up the CI/CD pipeline and creating the Release Candidate.
-
----
-
-## Task
-
-Set up automated testing, building, and deployment pipeline. Create the Release Candidate tag that will be verified through the rest of 0h.
+Set up CI/CD pipeline for NCE-V2 (GitHub Actions + wrangler deploy) and create the Release Candidate tag.
 
 ---
 
-## Inputs
+## LOCKED CONTEXT (Required Reading)
 
-Read these files before starting:
-
-| File | Location | Purpose |
-|------|----------|---------|
-| TEST-PLAN.md | From 0g | Test configuration for CI |
-| TECH-STACK.md | From 0d | Deployment platform |
-| REPO-STRUCTURE.md | From 0c | Build configuration |
+1. `NCE-V2/admin/TEST-PLAN.md` (Phase 54)
+2. `NCE-V2/specs/TECH-STACK.md` (Phase 33)
+3. `NCE-V2/specs/REPO-STRUCTURE.md` (Phase 32)
+4. `NCE-V2/specs/ENVIRONMENT.md` (Phase 34)
 
 ---
 
-## Process
+## TASK
 
 ### Step 0: Branch Protection (FIRST)
 
-**Do this before any other work.**
+Enable on `main`:
+- Require PR review (1+)
+- Require status checks: typecheck, lint, unit, integration
+- Require linear history
+- No direct pushes
 
-Enable branch protection on `main`:
+### Step 1: CI Pipeline (`.github/workflows/ci.yml`)
 
-```yaml
-Branch protection rules:
-- Require pull request reviews: Yes
-- Require status checks to pass: Yes
-- Require branches to be up to date: Yes
-- Restrict who can push: CI/CD service account only
-- No force pushes: Yes
-- No deletions: Yes
-```
+On every PR + push to main:
+1. **Install** deps (pnpm)
+2. **Typecheck** (`tsc --noEmit`)
+3. **Lint** (biome check)
+4. **Unit + Integration tests** (`pnpm vitest run` with miniflare for Worker tests)
+5. **Build** (`wrangler deploy --dry-run` per Worker)
+6. **Coverage report** (80% line; fail below)
+7. **D1 migration validation** (apply to ephemeral test D1)
 
-**Verification:**
+### Step 2: CD Pipeline (`.github/workflows/cd.yml`)
+
+On merge to `main`:
+1. **Deploy to staging** per Worker (`wrangler deploy --env staging`)
+2. **Apply D1 migrations to staging** (`wrangler d1 migrations apply <library>-staging`)
+3. **Run E2E tests** against staging
+4. **Tag Release Candidate** (`vX.Y.Z-rcN`) on success
+5. **Hold for human approval** before prod deploy (Phase 66)
+
+### Step 3: Release Candidate
+
+Create RC tag on the verified commit:
+- `git tag vX.Y.Z-rcN`
+- Push tag
+- Include commit SHA in `CI-PIPELINE.md` output
+
+---
+
+## MANDATORY RULES
+
+- Never skip hooks
+- Never auto-deploy to prod (human approval gate at Phase 66)
+- Secrets via GitHub Actions secrets + `wrangler secret` (never in repo)
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
+
+---
+
+## END CONDITION
+
 - [ ] Branch protection enabled
-- [ ] Settings verified in repository settings
+- [ ] CI pipeline runs on PRs + main pushes
+- [ ] CD pipeline auto-deploys to staging on main merge
+- [ ] RC tag created on green build
+- [ ] `CI-PIPELINE.md` documents pipeline + RC commit
+- [ ] Status: Draft Complete – Awaiting Review
+
+**Next:** Phase 62 (Environment Configuration)
 
 ---
 
-### Step 1: Choose CI/CD Platform
+## STATUS
 
-Based on TECH-STACK.md, select the appropriate platform:
+**Draft Complete – Awaiting Review**
 
-| Platform | Best For |
-|----------|----------|
-| GitHub Actions | GitHub-hosted projects |
-| GitLab CI | GitLab-hosted projects |
-| Vercel | Frontend/Next.js projects |
-| Cloudflare Pages | Cloudflare stack |
-| AWS CodePipeline | AWS infrastructure |
-
-**Selected Platform:** ___
-
----
-
-### Step 2: Configure Pipeline Stages
-
-Create pipeline with these stages:
-
-```
-┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐
-│  Lint   │ → │  Test   │ → │  Build  │ → │ Deploy  │
-└─────────┘    └─────────┘    └─────────┘    └─────────┘
-```
-
-For each stage, configure:
-- Lint: Run linting and type checking
-- Test: Run all tests with coverage
-- Build: Create production build
-- Deploy: Deploy to staging
-
----
-
-### Step 3: Define CI/CD Gates
-
-Configure binary pass/fail gates:
-
-| Gate | Trigger | Action |
-|------|---------|--------|
-| Lint failure | Any lint error | Block immediately |
-| Test failure | Any test fails | Block deploy |
-| Coverage below minimum | < 70% | Block deploy |
-| Security scan critical/high | npm audit / Snyk | Block deploy |
-| Performance regression | > 20% slower than baseline | Block deploy |
-| Build failure | Build error | Block deploy |
-
-**Rule:** Gates are binary pass/fail. No judgement calls.
-
----
-
-### Step 4: CI/CD Reproducibility
-
-Create a local CI command:
-
-```bash
-# Add to package.json scripts
-"ci": "npm run lint && npm test && npm run build"
-```
-
-**Verification:**
-- [ ] `npm run ci` exists
-- [ ] Running locally produces same pass/fail as CI
-- [ ] No CI-only environment dependencies
-
----
-
-### Step 5: Create Release Candidate
-
-Tag the current commit as RC:
-
-```bash
-# Tag the RC
-git tag -a v1.0.0-rc.1 -m "Release Candidate 1"
-git push origin v1.0.0-rc.1
-```
-
-**RC Naming:** `vX.Y.Z-rc.N`
-
-**Critical:** From this point forward, all 0h work applies to this exact commit.
-
----
-
-### Step 6: Configure Notifications
-
-Set up notifications:
-
-| Event | Channel |
-|-------|---------|
-| Pipeline failure | Team Slack channel |
-| Successful deploy | Team Slack channel |
-| Security alerts | Security lead |
-
----
-
-### Step 7: Document Escalation Policy
-
-| Condition | Action |
-|-----------|--------|
-| RC fails for > 2 days | Escalate to Tech Lead |
-| RC fails for > 5 days | Escalate to Engineering Manager |
-| Blocked by external dependency | Document in PRERELEASE-CHECKLIST.md |
-
----
-
-## Rules
-
-### DOs
-- ✅ Enable branch protection FIRST
-- ✅ Use binary pass/fail gates
-- ✅ Make CI reproducible locally
-- ✅ Tag the exact commit as RC
-- ✅ Document all configuration
-
-### DON'Ts
-- ❌ Skip branch protection
-- ❌ Use subjective gates ("looks good")
-- ❌ Allow manual overrides of gates
-- ❌ Forget to push the RC tag
-
----
-
-## Output Format
-
-Create **CI-PIPELINE.md** using CI-PIPELINE-TEMPLATE.md in `/docs/0h/`
-
-Document:
-- Branch protection configuration
-- Pipeline stages and configuration
-- All CI/CD gates
-- RC tag and commit SHA
-- Notification configuration
-- Escalation policy
-
----
-
-## Success Criteria
-
-| Criterion | Required |
-|-----------|----------|
-| Branch protection enabled | ☐ |
-| CI reproducible locally (`npm run ci`) | ☐ |
-| All CI/CD gates configured | ☐ |
-| RC tag created and pushed | ☐ |
-| Notifications and escalation policies configured | ☐ |
-
-**All criteria must pass before proceeding to Phase 62.**
-
----
-
-## On Approval
-
-When CI-PIPELINE.md is approved:
-
-1. Update PRERELEASE-CHECKLIST.md Phase 61 section
-2. Update Lock Status Tracker:
-   - Lock "RC commit" with timestamp
-   - Lock "Branch protection" with timestamp
-3. Proceed to Phase 62
-
----
-
-## Template
-
-Use: `0. Admin/0h. Prerelease/CI-PIPELINE-TEMPLATE.md`
-
----
-Generated: {{timestamp}}
-Phase: 61 - CI/CD Pipeline
-Section: 0h Prerelease
----
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?

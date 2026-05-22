@@ -2,191 +2,92 @@
 
 ---
 Phase: 41
-Name: State Management
+Name: State Management (Astro consumer)
 Section: 0e. Frontend
-Status: {{DRAFT | IN PROGRESS | COMPLETE}}
+Location: NCE-V2/NCE V2.0 Spec & Build/41. State-Management/
+Project: NCE-V2 (Astro consumer)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
+---
+
+## NCE-V2 SCOPE NOTE
+
+Server state lives in NCE-V2 (D1, R2, KV). Astro's state is mostly SSG-baked or fetched at request time. This phase covers Astro client-side state only.
+
 ---
 
 ## ROLE
 
-You are defining how state flows through the frontend application. This includes categorizing state, choosing patterns, and documenting anti-patterns to avoid.
+You document state flow in the Astro consumer.
 
 ---
 
-## INPUTS
+## LOCKED CONTEXT (Required Reading)
 
-| Input | Location | Purpose |
-|-------|----------|---------|
-| PAGES.md | `frontend/` | State needs per page |
-| COMPONENTS.md | `frontend/` | Component state needs |
-| TECH-STACK.md | `precode/` | State library choice |
-| FRONTEND-BACKEND-CONTRACT.md | `frontend/` | Server data structure |
+1. `NCE-V2/specs/frontend-contract/pages/*/PAGE-SPEC.md` (Phase 39)
+2. `NCE-V2/specs/frontend-contract/components/*/COMPONENT-SPEC.md` (Phase 40)
+3. `NCE-V2/specs/TECH-STACK.md` (Phase 33)
+4. `NCE-V2/specs/frontend-contract/FRONTEND-BACKEND-CONTRACT.md` (Phase 37)
 
 ---
 
 ## TASK
 
-### Step 1: Categorize All State
+Produce `STATE-MANAGEMENT.md`:
 
-Review PAGES.md and COMPONENTS.md to identify all state.
+### Categories
 
-**State Categories:**
+| Category | Description | Astro Tool |
+|----------|-------------|------------|
+| Server state | Data from NCE-V2 | Astro fetch + KV cache via NCE-V2 |
+| Client state | UI state, drafts | Nano Stores (or Astro native) |
+| URL state | Route params, query | Astro Router |
+| Form state | In-progress input | TS state in form components |
+| Persisted | Survives refresh | localStorage (minimal) |
 
-| Category | Description | Typical Tool |
-|----------|-------------|--------------|
-| **Server State** | Data from API (cached) | TanStack Query, SWR, RTK Query |
-| **Client State** | UI state, user preferences | Zustand, Redux, Svelte stores |
-| **URL State** | Route params, query strings | Router |
-| **Form State** | In-progress user input | React Hook Form, Formik, Superforms |
-| **Persisted State** | Survives page refresh | LocalStorage, SessionStorage |
+### Server State
 
-### Step 2: Define Server State
+Per fetched endpoint: cache strategy, stale time, revalidation trigger.
 
-List all data fetched from API:
+### Client State
 
-| Data | Endpoint | Cache Strategy | Stale Time |
-|------|----------|----------------|------------|
-| Current user | GET /api/users/me | Cache until logout | Infinite |
-| Projects list | GET /api/projects | Cache + revalidate | 30 seconds |
-| Project detail | GET /api/projects/:id | Cache + revalidate | 30 seconds |
+What client state exists, where it lives, when it's reset.
 
-**Server State Rules:**
-- Use server state library (not global state) for API data
-- Define stale time per resource
-- Define refetch triggers
+### Sync to NCE-V2
 
-### Step 3: Define Client State
+Form submissions → NCE-V2 API per Phase 37 contract.
 
-List UI state that isn't from the server:
+---
 
-| State | Scope | Initial | Persistence |
-|-------|-------|---------|-------------|
-| Sidebar collapsed | Global | `false` | LocalStorage |
-| Theme | Global | `"system"` | LocalStorage |
-| Modal open | Component | `false` | None |
-| Active tab | Component | `0` | None |
-
-**Client State Rules:**
-- Global only if truly shared across pages
-- Prefer component state when possible
-- Document what's persisted
-
-### Step 4: Define URL State
-
-List state stored in URL:
-
-| Page | Param | Type | Purpose |
-|------|-------|------|---------|
-| Project List | `?page` | Query | Pagination |
-| Project List | `?search` | Query | Search term |
-| Project Detail | `:id` | Route | Project ID |
-
-**URL State Rules:**
-- Shareable/bookmarkable state goes in URL
-- Transient state stays in component
-
-### Step 5: Define Form State
-
-List forms and their state management:
-
-| Form | Tool | Validation | On Submit |
-|------|------|------------|-----------|
-| Login | Hook Form | Zod schema | API call |
-| Create Project | Hook Form | Zod schema | API call |
-| Settings | Hook Form | Zod schema | API call |
-
-### Step 6: Define Persisted State
-
-**Critical Decision:** What survives page refresh?
-
-| State | Storage | Key | Sync Strategy |
-|-------|---------|-----|---------------|
-| Theme | LocalStorage | `theme` | Read on mount |
-| Sidebar | LocalStorage | `sidebar_collapsed` | Read on mount |
-| Auth token | Secure cookie | — | Handled by auth |
-
-**Ask user:**
-> What state should survive page refresh? How should it be stored?
-
-### Step 7: Document State Shape (if using global store)
-
-If using Zustand/Redux:
-
-```typescript
-interface AppState {
-  // UI State
-  ui: {
-    sidebarCollapsed: boolean;
-    theme: "light" | "dark" | "system";
-  };
-  
-  // Actions
-  toggleSidebar: () => void;
-  setTheme: (theme: Theme) => void;
-}
-```
-
-### Step 8: Document Anti-Patterns
-
-Include these warnings:
-
-| Anti-Pattern | Why Bad | Instead |
-|--------------|---------|---------|
-| Duplicating server state in global state | Sync bugs, stale data | Use server state cache |
-| Storing derived state | Recalculation bugs | Compute on read |
-| Coupling navigation to data state | Breaks back button | Keep separate |
-| Global state for local concerns | Unnecessary complexity | Component state |
-| No loading/error states | Poor UX | Always define both |
-| Storing entire API response | Memory bloat | Store only what's needed |
-
-### Step 9: Create Required Artifacts
-
-**MANDATORY OUTPUTS:**
-
-1. **State Ownership Table** — Who owns what state
-
-| State | Owner | Category | Persistence |
-|-------|-------|----------|-------------|
-| {{state}} | {{component/global/URL}} | Server/Client/Form | Yes/No |
-
-2. **State Flow Diagram** — Visual representation of state flow
+## OUTPUT LOCATION
 
 ```
-URL State → Server State → Client State → Component State
-                ↓
-         Persisted State
+NCE-V2/specs/frontend-contract/STATE-MANAGEMENT.md
 ```
 
-Must show:
-- Where state originates
-- How it flows between categories
-- What triggers updates
+---
+
+## MANDATORY RULES
+
+- Server state stays on NCE-V2
+- Client state minimal
+- No business logic client-side
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
-## OUTPUT
+## END CONDITION
 
-Create: `frontend/STATE-MANAGEMENT.md`
+- [ ] STATE-MANAGEMENT.md complete
+- [ ] Status: Draft Complete – Awaiting Review
 
-Use template: `STATE-MANAGEMENT-TEMPLATE.md`
-
----
-
-## APPROVAL
-
-Present state management to user.
-
-Verify:
-- [ ] All state categories are addressed
-- [ ] Server state caching is defined
-- [ ] Persisted state is documented
-- [ ] Anti-patterns are noted
-- [ ] Matches TECH-STACK.md choices
-
-**If user says APPROVE:** Proceed to Phase 42
-**If user says REVISE:** Make changes, re-present
+**Next:** Phase 42 (Frontend Ready Check)
 
 ---
-Generated: {{timestamp}}
-Phase: 41 (State Management)
----
+
+## STATUS
+
+**Draft Complete – Awaiting Review**
+
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?

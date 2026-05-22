@@ -2,174 +2,80 @@
 
 ---
 Phase: 39
-Name: Page Specs
+Name: Page Specs (Astro routes)
 Section: 0e. Frontend
-Status: {{DRAFT | IN PROGRESS | COMPLETE}}
+Location: NCE-V2/NCE V2.0 Spec & Build/39. Page-Specs/
+Project: NCE-V2 (Astro consumer)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
+---
+
+## NCE-V2 SCOPE NOTE
+
+Astro routes consume page JSON from NCE-V2 (`website/PageComposer.ts`). This phase specs each Astro route. NCE-V2 itself has no pages.
+
 ---
 
 ## ROLE
 
-You are specifying every page/route in the frontend application. Each page spec defines what the user sees, what they can do, and what data is required.
+You produce per-route specs for the Astro consumer.
 
 ---
 
-## INPUTS
+## LOCKED CONTEXT (Required Reading)
 
-| Input | Location | Purpose |
-|-------|----------|---------|
-| DESIGN-SYSTEM.md | `frontend/` | Layout patterns, components |
-| FRONTEND-BACKEND-CONTRACT.md | `frontend/` | Available endpoints |
-| Mockups | From user | Visual reference |
+1. `NCE-V2/specs/website/spec/*`
+2. `NCE-V2/specs/website/PageComposer/spec/*`
+3. `NCE-V2/specs/frontend-contract/FRONTEND-BACKEND-CONTRACT.md` (Phase 37)
+4. `NCE-V2/specs/frontend-contract/DESIGN-SYSTEM.md` (Phase 38)
 
 ---
 
 ## TASK
 
-### Step 1: List All Routes
+For each Astro route:
 
-From mockups and design system, list every page:
+1. Route path + parameters
+2. Auth required (yes/no)
+3. Page JSON shape consumed (TS type from website/)
+4. Design system components used
+5. Data-fetching pattern (SSG / SSR / hybrid)
+6. Caching strategy (KV-backed via WebPersonalizer / Astro static)
+7. State per route (per Phase 41)
 
-| Route | Page Name | Auth Required |
-|-------|-----------|---------------|
-| `/` | Home | No |
-| `/login` | Login | No |
-| `/dashboard` | Dashboard | Yes |
-| `/projects` | Project List | Yes |
-| `/projects/:id` | Project Detail | Yes |
-| etc. | | |
+---
 
-### Step 2: Specify Each Page
-
-For each page, define:
-
-1. **Route information**
-   - Path (with parameters)
-   - Query parameters (if any)
-   - Page title
-
-2. **Route guards**
-   - Requires authentication?
-   - Required roles/permissions?
-   - Redirect on auth failure?
-   - Loading state while checking?
-
-3. **Layout**
-   - Which layout template (from design system)?
-   - Header variant?
-   - Sidebar visible?
-
-4. **Components used**
-   - List every component on the page
-   - Note component props where obvious
-
-5. **Data requirements**
-   - What API calls does this page make?
-   - When are they made (on mount, on action)?
-   - What data is displayed?
-
-6. **User actions**
-   - What can the user do on this page?
-   - What happens when they do it?
-
-7. **Navigation**
-   - Where can the user go from here?
-   - Back button behaviour?
-
-8. **States**
-   - Loading state
-   - Error state
-   - Empty state
-
-### Step 3: Route Guards (First-Class)
-
-For each protected page, explicitly define:
+## OUTPUT LOCATION
 
 ```
-Route Guards for /dashboard:
-├── Requires Auth: Yes
-├── Check: User has valid session
-├── On Fail: Redirect to /login?returnUrl=/dashboard
-├── Loading: Show LOADING_SPINNER centered
-└── Roles Required: None (any authenticated user)
-
-Route Guards for /admin:
-├── Requires Auth: Yes
-├── Check: User has "admin" role
-├── On Fail: Redirect to /403 (Forbidden page)
-├── Loading: Show LOADING_SPINNER centered
-└── Roles Required: ["admin"]
+NCE-V2/specs/frontend-contract/pages/{{route-slug}}/PAGE-SPEC.md
 ```
 
-### Step 4: Map API Calls
-
-For each page, list exactly which endpoints are called:
-
-| Endpoint | When Called | On Success | On Error |
-|----------|-------------|------------|----------|
-| GET /api/users/me | Page mount | Populate user data | ERROR_FULLPAGE |
-| GET /api/projects | Page mount | Populate list | ERROR_FULLPAGE |
-| POST /api/projects | Form submit | Redirect to new project | ERROR_TOAST |
-
-### Step 5: Cross-Reference Components
-
-Every component referenced must exist in DESIGN-SYSTEM.md component inventory.
-
-If a page needs a component not in inventory:
-1. Note it as "NEW: ComponentName"
-2. It will be defined in Phase 40
-
-### Step 6: Verify Completeness
-
-- [ ] Every route from mockups is specified
-- [ ] Every page has route guards defined
-- [ ] Every page has data requirements listed
-- [ ] Every page has all three states (loading, error, empty)
-- [ ] All API calls map to FRONTEND-BACKEND-CONTRACT.md
+One per route.
 
 ---
 
-## FILE SPLIT RULES
+## MANDATORY RULES
 
-| Condition | Action |
-|-----------|--------|
-| Default | Single PAGES.md file |
-| File > ~500 LOC | Split into `pages/PAGE-{name}.md` |
-| Different domains | Split by domain |
-
----
-
-## OUTPUT
-
-Create: `frontend/PAGES.md`
-
-Or if split:
-```
-frontend/
-└── pages/
-    ├── PAGE-home.md
-    ├── PAGE-login.md
-    ├── PAGE-dashboard.md
-    └── ...
-```
-
-Use template: `PAGES-TEMPLATE.md`
+- Pages consume JSON; no business logic in Astro
+- TS types for every page JSON shape
+- Apply Phase 38 design tokens
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
-## APPROVAL
+## END CONDITION
 
-Present pages to user.
+- [ ] Every Astro route has PAGE-SPEC.md
+- [ ] Status: Draft Complete – Awaiting Review
 
-Verify:
-- [ ] All routes from mockups are covered
-- [ ] Route guards are explicit
-- [ ] Data requirements are clear
-- [ ] States are defined
-
-**If user says APPROVE:** Proceed to Phase 40
-**If user says REVISE:** Make changes, re-present
+**Next:** Phase 40 (Component Specs)
 
 ---
-Generated: {{timestamp}}
-Phase: 39 (Page Specs)
----
+
+## STATUS
+
+**Draft Complete – Awaiting Review**
+
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?

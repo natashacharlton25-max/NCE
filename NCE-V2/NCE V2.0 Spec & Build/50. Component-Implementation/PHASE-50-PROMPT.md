@@ -1,149 +1,75 @@
-# Phase 50: Component Implementation
+# PHASE 50: COMPONENT IMPLEMENTATION
 
 ---
 Phase: 50
+Name: Component Implementation (Astro)
 Section: 0f. Implementation
-Name: Component Implementation
-Purpose: Build all UI components per specification
+Location: NCE-V2/NCE V2.0 Spec & Build/50. Component-Implementation/
+Project: NCE-V2 (Astro consumer)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
 ---
 
-## Role
+## NCE-V2 SCOPE NOTE
 
-You are implementing UI components. Your job is to create every component specified in COMPONENTS.md using the framework and patterns from TECH-STACK.md.
-
----
-
-## Inputs
-
-| Document | Location | What to Extract |
-|----------|----------|-----------------|
-| COMPONENTS.md | 0e outputs | All components, props, events, states |
-| DESIGN-SYSTEM.md | 0e outputs | Styling tokens (reference) |
-| A11Y-CHECKLIST.md | 0e outputs | Accessibility requirements |
-| TECH-STACK.md | 0d outputs | Framework, component patterns |
-| shared-types/ | From Phase 43 | Type definitions |
-| optional-deep-specs/ | 0e (if used) | Complex component specs |
-| Design tokens | From Phase 49 | Implemented tokens |
+Astro-side implementation of components per Phase 40 specs.
 
 ---
 
-## Process
+## ROLE
 
-### Step 1: Extract Component List
-
-From COMPONENTS.md, create a complete inventory:
-
-| Component | Category | Props | Events | Variants | Complexity |
-|-----------|----------|-------|--------|----------|------------|
-| {{name}} | {{category}} | {{count}} | {{count}} | {{count}} | Low/Med/High |
-
-### Step 2: Check for Deep Specs
-
-Review `optional-deep-specs/` for complex components. If a component has deep specs, read all relevant files before implementing:
-
-- INDEX.md — Overview
-- PROPS.md — Detailed prop specs
-- EVENTS.md — Event contracts
-- STATE.md — Internal state
-- A11Y.md — Accessibility details
-- etc.
-
-### Step 3: Implement Each Component
-
-For each component in COMPONENTS.md:
-
-1. **Create component file** per framework conventions
-2. **Implement all props** per spec (typed from shared-types/)
-3. **Implement all events** per spec
-4. **Implement all variants** per spec
-5. **Implement all states** (hover, focus, disabled, loading, error)
-6. **Add accessibility attributes** per A11Y-CHECKLIST.md
-7. **Apply design tokens** from Phase 49
-
-### Step 4: Component Organization
-
-Organize per REPO-STRUCTURE.md or TECH-STACK.md conventions.
-
-### Step 5: Verify Each Component
-
-For each component, verify:
-
-- [ ] All props from spec
-- [ ] All events from spec
-- [ ] All variants work
-- [ ] All states render
-- [ ] Accessibility requirements met
-- [ ] Design tokens used (no hardcoded values)
-- [ ] Types correct
+Build every Astro component per Phase 40 COMPONENT-SPEC.md files.
 
 ---
 
-## Output
+## LOCKED CONTEXT (Required Reading)
 
-| Output | Location | Status |
-|--------|----------|--------|
-| All components | Per REPO-STRUCTURE.md | ☐ Created |
-
----
-
-## Checklist
-
-Before moving to Phase 51:
-
-- [ ] Every component in COMPONENTS.md implemented
-- [ ] Props match spec exactly
-- [ ] Events match spec exactly
-- [ ] All variants work
-- [ ] All states work
-- [ ] Accessibility attributes present
-- [ ] Deep spec requirements met (where applicable)
-- [ ] Design tokens used correctly
-- [ ] No type errors
+1. `NCE-V2/specs/frontend-contract/components/*/COMPONENT-SPEC.md` (Phase 40)
+2. `NCE-V2/specs/frontend-contract/DESIGN-SYSTEM.md` (Phase 38)
+3. Phase 49 design system implementation
+4. `NCE-V2/specs/CODING-STANDARDS.md` (Phase 35; TS rules apply)
 
 ---
 
-## Implementation Log Entry
+## TASK
 
-```markdown
-## Phase 50: Component Implementation
+For each Astro component:
 
-**Started:** {{timestamp}}
-**Completed:** {{timestamp}}
-**Duration:** {{time}}
-
-### Summary
-Implemented {{count}} components per COMPONENTS.md.
-
-### Components
-
-| Category | Count | Status |
-|----------|-------|--------|
-| {{category}} | {{count}} | ✅ |
-
-### Deep Specs Applied
-- {{component}}: {{specs used}}
-
-### Deviations
-- None
-
-### Notes
-{{observations}}
-```
+1. Create `src/components/<ComponentName>.astro`
+2. TypeScript prop interface in `src/components/<ComponentName>.types.ts`
+3. Implement HTML structure per COMPONENT-SPEC.md
+4. Apply design tokens from Phase 49
+5. Handle all states (loading, error, empty)
+6. WCAG accessibility (ARIA, keyboard, focus management)
+7. Responsive behaviour per breakpoints
+8. Component tests (Astro testing via @astro/test or similar)
 
 ---
 
-## Rules
+## MANDATORY RULES
 
-1. **Implement ALL components** — Nothing missing from COMPONENTS.md
-2. **Use TECH-STACK.md framework** — Don't assume specific framework
-3. **Use shared-types/** — Type all props from shared source
-4. **Use design tokens** — From Phase 49
-5. **Check accessibility** — Every interactive component
+- Presentation-only — no direct NCE-V2 API calls (data comes via props)
+- TypeScript props
+- WCAG conformance
+- Apply design tokens (not hardcoded styles)
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
+
+---
+
+## END CONDITION
+
+- [ ] All components implemented
+- [ ] All component tests pass
+- [ ] WCAG checks pass
+- [ ] Status: Draft Complete – Awaiting Review
+
+**Next:** Phase 51 (Page Implementation)
 
 ---
 
-## Next Phase
+## STATUS
 
-**Phase 51: Page Implementation**
+**Draft Complete – Awaiting Review**
 
----
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?

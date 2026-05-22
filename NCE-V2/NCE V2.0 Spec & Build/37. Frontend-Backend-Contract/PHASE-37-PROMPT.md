@@ -4,156 +4,89 @@
 Phase: 37
 Name: Frontend-Backend Contract
 Section: 0e. Frontend
-Status: {{DRAFT | IN PROGRESS | COMPLETE}}
+Location: NCE-V2/NCE V2.0 Spec & Build/37. Frontend-Backend-Contract/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
+---
+
+## NCE-V2 SCOPE NOTE
+
+**NCE-V2 itself has no frontend** — it is a backend (Cloudflare Workers) that emits JSON consumed by the downstream **Astro** website platform. Per the output-boundary rule, web rendering is Astro's job, not NCE-V2's.
+
+Phases 37–42 (and 48–51) apply to either the Astro consumer's needs from NCE-V2's API (in scope of this effort), or a separate sibling project (out of scope but related). Confirm with user.
+
 ---
 
 ## ROLE
 
-You are creating the single binding artifact between frontend and backend. This contract is the ONLY document frontend should reference for API communication.
+You produce the contract between NCE-V2's JSON API surface and the Astro consumer — projection only, no inventions.
 
 ---
 
-## CRITICAL RULE: PROJECTION ONLY
+## LOCKED CONTEXT (Required Reading)
 
-**The Frontend-Backend Contract may NOT introduce:**
-- New endpoints
-- New parameters
-- New request/response fields
-- New behaviours
-- New error codes
-
-It is a **projection** of API-SURFACE.md, not a modification.
-
-**If you find a gap:**
-1. Document it in FRONTEND-DECISION-NOTES.md
-2. Note which source file should have it
-3. Escalate to user
-4. Do NOT fill the gap yourself
-
----
-
-## INPUTS
-
-| Input | Location | Purpose |
-|-------|----------|---------|
-| API-SURFACE.md | `precode/` or `standards/` | Source of endpoint definitions |
-| ERROR-CODES.md | `standards/` | Error codes frontend must handle |
-| Shared TYPES | `standards/` | Data types for requests/responses |
+1. [Project-Intent.md](../../Project-Intent.md)
+2. `NCE-V2/specs/api/API-SURFACE.md` (Phase 30)
+3. `NCE-V2/specs/project-wide/ERROR-CODES.md` (Phase 26)
+4. `NCE-V2/specs/website/spec/*` — the `website/` system that emits Astro's input JSON
+5. `NCE-V2/specs/project-wide/API-STANDARDS.md` (Phase 26)
 
 ---
 
 ## TASK
 
-### Step 1: Gather Sources
+Produce `FRONTEND-BACKEND-CONTRACT.md` covering:
 
-Read:
-- API-SURFACE.md
-- ERROR-CODES.md
-- All relevant TYPES files
+1. **Authentication** — how Astro authenticates against NCE-V2 (API key / signed request / OAuth)
+2. **Endpoints Astro consumes** — list with TS request/response types (from API-SURFACE.md)
+3. **Response envelope** — `{ ok: true, data: T } | { ok: false, error: { code, message } }`
+4. **Page JSON shape** — Astro's input from `website/PageComposer.ts`
+5. **Caching** — KV-backed page JSON caching; invalidation on publish
+6. **Error handling** — Astro behaviour per error code
+7. **Webhooks** — publish events from `publishing/`
 
-### Step 2: Filter for Frontend
+**Projection-only rule:** No new endpoints, params, fields, behaviours, or codes. Gaps → log in FRONTEND-DECISION-NOTES.md.
 
-Extract only what frontend needs:
-- Public API endpoints (exclude internal/admin if separate apps)
-- Types used in public API requests/responses
-- Error codes that can reach the frontend
+---
 
-**Ask user:** "Are there endpoints in API-SURFACE.md that the frontend should NOT access?"
+## OUTPUT LOCATION
 
-### Step 3: Structure the Contract
-
-For each endpoint:
-1. Copy definition from API-SURFACE.md exactly
-2. Add request/response type definitions
-3. List error codes that endpoint can return
-4. Add mock data example (golden sample)
-
-### Step 4: Create Mock Data Examples
-
-For each endpoint, provide a realistic example:
-
-```json
-// GET /api/users/123
-// Mock Response (Success)
-{
-  "id": "user_123",
-  "name": "Jane Smith",
-  "email": "jane@example.com",
-  "createdAt": "2024-01-15T10:30:00Z"
-}
-
-// Mock Response (Error)
-{
-  "error": {
-    "code": "USER_001",
-    "message": "User not found"
-  }
-}
+```
+NCE-V2/specs/frontend-contract/FRONTEND-BACKEND-CONTRACT.md
 ```
 
-### Step 5: Verify Completeness
+---
 
-Check:
-- [ ] Every public endpoint is in contract
-- [ ] Every endpoint has request/response types
-- [ ] Every endpoint has error codes listed
-- [ ] Every endpoint has mock data example
-- [ ] No new information was invented
+## MANDATORY RULES
 
-### Step 6: Gap Check
-
-List any gaps found:
-- Missing endpoints needed by frontend
-- Missing error codes
-- Unclear behaviours
-
-**Do NOT fill gaps. Document and escalate.**
+- Projection only, no inventions
+- NCE-V2 emits JSON, Astro renders
+- Apply API-STANDARDS envelope
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
-## RULES
+## END CONDITION
 
-### DO:
-- Copy exactly from source documents
-- Include mock data for every endpoint
-- Note all error codes per endpoint
-- Flag gaps explicitly
+- [ ] FRONTEND-BACKEND-CONTRACT.md complete with TS types
+- [ ] All consumed endpoints documented
+- [ ] Status: Draft Complete – Awaiting Review
 
-### DO NOT:
-- Add new endpoints
-- Add new parameters
-- Add new error codes
-- Infer behaviour not documented
-- "Fix" inconsistencies (escalate instead)
+**Next:** Phase 38 (Design System)
 
 ---
 
-## OUTPUT
+## TEMPLATES
 
-Create: `frontend/FRONTEND-BACKEND-CONTRACT.md`
-
-Use template: `FRONTEND-BACKEND-CONTRACT-TEMPLATE.md`
+- [FRONTEND-BACKEND-CONTRACT-TEMPLATE.md](./FRONTEND-BACKEND-CONTRACT-TEMPLATE.md)
 
 ---
 
-## APPROVAL
+## STATUS
 
-Present contract to user.
+**Draft Complete – Awaiting Review**
 
-**If user says APPROVE:**
-- Mark Phase 37 complete
-- Proceed to Phase 38
-
-**If user says REVISE:**
-- Make requested changes
-- Re-present for approval
-
-**If gaps require rollback:**
-- Document in FRONTEND-DECISION-NOTES.md
-- Return to 0c/0d to fix source
-- Resume Phase 37 after fix
-
----
-Generated: {{timestamp}}
-Phase: 37 (Frontend-Backend Contract)
----
+### Review & Clarification Needed
+- Is the Astro consumer in scope of NCE-V2 effort?
+- May this draft be promoted to "Approved"?

@@ -1,283 +1,113 @@
-# Phase 66: Production Deployment
+# PHASE 66: PRODUCTION DEPLOYMENT
 
 ---
 Phase: 66
-Section: 0i Rollout
+Section: 0i. Rollout
 Name: Production Deployment
-Status: TEMPLATE
-Collapsible: **NEVER**
+Location: NCE-V2/NCE V2.0 Spec & Build/66. Production-Deployment/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
 ---
 
-## Role
+## ROLE
 
-You are executing the production deployment of the signed-off Release Candidate. This phase is non-collapsible — it must always be executed explicitly.
-
----
-
-## Task
-
-Execute the deployment to production following DEPLOYMENT-GUIDE.md exactly, verify the deployment, and start the Golden Hour monitoring period.
+Execute NCE-V2 production deployment of the signed-off RC. **Non-collapsible.**
 
 ---
 
-## Inputs
+## LOCKED CONTEXT (Required Reading)
 
-| File | Location | Purpose |
-|------|----------|---------|
-| DEPLOYMENT-GUIDE.md | From 0h | Deployment procedure |
-| PRE-DEPLOY-CHECKLIST.md | From Phase 65 | Pre-flight verification |
-| PRE-DEPLOY-SNAPSHOT.md | From Phase 65 | Baseline metrics |
-| ROLLBACK-READY.md | From Phase 65 | Rollback preparation |
+1. `NCE-V2/admin/DEPLOYMENT-GUIDE.md` (Phase 64 — produced as part of doc bundle)
+2. `NCE-V2/admin/PRE-DEPLOY-CHECKLIST.md` (Phase 65)
+3. `NCE-V2/admin/PRE-DEPLOY-SNAPSHOT.md` (Phase 65)
+4. `NCE-V2/admin/ROLLBACK-READY.md` (Phase 65)
 
 ---
 
-## Deployment Strategy
+## DEPLOYMENT STRATEGY
 
-Select based on DEPLOYMENT-GUIDE.md:
+For NCE-V2 on Cloudflare Workers:
+- **Rolling** is the default (Workers are stateless, zero-downtime). `wrangler deploy` per Worker rolls instances.
+- Per-Worker deployments are independent; can deploy `platform` Worker first, then dependents.
 
-| Strategy | When to Use | Risk |
-|----------|-------------|------|
-| Rolling | Stateless, zero-downtime | Low |
-| Blue-Green | Instant rollback needed | Low |
-| Canary | High-risk changes | Medium |
-| Shadow | Pre-verify with real traffic | Low |
-| Big Bang | Small apps, downtime OK | Higher |
+Order (per IMPLEMENTATION-PLAN.md):
+1. **D1 migrations applied to production** (`wrangler d1 migrations apply <library>-prod`) — done in Phase 65 readiness OR here, before Worker deploys
+2. **Deploy `platform` Worker** first (services + system + state + library)
+3. **Deploy remaining system Workers** (alphabetical, parallel-safe except for dependencies)
+4. **Verify each Worker deployed** (`wrangler deployments list`)
 
 ---
 
-## Process
+## TASK
 
-### Step 1: (Optional) Traffic Shadowing
+### Step 1: Pre-flight (re-verify)
+- [ ] PRE-DEPLOY-CHECKLIST.md all green
+- [ ] On-call engineer available
+- [ ] Rollback target SHA confirmed
 
-If using shadow verification:
+### Step 2: D1 Migrations (production)
+For each library (in dependency order):
+- `wrangler d1 migrations apply <library>-prod`
+- Verify with `SELECT * FROM _index LIMIT 1;`
 
-```bash
-# Mirror 5% of production traffic
-{{TRAFFIC_SHADOW_COMMAND}}
-```
+### Step 3: Deploy `platform` Worker
+- `wrangler deploy --env production` for platform Worker
+- Verify deployment via `wrangler deployments list`
+- Smoke test: hit a known platform Worker endpoint, verify 200
 
-- [ ] Shadow traffic enabled
-- [ ] Monitor for 15-30 minutes
-- [ ] Abort thresholds verified
-- [ ] Shadow results OK → proceed
+### Step 4: Deploy remaining Workers
+Per Worker (in parallel where dependencies allow):
+- `wrangler deploy --env production`
+- Smoke test each
 
-### Step 2: Announce Deployment Start
-
-```
-🚀 DEPLOYMENT STARTING
-RC: {{RC_TAG}}
-Target: Production
-Strategy: {{STRATEGY}}
-Time: {{TIMESTAMP}}
-Deployer: {{NAME}}
-Golden Hour ends: {{TIMESTAMP + 60min}}
-```
-
-### Step 3: Execute Deployment
-
-Follow DEPLOYMENT-GUIDE.md exactly:
-
-```bash
-{{DEPLOYMENT_COMMAND}}
-```
-
-### Step 4: Verify Deployment
-
-| Check | Command | Expected |
-|-------|---------|----------|
-| Version | `{{VERSION_CHECK}}` | {{RC_TAG}} |
-| Health | `{{HEALTH_CHECK}}` | 200 OK |
-| Commit SHA | `{{SHA_CHECK}}` | {{COMMIT}} |
-
-### Step 5: Canary Progression (if applicable)
-
-| Stage | % | Duration | Exit Criteria | Status |
-|-------|---|----------|---------------|--------|
-| 1 | 1% | 30 min | All metrics OK | ☐ |
-| 2 | 5% | 30 min | All metrics OK | ☐ |
-| 3 | 25% | 30 min | All metrics OK | ☐ |
-| 4 | 50% | 30 min | All metrics OK | ☐ |
-| 5 | 100% | - | Full rollout | ☐ |
+### Step 5: Verify
+- All Workers report current RC commit SHA
+- All endpoints respond
+- No spike in error rate vs PRE-DEPLOY-SNAPSHOT
 
 ### Step 6: Start Golden Hour
+- Notify on-call: deployment complete, Golden Hour begins now
+- Monitor metrics for 60 minutes minimum
+- If any critical alert: roll back per ROLLBACK-READY.md (`wrangler rollback`)
+
+---
+
+## OUTPUT
 
 ```
-⏱️ GOLDEN HOUR ACTIVE
-Started: {{TIMESTAMP}}
-Ends: {{TIMESTAMP + 60min}}
-Release Owner: {{NAME}} (must remain reachable)
-Stack freeze: Active
+NCE-V2/admin/DEPLOYMENT-LOG.md
 ```
 
-### Step 7: Announce Deployment Complete
-
-```
-✅ DEPLOYMENT COMPLETE
-RC: {{RC_TAG}}
-Status: Live on production
-Time: {{TIMESTAMP}}
-Golden Hour: Active until {{END_TIME}}
-Verification: Proceeding to Phase 67
-```
+Capture: timestamp per step, Worker SHAs deployed, smoke test results, Golden Hour start time.
 
 ---
 
-## Canary Abort Thresholds
+## MANDATORY RULES
 
-**NON-NEGOTIABLE — No judgment calls:**
-
-| Metric | Abort Threshold | Action |
-|--------|-----------------|--------|
-| Error rate | > 2× baseline | Immediate rollback |
-| p95 latency | > 2× baseline | Pause + evaluate |
-| New error type | Any | Pause + investigate |
-| Cost spike | > 3× baseline (15 min) | Immediate rollback |
-| Memory | > 95% | Immediate rollback |
-| CPU | > 90% | Pause + evaluate |
-
-**If abort threshold exceeded:**
-
-```
-⚠️ CANARY ABORT THRESHOLD EXCEEDED
-
-Metric: {{METRIC}}
-Threshold: {{THRESHOLD}}
-Actual: {{ACTUAL}}
-
-Action: IMMEDIATE ROLLBACK
-This is NON-NEGOTIABLE.
-```
+- Follow DEPLOYMENT-GUIDE.md exactly
+- Don't skip smoke tests
+- Don't proceed past Golden Hour without verification (Phase 67)
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
-## Cost Spike Guardrail
+## END CONDITION
 
-> **If cost anomaly > 3× baseline within 15 minutes, rollback or pause.**
-
-Protects against:
-- Runaway autoscaling
-- Misconfigured caching
-- Infinite loops
-
----
-
-## Golden Hour Policy
-
-| Rule | Requirement |
-|------|-------------|
-| Release Owner availability | 60 minutes post-deploy |
-| Stack freeze | No other deployments |
-| P1 alert response | Immediate |
-
----
-
-## Rules
-
-### DOs
-
-- ✅ Follow DEPLOYMENT-GUIDE.md exactly
-- ✅ Verify version after deployment
-- ✅ Monitor abort thresholds
-- ✅ Respect Golden Hour policy
-- ✅ Document everything in DEPLOYMENT-LOG.md
-
-### DON'Ts
-
-- ❌ Deviate from DEPLOYMENT-GUIDE.md
-- ❌ Skip version verification
-- ❌ Ignore abort thresholds
-- ❌ Allow Release Owner to leave during Golden Hour
-- ❌ Deploy other changes during Golden Hour
-
----
-
-## Rollback Trigger
-
-If deployment fails or health checks fail:
-
-1. **CAPTURE EVIDENCE SNAPSHOT** (< 5 min)
-   - See EVIDENCE-SNAPSHOT-GUIDE.md
-2. **EXECUTE ROLLBACK** per DEPLOYMENT-GUIDE.md
-3. **Document** in DEPLOYMENT-LOG.md
-4. **Create** INCIDENT-REPORT.md
-5. **Return to 0h**
-
-**On-call Engineer has AUTONOMOUS rollback authority.**
-
----
-
-## Output Format
-
-Create:
-
-1. **DEPLOYMENT-LOG.md** (from template)
-   - Location: `/docs/0i/logs/`
-   - Timestamped steps
-   - Commands executed
-   - Verification results
-   - Rollback markers
-
----
-
-## Deployment Log Format Standard
-
-```markdown
-# Deployment Log
-
-## Header
-- RC Tag: {{RC_TAG}}
-- Commit SHA: {{SHA}}
-- Deployer: {{NAME}}
-- Start Time: {{TIMESTAMP}}
-- End Time: {{TIMESTAMP}}
-
-## Timestamped Steps
-| Time | Step | Command | Output | Status |
-|------|------|---------|--------|--------|
-
-## Verification Results
-- [ ] Version matches
-- [ ] Health OK
-- [ ] Metrics OK
-
-## Rollback Decision Markers
-- Rollback triggered: ☐ Yes / ☐ No
-```
-
----
-
-## On Completion
-
-### If Deployment Succeeds
-
-- [ ] Version verified on production
-- [ ] Health checks passing
-- [ ] Golden Hour started
+- [ ] All Workers deployed and verified
+- [ ] D1 migrations applied
+- [ ] Smoke tests pass
 - [ ] DEPLOYMENT-LOG.md complete
-- [ ] Proceed to Phase 67
+- [ ] Golden Hour started
+- [ ] Status: Draft Complete – Awaiting Review
 
-### If Deployment Fails
-
-```
-CAPTURE EVIDENCE SNAPSHOT (< 5 min)
-↓
-EXECUTE ROLLBACK IMMEDIATELY
-↓
-Document in DEPLOYMENT-LOG.md
-↓
-Create INCIDENT-REPORT.md
-↓
-Return to 0h for investigation
-```
+**Next:** Phase 67 (Post-Deploy Verification)
 
 ---
 
-## Template Reference
+## STATUS
 
-Use: `0. Admin/0i. Rollout/DEPLOYMENT-LOG-TEMPLATE.md`
+**Draft Complete – Awaiting Review**
 
----
-Generated: {{timestamp}}
-Phase: 66 - Production Deployment
-Section: 0i Rollout
----
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?

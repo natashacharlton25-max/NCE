@@ -1,230 +1,88 @@
-# Phase 48: Frontend Setup
+# PHASE 48: FRONTEND SETUP
 
 ---
 Phase: 48
+Name: Frontend Setup (Astro consumer)
 Section: 0f. Implementation
-Name: Frontend Setup
-Purpose: Initialize frontend application with routing
+Location: NCE-V2/NCE V2.0 Spec & Build/48. Frontend-Setup/
+Project: NCE-V2 (Astro consumer; not NCE-V2 backend)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
 ---
 
-## Role
+## NCE-V2 SCOPE NOTE
 
-You are setting up the frontend application. Your job is to initialize the framework specified in TECH-STACK.md, configure routing per PAGES.md, and create the base layout structure.
-
----
-
-## Inputs
-
-| Document | Location | What to Extract |
-|----------|----------|-----------------|
-| TECH-STACK.md | 0d outputs | Frontend framework, build tools |
-| REPO-STRUCTURE.md | 0d outputs | Frontend folder layout |
-| PAGES.md | 0e outputs | Routes and pages |
-| shared-types/ | From Phase 43 | Type definitions |
-| Backend | From Phase 47 | Verified API (should be running) |
+This phase applies to the **Astro consumer**, not NCE-V2 itself. Apply only if Astro is in scope of this effort.
 
 ---
 
-## Process
+## ROLE
 
-### Step 1: Initialize Frontend Framework
-
-Based on TECH-STACK.md, initialize the specified framework.
-
-**Do not assume a framework. Check TECH-STACK.md.**
-
-Common frameworks and their init commands:
-- SvelteKit: `npm create svelte@latest`
-- Next.js: `npx create-next-app@latest`
-- Astro: `npm create astro@latest`
-- Vue/Nuxt: `npx nuxi init`
-- React (Vite): `npm create vite@latest`
-
-**Use whatever TECH-STACK.md specifies.**
-
-### Step 2: Set Up Routing
-
-From PAGES.md, identify all routes and create the appropriate structure.
-
-| Route | Page | Framework Implementation |
-|-------|------|--------------------------|
-| / | Home | Per framework conventions |
-| /auth/login | Login | Per framework conventions |
-| /auth/register | Register | Per framework conventions |
-| /dashboard | Dashboard | Per framework conventions |
-| /projects | Project List | Per framework conventions |
-| /projects/:id | Project Detail | Per framework conventions |
-| ... | ... | ... |
-
-**Route structure depends on framework:**
-- File-based routing (SvelteKit, Next.js, Nuxt)
-- Config-based routing (React Router, Vue Router)
-
-### Step 3: Create Base Layout
-
-Create the root layout structure per PAGES.md specifications:
-
-- Header/navigation
-- Sidebar (if specified)
-- Main content area
-- Footer (if specified)
-
-**Implementation depends on framework conventions.**
-
-### Step 4: Configure Build Tooling
-
-Per TECH-STACK.md:
-
-- Configure bundler (Vite, webpack, etc.)
-- Set up path aliases per REPO-STRUCTURE.md
-- Configure TypeScript (if used)
-- Set up linting/formatting
-
-### Step 5: Set Up Styling Approach
-
-Per TECH-STACK.md, prepare for Phase 49:
-
-- CSS/SCSS setup
-- Tailwind configuration
-- CSS-in-JS provider
-- Or whatever TECH-STACK.md specifies
-
-### Step 6: Import Shared Types
-
-Make shared-types/ accessible to frontend:
-
-**Options (depends on repo structure):**
-- Symlink in monorepo
-- Package reference
-- Copy types
-- Path alias configuration
-
-**Verify types are importable from frontend code.**
-
-### Step 7: Create Placeholder Pages
-
-For each route in PAGES.md, create a placeholder page:
-
-- Basic heading identifying the page
-- "Coming soon" or placeholder content
-- Will be fully implemented in Phase 51
-
-### Step 8: Set Up API Client (Stub)
-
-Create the structure for API communication:
-
-- API base URL from environment
-- Auth token handling (stub)
-- Basic request methods (stub)
-
-**Will be fully implemented in Phase 52.**
-
-### Step 9: Configure Environment
-
-Set up environment variables:
-
-- API URL
-- Any other frontend-specific config
-- Per ENVIRONMENT.md
-
-### Step 10: Verify Setup
-
-```bash
-# Start frontend dev server
-npm run dev  # or equivalent
-
-# Verify:
-# - Server starts without errors
-# - Can navigate to all routes
-# - No TypeScript errors
-# - Base layout renders
-# - Build completes without errors
-```
+Initialize the Astro consumer app: framework setup, routing per Phase 39 page specs, base layout structure.
 
 ---
 
-## Output
+## LOCKED CONTEXT (Required Reading)
 
-| Output | Location | Status |
-|--------|----------|--------|
-| Frontend framework | Per REPO-STRUCTURE.md | ☐ Initialized |
-| Route structure | Per framework conventions | ☐ Created |
-| Base layout | Per framework conventions | ☐ Created |
-| Placeholder pages | Per route | ☐ Created |
-| Type imports | Configured | ☐ Working |
-| Build tooling | Per TECH-STACK.md | ☐ Configured |
+1. `NCE-V2/specs/TECH-STACK.md` (Phase 33; Astro decision)
+2. `NCE-V2/specs/REPO-STRUCTURE.md` (Phase 32)
+3. `NCE-V2/specs/frontend-contract/pages/*/PAGE-SPEC.md` (Phase 39)
+4. `NCE-V2/specs/frontend-contract/FRONTEND-BACKEND-CONTRACT.md` (Phase 37)
 
 ---
 
-## Checklist
+## TASK
 
-Before moving to Phase 49:
+1. **Initialize Astro app** (sibling project or subdirectory per user direction):
+   - `npm create astro@latest`
+   - Configure TypeScript strict mode
+   - Configure deployment target (Cloudflare Pages or static)
 
-- [ ] Frontend framework initialized per TECH-STACK.md
-- [ ] All routes from PAGES.md exist (as placeholders)
-- [ ] Navigation between routes works
-- [ ] Base layout renders correctly
-- [ ] Build completes without errors
-- [ ] TypeScript has no errors (if used)
-- [ ] Shared types are importable
-- [ ] Dev server runs and is accessible
-- [ ] Environment variables configured for API URL
+2. **Set up routing** per Phase 39 page specs:
+   - File-based routing under `src/pages/<route>/index.astro`
+   - Dynamic routes per PAGE-SPEC.md (e.g. `src/pages/blog/[slug].astro`)
 
----
+3. **Base layout** `src/layouts/BaseLayout.astro`:
+   - HTML shell
+   - Imports design tokens (from Phase 49)
+   - Provides slot for page content
 
-## Implementation Log Entry
+4. **API client** for NCE-V2:
+   - Wrapper around `fetch()` to NCE-V2 endpoints
+   - Honour response envelope from FRONTEND-BACKEND-CONTRACT.md
+   - Typed responses using shared TS types
 
-```markdown
-## Phase 48: Frontend Setup
-
-**Started:** {{timestamp}}
-**Completed:** {{timestamp}}
-**Duration:** {{time}}
-
-### Summary
-Frontend application initialized using {{framework from TECH-STACK.md}}.
-
-### Routes Created
-
-| Route | Page | Status |
-|-------|------|--------|
-| / | Home | ✅ Placeholder |
-| /auth/login | Login | ✅ Placeholder |
-| /dashboard | Dashboard | ✅ Placeholder |
-| /projects | Projects | ✅ Placeholder |
-| ... | ... | ... |
-
-### Configuration
-- Framework: {{from TECH-STACK.md}}
-- Build tool: {{from TECH-STACK.md}}
-- Styling approach: {{from TECH-STACK.md}}
-
-### Files Created
-- {{list key files created}}
-
-### Deviations
-- None
-
-### Notes
-{{Any observations}}
-```
+5. **Environment config**:
+   - `.env` for NCE-V2 endpoint base URL per environment
+   - Cloudflare Pages env vars or static rebuild on env change
 
 ---
 
-## Rules
+## MANDATORY RULES
 
-1. **Use TECH-STACK.md framework** — Don't assume React/Vue/Svelte
-2. **Match PAGES.md exactly** — All routes must exist
-3. **Follow framework conventions** — Don't fight the framework
-4. **Placeholder only** — Full implementation is Phase 51
-5. **Types must work** — Shared types importable before proceeding
+- Astro consumes NCE-V2 JSON only — no business logic
+- TypeScript strict
+- No secrets in repo
+- Apply CODING-STANDARDS.md where applicable (TypeScript style)
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
+
+---
+
+## END CONDITION
+
+- [ ] Astro app initialised
+- [ ] Routing structure matches Phase 39 specs
+- [ ] BaseLayout + API client in place
+- [ ] `astro dev` serves locally and can fetch from NCE-V2 staging
+- [ ] Status: Draft Complete – Awaiting Review
+
+**Next:** Phase 49 (Design System Implementation)
 
 ---
 
-## Next Phase
+## STATUS
 
-After completing Phase 48, proceed to:
+**Draft Complete – Awaiting Review**
 
-**Phase 49: Design System Implementation**
-
----
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?
