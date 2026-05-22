@@ -4,167 +4,102 @@
 Phase: 30
 Name: API Surface Consolidation
 Section: 0d. PreCode
-Status: {{DRAFT | IN PROGRESS | COMPLETE}}
+Location: NCE-V2/NCE V2.0 Spec & Build/30. API-Surface-Consolidation/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
 ---
 
 ## ROLE
 
-You are consolidating all API definitions from component FUNCTIONS.md files into a unified API specification.
+You consolidate all API surfaces (Worker fetch handlers + cross-Worker service-binding interfaces) into a unified master API surface document.
 
-This is **extraction and consolidation** — NOT design. The specs define what exists.
+This is **extraction and consolidation** — NOT design. Surfaces are already in per-component specs.
 
 ---
 
-## CRITICAL RULE
+## LOCKED CONTEXT (Required Reading)
 
-**Do NOT infer API behaviour beyond what is explicitly stated in FUNCTIONS.md.**
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
 
-- If behaviour is unclear → flag as a gap
-- If details are missing → note them, do NOT fill in
-- If something seems implied but isn't written → it doesn't exist
+1. [STACK-AND-RUNTIME.md](../../STACK-AND-RUNTIME.md)
+2. All component `FUNCTIONS.md` (Phase 21) and `OUR-WRAPPER.md` (Phase 22)
+3. All `CONTRACT.md` files (Pass 2)
+4. `NCE-V2/specs/project-wide/API-STANDARDS.md` (Phase 26)
 
 ---
 
 ## TASK
 
-1. Gather all FUNCTIONS.md files from component specs
-2. Extract all public function/endpoint definitions
-3. Consolidate into master API specification
-4. Check for conflicts — if found, STOP and roll back
-5. Verify completeness
-6. Get approval
+Produce `API-SURFACE.md` covering:
+
+1. **Public HTTP API** (Worker fetch handlers)
+   - Per system Worker: routes + methods + request/response TS types
+   - Authentication scheme (per API-STANDARDS.md from Phase 26)
+   - Response envelope: `{ ok: true, data: T } | { ok: false, error: { code, message } }`
+
+2. **Internal Service Bindings** (Worker → Worker)
+   - Per binding pair: which system calls which, function signatures
+   - Type contracts (input type → output type)
+
+3. **External-Facing Webhooks**
+   - From `integrations/WebhookReceiver.ts` — endpoints, payload shapes, auth verification
+
+4. **D1 Binding Surfaces**
+   - Which Workers have which D1 bindings declared in wrangler.toml
+   - All access through `library/Librarian` from non-library Workers
+
+5. **R2 / KV / DO / Queue Bindings**
+   - Per binding type, per Worker
+
+Check for conflicts:
+- Two systems claiming the same route
+- Mismatched types across binding boundaries
+- Missing handlers for routes referenced by contracts
+
+> **Logging rule:** Conflicts logged in `NCE-V2/admin/PRECODE-DECISION-NOTES.md`.
 
 ---
 
-## STEP 1: Gather FUNCTIONS.md Files
+## MANDATORY RULES
 
-List every component that exposes APIs:
+- TypeScript types everywhere (no untyped JSON)
+- Apply `library/Librarian` mediation rule
+- Response envelope per API-STANDARDS.md
+- Do **NOT** invent new endpoints
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
+
+---
+
+## OUTPUT LOCATION
 
 ```
-{{system-a}}/spec/FUNCTIONS.md
-{{system-a}}/{{subsystem-1}}/spec/FUNCTIONS.md
-{{system-b}}/spec/FUNCTIONS.md
-...
+NCE-V2/specs/api/API-SURFACE.md
 ```
 
-Also gather:
-- `standards/API-STANDARDS.md` from Phase 26
-- `standards/ERROR-CODES.md` from Phase 26
+---
+
+## END CONDITION
+
+- [ ] `API-SURFACE.md` consolidates all surfaces
+- [ ] No conflicts
+- [ ] Status: Draft Complete – Awaiting Review
+
+**Next:** Phase 31 (Library Structure)
 
 ---
 
-## STEP 2: Extract Definitions
+## TEMPLATES (enriched for NCE-V2)
 
-From each FUNCTIONS.md, extract ONLY what is explicitly documented:
-
-- Function/endpoint name
-- HTTP method (if REST)
-- Path/route
-- Parameters (with types)
-- Request body schema
-- Response schema
-- Error codes
-- Authentication requirements
-
-**Do NOT add:**
-- Assumed parameters
-- Implied validation
-- Guessed error cases
-- Undocumented behaviour
+- [API-SURFACE-TEMPLATE.md](./API-SURFACE-TEMPLATE.md)
 
 ---
 
-## STEP 3: Consolidate
+## STATUS
 
-**Grouping:** By domain/resource
-
-```
-/api/auth/...     ← Auth system endpoints
-/api/content/...  ← Content system endpoints
-/api/users/...    ← Users system endpoints
-```
-
-**For each endpoint, document:**
-- Full path
-- Method
-- Request format
-- Response format
-- Errors
-- Auth requirements
+**Draft Complete – Awaiting Review**
 
 ---
 
-## STEP 4: Conflict Detection
-
-Check for:
-
-| Conflict Type | Example | Action |
-|---------------|---------|--------|
-| Path collision | Two components use `/api/users` | STOP |
-| Method collision | Both define `GET /api/items` differently | STOP |
-| Type mismatch | Same field, different types | STOP |
-| Error code collision | Same code, different meanings | STOP |
-
-**If ANY conflict found:**
-1. Document in PRECODE-DECISION-NOTES.md
-2. STOP Phase 30
-3. Roll back to relevant spec in 0c
-4. Fix at source
-5. Resume after fix is approved
-
----
-
-## STEP 5: Verify Completeness
-
-Check:
-- [ ] Every component's public functions represented
-- [ ] All error codes documented
-- [ ] All request/response types defined
-- [ ] All auth requirements noted
-- [ ] No gaps flagged without resolution
-
----
-
-## STEP 6: Get Approval
-
-Present to user:
-1. API-SURFACE.md (complete API specification)
-2. Any gaps or unclear items flagged
-
-Wait for APPROVE or REVISE.
-
----
-
-## INPUTS
-
-| Input | Location | Purpose |
-|-------|----------|---------|
-| FUNCTIONS.md files | `{{component}}/spec/FUNCTIONS.md` | Source definitions |
-| API-STANDARDS.md | `standards/API-STANDARDS.md` | Conventions |
-| ERROR-CODES.md | `standards/ERROR-CODES.md` | Error definitions |
-
----
-
-## OUTPUTS
-
-| Output | Location | Purpose |
-|--------|----------|---------|
-| API-SURFACE.md | Project root | Master API specification |
-
----
-
-## TEMPLATES
-
-- API-SURFACE-TEMPLATE.md
-
----
-
-## RULES
-
-- Extract only — do NOT invent endpoints
-- Do NOT infer behaviour — only document explicit specs
-- Flag gaps, don't fill them
-- STOP on ANY conflict
-- Never fix forward
-
----
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?

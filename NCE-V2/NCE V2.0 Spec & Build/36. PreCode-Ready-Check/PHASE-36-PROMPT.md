@@ -2,26 +2,29 @@
 
 ---
 Phase: 36
-Name: PreCode Ready Check
+Name: PreCode Ready Check (final gate before implementation)
 Section: 0d. PreCode
-Status: {{DRAFT | IN PROGRESS | COMPLETE}}
+Location: NCE-V2/NCE V2.0 Spec & Build/36. PreCode-Ready-Check/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
 ---
 
 ## ROLE
 
-You are performing the final verification before the project moves to frontend/implementation.
+You perform the final verification before NCE-V2 moves to implementation (Phase 43+).
 
 This is a gate check. Everything must be ready.
 
 ---
 
-## TASK
+## LOCKED CONTEXT (Required Reading)
 
-1. Verify all PreCode outputs exist and are approved
-2. Verify no unresolved conflicts
-3. Verify completeness
-4. Ask the critical question
-5. Get final approval
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
+
+1. [Project-Intent.md](../../Project-Intent.md)
+2. [CLAUDE.md](../../../CLAUDE.md) — status vocabulary
+3. All Phase 29–35 outputs
 
 ---
 
@@ -31,173 +34,97 @@ This is a gate check. Everything must be ready.
 
 | Output | Phase | Exists | Approved |
 |--------|-------|--------|----------|
-| DATABASE-SCHEMA.md | 29 | ☐ | ☐ |
-| MIGRATION-STRATEGY.md | 29 | ☐ | ☐ |
-| API-SURFACE.md | 30 | ☐ | ☐ |
-| LIBRARY-STRUCTURE.md | 31 | ☐ / N/A | ☐ / N/A |
-| REPO-STRUCTURE.md | 32 | ☐ | ☐ |
-| TECH-STACK.md | 33 | ☐ | ☐ |
-| ENVIRONMENT.md | 34 | ☐ | ☐ |
-| CODING-STANDARDS.md | 35 | ☐ | ☐ |
+| `NCE-V2/specs/database/DATABASE-SCHEMA.md` | 29 | ☐ | ☐ |
+| `NCE-V2/specs/database/MIGRATION-STRATEGY.md` | 29 | ☐ | ☐ |
+| `NCE-V2/specs/api/API-SURFACE.md` | 30 | ☐ | ☐ |
+| `NCE-V2/specs/LIBRARY-STRUCTURE.md` | 31 | ☐ | ☐ |
+| `NCE-V2/specs/REPO-STRUCTURE.md` | 32 | ☐ | ☐ |
+| `NCE-V2/specs/TECH-STACK.md` | 33 | ☐ | ☐ |
+| `NCE-V2/specs/ENVIRONMENT.md` | 34 | ☐ | ☐ |
+| `NCE-V2/specs/CODING-STANDARDS.md` | 35 | ☐ | ☐ |
 
 ### Conflict Verification
 
 | Check | Status |
 |-------|--------|
-| No schema conflicts | ☐ Pass / ☐ Fail |
-| No API conflicts | ☐ Pass / ☐ Fail |
-| No unresolved rollbacks | ☐ Pass / ☐ Fail |
-| No blocking issues | ☐ Pass / ☐ Fail |
+| No D1 schema conflicts (two libraries same binding) | ☐ Pass / ☐ Fail |
+| No API conflicts (two systems same route) | ☐ Pass / ☐ Fail |
+| No unresolved blockers from PRECODE-DECISION-NOTES.md | ☐ Pass / ☐ Fail |
+| Phase 27 hardening verdict was GO | ☐ Pass / ☐ Fail |
 
-### Completeness Verification
+### NCE-V2 Completeness Verification
 
 | Check | Status |
 |-------|--------|
-| All systems have folder location | ☐ Pass / ☐ Fail |
-| All subsystems have folder location | ☐ Pass / ☐ Fail |
-| All database tables accounted for | ☐ Pass / ☐ Fail |
-| All API endpoints accounted for | ☐ Pass / ☐ Fail |
-| Tech stack decisions complete | ☐ Pass / ☐ Fail |
-| Environment config complete | ☐ Pass / ☐ Fail |
+| All 27 systems have folder location in REPO-STRUCTURE | ☐ Pass / ☐ Fail |
+| All subsystems mapped to files in REPO-STRUCTURE | ☐ Pass / ☐ Fail |
+| All D1 libraries have migration directory planned | ☐ Pass / ☐ Fail |
+| All Worker secrets inventoried in ENVIRONMENT.md | ☐ Pass / ☐ Fail |
+| TECH-STACK.md has no unresolved open decisions | ☐ Pass / ☐ Fail |
+| CODING-STANDARDS.md exists and is concrete | ☐ Pass / ☐ Fail |
+| 2000 LOC band documented uniformly | ☐ Pass / ☐ Fail |
+| Output-boundary rule referenced in CODING-STANDARDS | ☐ Pass / ☐ Fail |
+| Library access via Librarian documented | ☐ Pass / ☐ Fail |
+
+### Critical Question
+
+**"Could a new developer (or Claude Code) implement NCE-V2's `platform` Worker from these documents alone, without further questions?"**
+
+If NO → which document is missing what?
+If YES → proceed.
 
 ---
 
-## CRITICAL QUESTION
+## TASK
 
-**Ask the user:**
-
-> Is there anything required to start implementation that is not documented?
->
-> This includes:
-> - Missing technical decisions
-> - Undocumented dependencies
-> - Unclear requirements
-> - Assumed knowledge that isn't written down
-> - External services not yet set up
-> - Access/permissions not yet arranged
-
-If the answer is YES → document what's missing before proceeding.
+1. Verify every checklist item
+2. Log any FAILs in `NCE-V2/admin/PRECODE-DECISION-NOTES.md`
+3. Produce `PRECODE-READY-CHECKLIST.md` with verdict
+4. Get human GO/NO-GO for implementation
 
 ---
 
-## THE "DIFFERENT AI" TEST
+## OUTPUT LOCATION
 
-**Ask yourself (Claude):**
-
-> If I were a completely new AI with NO access to this conversation history, could I build this project using ONLY the 0d PreCode documents?
-
-Check for:
-- [ ] No assumed context from earlier conversations
-- [ ] No "we discussed this" references without documentation
-- [ ] All decisions are in PRECODE-DECISION-NOTES.md
-- [ ] All tech choices are in TECH-STACK.md
-- [ ] All folder locations are in REPO-STRUCTURE.md
-- [ ] All database details are in DATABASE-SCHEMA.md
-- [ ] All API details are in API-SURFACE.md
-
-**If any gap is found:** Document it before marking complete.
+```
+NCE-V2/admin/PRECODE-READY-CHECKLIST.md
+```
 
 ---
 
-## FINAL APPROVAL
+## MANDATORY RULES
 
-Present the completed PRECODE-CHECKLIST.md to user.
-
-If all checks pass AND critical question is answered → Mark PreCode as COMPLETE.
-
-**PreCode is COMPLETE when user confirms:**
-1. All outputs exist and are approved
-2. No unresolved conflicts
-3. Nothing required is undocumented
-4. Ready to proceed to 0e Frontend
+- Don't fix issues — only verify and report
+- Don't accept FAILs silently
+- Don't self-assign "Approved" or "GO" — human owns this
+- Per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
-## OUTPUTS
+## END CONDITION
 
-| Output | Location | Purpose |
-|--------|----------|---------|
-| PRECODE-CHECKLIST.md | Project root | Final verification |
+Phase 36 is COMPLETE when:
+- [ ] All output verifications PASS
+- [ ] All conflict checks PASS
+- [ ] All NCE-V2 completeness checks PASS
+- [ ] Critical question answered YES
+- [ ] Human approves GO for implementation
+
+**Next (if GO):** Phase 37 (Frontend-Backend Contract) — note: for NCE-V2 this concerns the Astro consumer; see Phase 37 prompt
 
 ---
 
 ## TEMPLATES
 
-- PRECODE-CHECKLIST-TEMPLATE.md
+- [PRECODE-CHECKLIST-TEMPLATE.md](./PRECODE-CHECKLIST-TEMPLATE.md)
 
 ---
 
-## SECTION HANDOFF
+## STATUS
 
-**Create `0d-to-0e-HANDOFF.md`** in project admin folder:
-
-```markdown
-# 0d → 0e Section Handoff
-
----
-Created: {{timestamp}}
-Section Completed: 0d PreCode (Phases 29-36)
-Next Section: 0e Frontend (Phases 37-42)
----
-
-## Summary
-
-0d PreCode is COMPLETE. Database schema, API surface, repository structure, tech stack, and coding standards are consolidated and ready for frontend specification.
-
-## Key Artifacts Created
-
-| Artifact | Location | Status |
-|----------|----------|--------|
-| DATABASE-SCHEMA.md | /admin/0d/ | APPROVED |
-| MIGRATION-STRATEGY.md | /admin/0d/ | APPROVED |
-| API-SURFACE.md | /admin/0d/ | APPROVED |
-| LIBRARY-STRUCTURE.md | /admin/0d/ | APPROVED (or N/A) |
-| REPO-STRUCTURE.md | /admin/0d/ | APPROVED |
-| TECH-STACK.md | /admin/0d/ | APPROVED |
-| ENVIRONMENT.md | /admin/0d/ | APPROVED |
-| CODING-STANDARDS.md | /admin/0d/ | APPROVED |
-| PRECODE-DECISION-NOTES.md | /admin/0d/ | APPROVED |
-
-## PreCode Summary
-
-| Area | Status | Notes |
-|------|--------|-------|
-| Database Schema | Consolidated | {{n}} tables |
-| API Surface | Consolidated | {{n}} endpoints |
-| Repository Structure | Defined | {{structure summary}} |
-| Tech Stack | Locked | {{key technologies}} |
-| Environment Config | Complete | {{n}} environments |
-| Coding Standards | Approved | {{standards summary}} |
-
-## Key Decisions Made
-
-{{List significant PreCode decisions}}
-
-## Known Issues or Deferred Items
-
-{{Any gaps, risks, or items flagged for 0e attention}}
-
-## Handoff Verification
-
-- [ ] All Phase 29-35 outputs approved
-- [ ] No unresolved conflicts
-- [ ] "Different AI" test passed
-- [ ] PRECODE-CHECKLIST.md shows all checks pass
-- [ ] Nothing required is undocumented
-
-**Ready to begin 0e Frontend.**
-```
+**Draft Complete – Awaiting Review**
 
 ---
 
-## NEXT SECTION
-
-After Phase 36 approval → **0e. Frontend**
-
-0e will:
-- Accept visual mockups as input
-- Create FRONTEND-BACKEND-CONTRACT.md
-- Spec pages and components
-- Map frontend to API endpoints from API-SURFACE.md
-
----
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?

@@ -4,151 +4,95 @@
 Phase: 31
 Name: Library Structure
 Section: 0d. PreCode
-Status: {{DRAFT | IN PROGRESS | COMPLETE}}
+Location: NCE-V2/NCE V2.0 Spec & Build/31. Library-Structure/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
 ---
 
 ## ROLE
 
-You are defining the folder structure and organization for shared libraries identified in Phase 23 (Library Specs).
-
-**Critical Purpose:** Prevent code duplication BEFORE implementation begins.
-
-If no libraries were identified in Phase 23, this phase is **N/A**.
+You document the structure of NCE-V2's shared `lib/` utilities (and any additional library code paths). This consolidates Phase 23's lib/ specs into a structural overview.
 
 ---
 
-## DEDUPLICATION CHECK
+## LOCKED CONTEXT (Required Reading)
 
-Before proceeding, scan all component specs for potential shared code:
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
 
-| Pattern | Check For | If Found |
-|---------|-----------|----------|
-| Logging | Multiple systems needing logging | → lib-logger |
-| Validation | Shared validation rules | → lib-validation |
-| Auth wrappers | Auth checks in multiple places | → lib-auth |
-| API clients | Calls to same external APIs | → lib-api-client |
-| Date/time utils | Date formatting/parsing | → lib-datetime |
-| Error handling | Common error patterns | → lib-errors |
-
-**Ask:** "Are there any shared utilities that multiple systems need that weren't identified as libraries in Phase 23?"
-
-If yes → Document as addition, get approval, then proceed.
+1. [FileTree-v2.md](../../FileTree-v2.md) — `lib/svg/` lives here
+2. All Phase 23 `lib/` utility specs (`NCE-V2/specs/lib/<utility>/spec/`)
+3. Phase 25 PATTERN-ANALYSIS.md (for any new utilities surfaced)
 
 ---
 
 ## TASK
 
-1. Check if Phase 23 identified any libraries
-2. If no libraries → Mark phase as N/A, proceed to Phase 32
-3. If libraries exist → Define folder structure for each
-4. Define dependency order
-5. Get approval
+Produce `LIBRARY-STRUCTURE.md` covering:
+
+1. **lib/ layout**
+   - Top-level: `src/lib/`
+   - Subdirectories per utility group:
+     - `src/lib/svg/` — SVG drawing/manipulation (from FileTree-v2)
+     - Any additional utility groups identified in Phase 25 PATTERN-ANALYSIS (e.g. `src/lib/d1-query/`, `src/lib/types/`)
+   - Each utility group is a TypeScript module collection
+
+2. **Naming convention**
+   - Utility groups: lowercase, hyphens (`d1-query`, `svg`, `types`, `errors`)
+   - File names per utility: camelCase (`drawPath.ts`, `bindParameters.ts`)
+   - Type-only files: `*.types.ts` (excluded from runtime LOC)
+
+3. **Import pattern**
+   - From a system Worker: `import { drawPath } from "../lib/svg";`
+   - lib/ utilities are bundled into each Worker that uses them (no service binding)
+
+4. **lib/ rules** (recap from Phase 23)
+   - No business logic
+   - No system dependencies
+   - No state (or minimal — caching only)
+   - No D1/R2/KV access (libraries are pure; storage access is system territory)
 
 ---
 
-## STEP 1: Check for Libraries
-
-Look for `lib-{{library}}/spec/` folders from Phase 23.
-
-If none exist:
-- Mark LIBRARY-STRUCTURE.md as "N/A — No libraries identified"
-- Proceed to Phase 32
-
----
-
-## STEP 2: List Libraries
-
-For each library from Phase 23:
-
-| Library | Purpose | Dependencies |
-|---------|---------|--------------|
-| `lib-{{name}}` | {{purpose}} | {{other libs}} |
-
----
-
-## STEP 3: Define Folder Structure
-
-For each library:
+## OUTPUT LOCATION
 
 ```
-lib-{{name}}/
-├── src/
-│   ├── index.ts        ← Main export
-│   ├── {{module}}.ts   ← Module files
-│   └── types.ts        ← Type definitions
-├── tests/
-│   └── {{module}}.test.ts
-├── package.json        ← Or equivalent
-└── README.md
+NCE-V2/specs/LIBRARY-STRUCTURE.md
 ```
 
-Adapt structure to tech stack (determined in Phase 33).
+(Project-wide spec, not per-library.)
 
 ---
 
-## STEP 4: Define Dependencies
+## MANDATORY RULES
 
-**Build Order:** Libraries must be built in dependency order.
-
-Example:
-```
-1. lib-core (no dependencies)
-2. lib-validation (depends on lib-core)
-3. lib-api-client (depends on lib-core, lib-validation)
-```
-
-Circular dependencies are **NOT allowed**. If found, flag for spec revision.
+- Do **NOT** invent libraries not produced by Phase 23
+- Apply lib/ rules from Phase 23
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
-## STEP 5: Define Exports
+## END CONDITION
 
-For each library, define what it exports:
+- [ ] `LIBRARY-STRUCTURE.md` documents lib/ layout
+- [ ] All identified utility groups represented
+- [ ] Status: Draft Complete – Awaiting Review
 
-| Library | Export | Type | Used By |
-|---------|--------|------|---------|
-| `lib-core` | `Result<T>` | Type | All components |
-| `lib-core` | `logger` | Function | All components |
-| `lib-validation` | `validate()` | Function | API handlers |
+**Next:** Phase 32 (Repo Setup)
 
 ---
 
-## STEP 6: Get Approval
+## TEMPLATES (enriched for NCE-V2)
 
-Present LIBRARY-STRUCTURE.md to user.
-
-Wait for APPROVE or REVISE.
+- [LIBRARY-STRUCTURE-TEMPLATE.md](./LIBRARY-STRUCTURE-TEMPLATE.md)
 
 ---
 
-## INPUTS
+## STATUS
 
-| Input | Location | Purpose |
-|-------|----------|---------|
-| Library specs | `lib-{{name}}/spec/` | Library definitions |
-| DEPENDENCY-MAP.md | From Pass 3 | Dependency relationships |
+**Draft Complete – Awaiting Review**
 
 ---
 
-## OUTPUTS
-
-| Output | Location | Purpose |
-|--------|----------|---------|
-| LIBRARY-STRUCTURE.md | Project root | Library organization |
-
----
-
-## TEMPLATES
-
-- LIBRARY-STRUCTURE-TEMPLATE.md
-
----
-
-## RULES
-
-- If no libraries identified → N/A
-- No circular dependencies
-- Define clear build order
-- Adapt to tech stack (may be refined in Phase 33)
-
----
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?
