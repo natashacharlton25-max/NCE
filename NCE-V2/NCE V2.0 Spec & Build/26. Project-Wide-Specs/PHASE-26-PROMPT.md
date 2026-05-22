@@ -2,170 +2,128 @@
 
 ---
 Phase: 26
-Name: Project-Wide Specs
-Section: 0c. Full Specs
-Location: 0. Admin/0c. Full Specs/26.Project-Wide-Specs/
+Name: Project-Wide Specs (cross-cutting conventions, error codes, schemas, security)
+Location: NCE-V2/NCE V2.0 Spec & Build/26. Project-Wide-Specs/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
 ---
 
 ## ROLE
 
-You are creating project-wide specification documents that apply across ALL components — shared types, error codes, conventions, and standards.
+You produce project-wide spec docs that apply across all components: API standards, conventions, error codes registry, glossary, schemas, security standards.
 
 ---
 
-## PURPOSE
+## LOCKED CONTEXT (Required Reading)
 
-Project-Wide Specs:
-- Consolidate shared definitions in one place
-- Establish project-wide conventions
-- Prevent duplication across component specs
-- Serve as single source of truth
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
+
+1. [Project-Intent.md](../../Project-Intent.md)
+2. [STACK-AND-RUNTIME.md](../../STACK-AND-RUNTIME.md)
+3. [FileTree-v2.md](../../FileTree-v2.md)
+4. Phase 25 outputs (PATTERN-ANALYSIS, TYPE-ANALYSIS, ERROR-CODE-ANALYSIS, GAP-ANALYSIS)
+5. Per-component specs (Phase 21–24)
 
 ---
 
 ## TASK
 
-Create 6 project-wide specification documents:
+Produce these project-wide docs:
 
-| Document | Purpose | Template |
-|----------|---------|----------|
-| SCHEMAS.md | Shared types used across components | **Create using SCHEMAS-TEMPLATE.md** |
-| ERROR-CODES.md | Master registry of all error codes | **Create using ERROR-CODES-TEMPLATE.md** |
-| CONVENTIONS.md | Naming, formatting, patterns | **Create using CONVENTIONS-TEMPLATE.md** |
-| GLOSSARY.md | Domain terms and definitions | **Create using GLOSSARY-TEMPLATE.md** |
-| API-STANDARDS.md | API design standards | **Create using API-STANDARDS-TEMPLATE.md** |
-| SECURITY-STANDARDS.md | Security requirements | **Create using SECURITY-STANDARDS-TEMPLATE.md** |
+### 1. API-STANDARDS.md
+- Worker fetch handler patterns
+- Request/response JSON shapes (e.g. `{ ok: true, data: ... }` vs `{ ok: false, error: ... }`)
+- Versioning strategy
+- Auth header conventions
+- CORS policy
+- Rate-limiting conventions (resilience/RateLimiter integration)
 
----
+### 2. CONVENTIONS.md
+- TypeScript style (strict mode, naming, file organization)
+- Async patterns (D1 await; Worker `ctx.waitUntil()` for fire-and-forget)
+- Error throwing vs returning result types
+- Logging conventions (system/Logger usage)
+- Module/import conventions
 
-## INPUT SOURCES
+### 3. ERROR-CODES.md (project-wide registry)
+- Aggregate all error codes from per-component ERRORS.md
+- Canonical format: `{SYSTEM}_{CATEGORY}_{SPECIFIC}` (e.g. `BRAND_VALIDATION_INVALID_ID`)
+- Categories: Validation / Dependency / State / External / Worker / Unknown
+- Resilience/ patterns mapped to categories
+- HTTP status code mapping (for Worker fetch handlers)
 
-| Document | Primary Input |
-|----------|---------------|
-| SCHEMAS.md | Phase 25 TYPE-ANALYSIS (shared type candidates) |
-| ERROR-CODES.md | Phase 25 ERROR-CODE-ANALYSIS (full registry) |
-| CONVENTIONS.md | Phase 24 REPO-SPEC + patterns from Phase 25 |
-| GLOSSARY.md | All specs (domain terms) |
-| API-STANDARDS.md | FUNCTIONS.md patterns |
-| SECURITY-STANDARDS.md | Gap analysis + security considerations |
+### 4. GLOSSARY.md
+- Project-specific terms (system names, concept terms, output forms)
+- TypeScript type names referenced across components
+- Acronyms (D1, R2, KV, DO, LOC, etc.)
+
+### 5. SCHEMAS.md
+- Shared JSON schemas / TS interfaces used across components
+- Library entry schema patterns (from LIBRARY-TEMPLATE.md v2.0.0)
+- Asset metadata schema (from `assets/`)
+- Common patterns (id, timestamps, version, status enums)
+
+### 6. SECURITY-STANDARDS.md
+- Worker secret bindings (no credentials in code)
+- D1 query safety (parameterized queries — D1 prepare/bind)
+- R2 access patterns (presigned URLs vs direct)
+- Input validation requirements
+- Output sanitisation (where applicable)
+- access/ system patterns (Brand/Capability/Role)
 
 ---
 
 ## OUTPUT LOCATION
 
 ```
-project/
-├── 0. Admin/
-│   └── 0c. Full Specs/
-│       └── 26.Project-Wide-Specs/
-│           ├── SCHEMAS.md
-│           ├── ERROR-CODES.md
-│           ├── CONVENTIONS.md
-│           ├── GLOSSARY.md
-│           ├── API-STANDARDS.md
-│           └── SECURITY-STANDARDS.md
-│
-└── src/
-    └── shared/           ← Implementation location
-        ├── types/        ← From SCHEMAS.md
-        ├── errors/       ← From ERROR-CODES.md
-        └── constants/    ← From CONVENTIONS.md
+NCE-V2/specs/project-wide/
+├── API-STANDARDS.md
+├── CONVENTIONS.md
+├── ERROR-CODES.md
+├── GLOSSARY.md
+├── SCHEMAS.md
+└── SECURITY-STANDARDS.md
 ```
 
 ---
 
-## PROCESS
+## MANDATORY RULES
 
-### Step 1: SCHEMAS.md
-1. Gather shared type candidates from Phase 25
-2. Define canonical versions
-3. Document where each is used
-
-### Step 2: ERROR-CODES.md
-1. Collect all error codes from Phase 25
-2. Organize by component and category
-3. Ensure uniqueness
-
-### Step 3: CONVENTIONS.md
-1. Extract patterns from Phase 25
-2. Document as conventions
-3. Add examples
-
-### Step 4: GLOSSARY.md
-1. Scan all specs for domain terms
-2. Define each term
-3. Note any synonyms
-
-### Step 5: API-STANDARDS.md
-1. Extract common API patterns
-2. Document as standards
-3. Provide examples
-
-### Step 6: SECURITY-STANDARDS.md
-1. Gather security requirements
-2. Document standards
-3. Reference compliance needs
+- Pull from Phase 25 analysis outputs — don't re-derive
+- For ERROR-CODES.md: resolve conflicts flagged in ERROR-CODE-ANALYSIS.md (with user input)
+- Apply output-boundary rule
+- TypeScript-first conventions (not Python)
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
-## RULES
+## END CONDITION
 
-### DO:
-- Reference specific components using each shared item
-- Provide concrete examples
-- Keep definitions precise
-- Update when components change
+- [ ] All 6 project-wide docs created
+- [ ] Error code conflicts resolved or escalated
+- [ ] Status: Draft Complete – Awaiting Review
 
-### DO NOT:
-- Duplicate full specs from components
-- Include implementation details
-- Make project-wide what should be local
-- Let documents get stale
+**Next:** Phase 27 (Hardening)
 
 ---
 
-## CROSS-REFERENCES
+## TEMPLATES (enriched for NCE-V2)
 
-Each project-wide doc should reference:
-- Which component specs use it
-- Which Phase 25 analysis identified it
-- Related project-wide docs
-
-Each component spec should reference:
-- Which project-wide docs it uses
-- Specific sections/items used
+- [API-STANDARDS-TEMPLATE.md](./API-STANDARDS-TEMPLATE.md)
+- [CONVENTIONS-TEMPLATE.md](./CONVENTIONS-TEMPLATE.md)
+- [ERROR-CODES-TEMPLATE.md](./ERROR-CODES-TEMPLATE.md)
+- [GLOSSARY-TEMPLATE.md](./GLOSSARY-TEMPLATE.md)
+- [SCHEMAS-TEMPLATE.md](./SCHEMAS-TEMPLATE.md)
+- [SECURITY-STANDARDS-TEMPLATE.md](./SECURITY-STANDARDS-TEMPLATE.md)
 
 ---
 
-## APPROVAL GATE
+## STATUS
 
-Phase 26 is COMPLETE when:
-
-- [ ] All 6 documents created
-- [ ] All shared types documented
-- [ ] All error codes registered
-- [ ] Conventions are clear and complete
-- [ ] Glossary covers domain terms
-- [ ] Standards are actionable
-- [ ] Human approves
+**Draft Complete – Awaiting Review**
 
 ---
 
-## MAINTENANCE
-
-| Trigger | Action |
-|---------|--------|
-| New component added | Update ERROR-CODES.md, possibly others |
-| New shared type needed | Add to SCHEMAS.md |
-| New term introduced | Add to GLOSSARY.md |
-| Pattern established | Add to CONVENTIONS.md |
-
----
-
-## NEXT PHASE
-
-After Phase 26 → Phase 27 (Hardening)
-
----
-Generated: {{timestamp}}
----
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?

@@ -2,269 +2,145 @@
 
 ---
 Phase: 28
-Name: Full Spec Checklist
-Section: 0c. Full Specs
-Location: 0. Admin/0c. Full Specs/28.Full-Spec-Checklist/
+Name: Full Spec Checklist (final verification before PreCode)
+Location: NCE-V2/NCE V2.0 Spec & Build/28. Full-Spec-Checklist/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
 ---
 
 ## ROLE
 
-You are creating the final administrative documents that track and verify the entire specification process.
+You produce the final spec deliverables for NCE-V2 — the master checklist confirming all spec work (Phases 20–27) is complete, plus the implementation handoff package, lessons learned, and spec manifest.
+
+This is the **last phase before PreCode** (Phase 36 onwards). Hardening (Phase 27) is the final review pass; this phase packages and certifies.
 
 ---
 
-## PURPOSE
+## LOCKED CONTEXT (Required Reading)
 
-Phase 28 produces:
-1. **Master checklist** — Complete tracking of all spec work
-2. **Progress tracker** — Status of each phase and component
-3. **Handoff document** — Summary for implementation team (Claude Code)
-4. **Spec manifest** — Index of all spec files
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
 
----
-
-## OUTPUTS
-
-| Document | Purpose |
-|----------|---------|
-| MASTER-CHECKLIST.md | Complete verification checklist |
-| PROGRESS-TRACKER.md | Phase-by-phase status |
-| IMPLEMENTATION-HANDOFF.md | Summary for implementers |
-| SPEC-MANIFEST.md | Index of all spec files |
-| LESSONS-LEARNED.md | Process improvements |
+1. [Project-Intent.md](../../Project-Intent.md)
+2. [CLAUDE.md](../../../CLAUDE.md)
+3. All component specs (Phases 21–24)
+4. Phase 25 analysis outputs
+5. Phase 26 project-wide specs
+6. Phase 27 hardening outputs (HARDENING-SUMMARY, IMPLEMENTATION-READY)
 
 ---
 
-## DOCUMENT DETAILS
+## TASK
 
-### MASTER-CHECKLIST.md
+Produce 5 final deliverables:
 
-Complete checklist of everything that should exist:
+### 1. MASTER-CHECKLIST.md
+Final completion checklist across all spec phases:
+- Phase 18 Post-Pass: COMPLETE
+- Phase 19 Pass-Notes-Distribution: COMPLETE
+- Phase 20 Pre-Spec-Notes: COMPLETE
+- Phase 21 Internal Component Specs: COMPLETE (27 systems + all subsystems)
+- Phase 22 External Integration Specs: COMPLETE (all approved services)
+- Phase 23 Library Specs: COMPLETE (D1 content libraries + lib/ utilities)
+- Phase 24 Repo Specs: COMPLETE
+- Phase 25 Post-Spec Analysis: COMPLETE
+- Phase 26 Project-Wide Specs: COMPLETE
+- Phase 27 Hardening: COMPLETE (IMPLEMENTATION-READY = GO)
 
-- [ ] Project Overview approved
-- [ ] Project Intention approved
-- [ ] Systems identified and approved
-- [ ] Subsystems identified and approved
-- [ ] System coverage reviews complete
-- [ ] Subsystem coverage reviews complete
-- [ ] Integration coverage reviews complete
-- [ ] Pre-spec notes for all components
-- [ ] Internal specs for all systems
-- [ ] Internal specs for all subsystems
-- [ ] External specs for all integrations
-- [ ] Library specs for all libraries
-- [ ] Repo spec complete
-- [ ] Post-spec analysis complete
-- [ ] Project-wide specs complete
-- [ ] Hardening complete
-- [ ] Implementation approved
+NCE-V2-specific final checks:
+- [ ] All 27 systems specced
+- [ ] All subsystems specced (per FileTree-v2.md)
+- [ ] All ~15 integration providers specced
+- [ ] D1 content libraries specced via LIBRARY-TEMPLATE v2.0.0
+- [ ] lib/svg/ (and any other lib/ utilities) specced
+- [ ] Project-wide ERROR-CODES.md registry complete with no conflicts
 
-### PROGRESS-TRACKER.md
+### 2. SPEC-MANIFEST.md
+Comprehensive index of every spec doc produced in Phases 20–27:
+- Component path
+- Doc type (PRE-SPEC-NOTES, INDEX, OVERVIEW, FUNCTIONS, TYPES, BEHAVIOUR, ERRORS, CONFIG, STORAGE, DECISIONS, EXAMPLES; for integrations: INDEX-EXTERNAL, OVERVIEW-EXTERNAL, PROVIDER, API-SURFACE, OUR-WRAPPER, FIELD-MAPPING, ERRORS-EXTERNAL, CONSTRAINTS, FAILURE-MODES, EXAMPLES)
+- File path under `NCE-V2/specs/`
+- Status (DRAFT / APPROVED)
+- Last updated timestamp
+- Owner
 
-Status tracking for each phase:
+### 3. IMPLEMENTATION-HANDOFF.md
+Handoff package for the implementation phases (Phases 36–53):
+- Where to start (foundation milestone: `platform` Worker — services/system/state/library)
+- Phase 4 IMPLEMENTATION-PLAN.md as the build sequence
+- Project-wide standards: API, conventions, error codes, schemas, security
+- Library access pattern (always via `library/Librarian`)
+- Output-boundary rule reminder
+- 2000 LOC band reminder + file exclusions
+- Worker secret binding setup checklist
+- D1 migration sequence (per library, in order of dependency)
 
-| Phase | Name | Status | Completed | Notes |
-|-------|------|--------|-----------|-------|
-| 20 | Pre-Spec Notes | ✅ | {{date}} | |
-| 21 | Internal Component Specs | 🔄 | — | 3/5 systems done |
-| 22 | External Integration Specs | ⏳ | — | Not started |
-| ... | ... | ... | ... | ... |
+### 4. LESSONS-LEARNED.md
+Captured insights from Phases 13–27:
+- Decisions made during spec work (from PASS-DECISION-NOTES.md)
+- Patterns that emerged (from Phase 25 PATTERN-ANALYSIS)
+- Boundary issues caught (output-boundary, library bypass) — and how resolved
+- Pass-restart events (if any) — from PASS-RESTART-RULES.md activity
+- Risks accepted (from RISK-ACCEPTANCE-TEMPLATE.md activity)
 
-### IMPLEMENTATION-HANDOFF.md
+### 5. PROGRESS-TRACKER.md
+Snapshot of PASS-PROGRESS.md at end of Phase 28:
+- All Phases 1–28 marked COMPLETE
+- Approval timestamps
+- Total elapsed time per phase
+- Next phase pointer: Phase 36 (PreCode-Ready-Check)
 
-Summary document for Claude Code:
+---
 
-1. **Project Overview** — What we're building
-2. **Architecture Summary** — Systems, subsystems, integrations
-3. **Key Decisions** — Important architectural choices
-4. **Implementation Order** — What to build first
-5. **Critical Constraints** — Must-follow rules
-6. **Where to Find Things** — Spec file locations
-
-### SPEC-MANIFEST.md
-
-Complete index of all specification files:
+## OUTPUT LOCATION
 
 ```
-project/
-├── 0. Admin/
-│   ├── Project-Overview.md
-│   ├── Project-Intention.md
-│   └── 0c. Full Specs/
-│       ├── SCHEMAS.md
-│       ├── ERROR-CODES.md
-│       └── ...
-├── systems/
-│   ├── user-system/
-│   │   ├── spec/
-│   │   │   ├── INDEX.md
-│   │   │   ├── OVERVIEW.md
-│   │   │   └── ...
-│   │   └── subsystems/
-│   │       └── auth/
-│   │           └── spec/
-│   │               └── ...
-│   └── ...
-├── integrations/
-│   └── stripe/
-│       └── payments/
-│           └── spec/
-│               └── ...
-└── libraries/
-    └── lib-validation/
-        └── spec/
-            └── ...
+NCE-V2/specs/final/
+├── MASTER-CHECKLIST.md
+├── SPEC-MANIFEST.md
+├── IMPLEMENTATION-HANDOFF.md
+├── LESSONS-LEARNED.md
+└── PROGRESS-TRACKER.md
 ```
 
-### LESSONS-LEARNED.md
+---
 
-Process improvements for next time:
+## MANDATORY RULES
 
-- What worked well
-- What was difficult
-- Suggestions for improvement
-- Time estimates vs actual
+- Do **NOT** add new specs here — only package + certify what exists
+- Every MASTER-CHECKLIST item references the actual produced artefact
+- Do **NOT** self-assign final "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7; human owns the implementation-ready GO/NO-GO call
 
 ---
 
-## PROCESS
-
-1. **Generate MASTER-CHECKLIST.md**
-   - List all expected deliverables
-   - Mark each as complete/incomplete
-   - Note any deviations
-
-2. **Generate PROGRESS-TRACKER.md**
-   - Status of each phase
-   - Timestamps for completion
-   - Any blockers or notes
-
-3. **Generate IMPLEMENTATION-HANDOFF.md**
-   - Summarize for implementers
-   - Highlight critical information
-   - Provide navigation guide
-
-4. **Generate SPEC-MANIFEST.md**
-   - List every spec file
-   - Organize by component
-   - Include status
-
-5. **Generate LESSONS-LEARNED.md**
-   - Reflect on process
-   - Document improvements
-   - Estimate accuracy
-
----
-
-## COMPLETION CRITERIA
+## END CONDITION
 
 Phase 28 is COMPLETE when:
+- [ ] All 5 final docs created
+- [ ] MASTER-CHECKLIST.md shows 100% COMPLETE
+- [ ] SPEC-MANIFEST.md indexes every spec file produced
+- [ ] IMPLEMENTATION-HANDOFF.md is complete and human-readable
+- [ ] Human approves GO for PreCode
 
-- [ ] All 5 documents created
-- [ ] MASTER-CHECKLIST shows all items checked
-- [ ] PROGRESS-TRACKER shows all phases complete
-- [ ] Human reviews and approves
-
----
-
-## MANDATORY EXTERNAL AUDIT
-
-**Phase 28 is an audit checkpoint.** Before proceeding to 0d:
-
-1. **Create `0c-AUDIT-HANDOFF.md`** using template from `00. external-audit/core/`
-2. **Prepare file manifest** listing all spec files with brief descriptions
-3. **Self-assess honestly** — Score completeness, consistency, accuracy (1-5)
-4. **List concerns** — Document uncertainties, areas needing extra review
-5. **Wait for external audit** — Do NOT proceed until audit passes
-
-Audit gate is PASS/FAIL. If findings exist:
-- 🔴 Critical: Fix immediately
-- 🟠 High: Fix before proceeding
-- 🟡 Medium: Fix or explain why not
-- 🔵 Low: Note for future
-
-**Reference:** `00. external-audit/0c-section/0c-AUDIT-PROMPT.md`
+**Next:** Phase 29 (Database-Schema-Consolidation) — or directly to Phase 33 (Tech-Stack) depending on what 29–35 produce
 
 ---
 
-## SECTION HANDOFF
+## TEMPLATES (enriched for NCE-V2)
 
-**Create `0c-to-0d-HANDOFF.md`** in project admin folder:
-
-```markdown
-# 0c → 0d Section Handoff
-
----
-Created: {{timestamp}}
-Section Completed: 0c Full Specs (Phases 20-28)
-Next Section: 0d PreCode (Phases 29-36)
-Audit Status: {{PASSED | PENDING}}
----
-
-## Summary
-
-0c Full Specs is COMPLETE. All components have comprehensive specifications ready for PreCode consolidation.
-
-## Key Artifacts Created
-
-| Artifact | Location | Status |
-|----------|----------|--------|
-| Pre-Spec Notes | /{{component}}/spec/ | APPROVED |
-| Internal Component Specs | /{{component}}/spec/ | APPROVED |
-| External Integration Specs | /integration-{{provider}}/{{service}}/spec/ | APPROVED |
-| Library Specs | /libraries/{{library}}/spec/ | APPROVED |
-| REPO-SPEC.md | /admin/ | APPROVED |
-| SCHEMAS.md | /admin/0c/ | APPROVED |
-| TYPES.md | /admin/0c/ | APPROVED |
-| ERROR-CODES.md | /admin/0c/ | APPROVED |
-| CONSTANTS.md | /admin/0c/ | APPROVED |
-| PATTERNS.md | /admin/0c/ | APPROVED |
-
-## Spec Summary
-
-| Component Type | Count | All Approved |
-|---------------|-------|--------------|
-| Systems | {{n}} | ✅ |
-| Subsystems | {{n}} | ✅ |
-| External Services | {{n}} | ✅ |
-| Libraries | {{n}} | ✅ |
-
-## Key Decisions Made
-
-{{List significant decisions from spec process}}
-
-## Known Issues or Deferred Items
-
-{{Any gaps, risks, or items flagged for 0d attention}}
-
-## External Audit
-
-- Audit Date: {{date}}
-- Auditor: {{external AI}}
-- Result: {{PASSED / findings summary}}
-- Critical/High Findings: {{resolved or N/A}}
-
-## Handoff Verification
-
-- [ ] All component specs approved
-- [ ] Project-wide specs approved (SCHEMAS, TYPES, ERROR-CODES, CONSTANTS, PATTERNS)
-- [ ] SPEC-MANIFEST.md created
-- [ ] IMPLEMENTATION-HANDOFF.md created
-- [ ] External audit PASSED
-- [ ] 0c-AUDIT-HANDOFF.md created
-
-**Ready to begin 0d PreCode.**
-```
+- [MASTER-CHECKLIST-TEMPLATE.md](./MASTER-CHECKLIST-TEMPLATE.md)
+- [SPEC-MANIFEST-TEMPLATE.md](./SPEC-MANIFEST-TEMPLATE.md)
+- [IMPLEMENTATION-HANDOFF-TEMPLATE.md](./IMPLEMENTATION-HANDOFF-TEMPLATE.md)
+- [LESSONS-LEARNED-TEMPLATE.md](./LESSONS-LEARNED-TEMPLATE.md)
+- [PROGRESS-TRACKER-TEMPLATE.md](./PROGRESS-TRACKER-TEMPLATE.md)
 
 ---
 
-## SECTION 0c COMPLETE
+## STATUS
 
-When Phase 28 is approved AND external audit passes:
-- Section 0c (Full Specs) is COMPLETE
-- Specs are ready for PreCode consolidation
-- Proceed to 0d PreCode (Phases 29-36)
+**Draft Complete – Awaiting Review**
 
 ---
-Generated: {{timestamp}}
----
+
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?

@@ -2,353 +2,176 @@
 
 ---
 Phase: 27
-Name: Hardening
-Section: 0c. Full Specs
-Location: 0. Admin/0c. Full Specs/27.Hardening/
+Name: Hardening (review specs for implementation readiness)
+Location: NCE-V2/NCE V2.0 Spec & Build/27. Hardening/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Supersedes (merged into this file):
+  - C:/Users/NCE/prompts/SYSTEMHARDENINGPROMPT.MD (A's hardening prompt absorbed)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
 ---
 
 ## ROLE
 
-You are reviewing all completed specs for implementation readiness, ensuring they are robust enough for Claude Code to implement without ambiguity.
+You review all completed NCE-V2 specs for implementation readiness — completeness, ambiguity, implementability, test coverage. Produce 4 review passes + 2 summary docs.
+
+---
+
+## LOCKED CONTEXT (Required Reading)
+
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
+
+1. [Project-Intent.md](../../Project-Intent.md)
+2. [CLAUDE.md](../../../CLAUDE.md)
+3. [STACK-AND-RUNTIME.md](../../STACK-AND-RUNTIME.md)
+4. [FileTree-v2.md](../../FileTree-v2.md)
+5. All component specs (Phases 21–24)
+6. Phase 25 analysis docs (PATTERN, TYPE, ERROR-CODE, DEPENDENCY, GAP)
+7. Phase 26 project-wide docs
 
 ---
 
 ## PURPOSE
 
 Hardening ensures specs are:
-- **Complete** — No missing information
-- **Unambiguous** — One interpretation only
-- **Consistent** — No contradictions
-- **Implementable** — Claude Code can build from them
-- **Testable** — Clear success criteria
+- **Complete** — no missing information
+- **Unambiguous** — one interpretation only
+- **Consistent** — no contradictions
+- **Implementable** — Claude Code (or any developer) can build from them without questions
+- **Testable** — clear success criteria
 
 ---
 
 ## TASK
 
-Perform 4 hardening passes:
+Perform 4 review passes:
 
-| Pass | Focus | Output | Template |
-|------|-------|--------|----------|
-| 1 | Completeness | COMPLETENESS-REVIEW.md | **Create using COMPLETENESS-REVIEW-TEMPLATE.md** |
-| 2 | Ambiguity | AMBIGUITY-REVIEW.md | **Create using AMBIGUITY-REVIEW-TEMPLATE.md** |
-| 3 | Implementability | IMPLEMENTABILITY-REVIEW.md | **Create using IMPLEMENTABILITY-REVIEW-TEMPLATE.md** |
-| 4 | Test Coverage | TEST-COVERAGE-REVIEW.md | **Create using TEST-COVERAGE-REVIEW-TEMPLATE.md** |
+| Pass | Focus | Output |
+|------|-------|--------|
+| 1 | Completeness | `COMPLETENESS-REVIEW.md` |
+| 2 | Ambiguity | `AMBIGUITY-REVIEW.md` |
+| 3 | Implementability | `IMPLEMENTABILITY-REVIEW.md` |
+| 4 | Test Coverage | `TEST-COVERAGE-REVIEW.md` |
 
-Then create:
-- **HARDENING-SUMMARY.md** — Create using HARDENING-SUMMARY-TEMPLATE.md
-- **IMPLEMENTATION-READY.md** — Create using IMPLEMENTATION-READY-TEMPLATE.md
-
----
-
-## PASS 1: COMPLETENESS REVIEW
-
-Check every spec file has all required sections filled.
-
-### Checklist per Component
-
-**INDEX.md:**
-- [ ] All spec files listed with status
-- [ ] Dependencies documented
-- [ ] Build notes captured
-
-**OVERVIEW.md:**
-- [ ] Purpose clearly stated
-- [ ] Responsibilities listed (does/doesn't)
-- [ ] Boundaries defined
-- [ ] Guarantees stated
-
-**FUNCTIONS.md:**
-- [ ] All public functions documented
-- [ ] Parameters with types and descriptions
-- [ ] Return types specified
-- [ ] Errors listed per function
-
-**TYPES.md:**
-- [ ] All types defined
-- [ ] Field constraints documented
-- [ ] Validation rules specified
-
-**BEHAVIOUR.md:**
-- [ ] Process flows documented
-- [ ] State machines defined (if applicable)
-- [ ] Event emissions listed
-
-**ERRORS.md:**
-- [ ] All error codes defined
-- [ ] Error messages provided
-- [ ] Recovery actions specified
-
-**CONFIG.md:**
-- [ ] All config options listed
-- [ ] Defaults specified
-- [ ] Environment variables mapped
-
-**STORAGE.md:** (if applicable)
-- [ ] Schema defined
-- [ ] Indexes specified
-- [ ] Queries documented
-
-**EXAMPLES.md:**
-- [ ] Happy path examples
-- [ ] Error case examples
-- [ ] Edge case examples
+Then produce:
+- `HARDENING-SUMMARY.md` — overall verdict + metrics
+- `IMPLEMENTATION-READY.md` — go/no-go gate
 
 ---
 
-## PASS 2: AMBIGUITY REVIEW
+## PASS 1 — COMPLETENESS
 
-Find and resolve ambiguous specifications.
+Verify every component's 10 spec files (Phase 21) and the per-service spec sets (Phase 22) have all required sections filled. Use `COMPLETENESS-REVIEW-TEMPLATE.md`.
 
-### Ambiguity Patterns
-
-| Pattern | Example | Resolution |
-|---------|---------|------------|
-| Vague language | "should", "might", "usually" | Replace with "must", "will", specific conditions |
-| Missing edge cases | "validate email" | Specify: empty, too long, invalid format |
-| Undefined behavior | "returns error" | Specify which error code |
-| Implicit assumptions | "user must exist" | State explicitly, specify error if not |
-| Optional without default | "timeout (optional)" | Specify default value |
-
-### Review Questions
-
-For each function:
-- What happens with null/undefined input?
-- What happens with empty input?
-- What happens at boundary values?
-- What happens on timeout?
-- What happens on partial failure?
+NCE-V2-specific completeness checks:
+- [ ] Output Form declared on every component
+- [ ] D1 binding name declared on every library-touching component
+- [ ] Worker secret binding name declared on every integration
+- [ ] LOC band declared on every spec (Low/Medium/High)
 
 ---
 
-## PASS 3: IMPLEMENTABILITY REVIEW
+## PASS 2 — AMBIGUITY
 
-Ensure specs can be directly implemented.
+Find and flag ambiguous specifications. Use `AMBIGUITY-REVIEW-TEMPLATE.md`.
 
-### Checklist
+Patterns to catch:
+- Vague language ("should", "might", "usually") → replace with "must", "will"
+- Missing edge cases ("validate email" → specify: empty / too long / invalid format)
+- Undefined behavior ("returns error" → which error code?)
+- Implicit assumptions ("user must exist" → state explicitly, specify error if not)
+- Optional without default ("timeout (optional)" → specify default value)
+- TypeScript-specific: `any` types without justification — flag
 
-**Data Flow:**
-- [ ] Input sources clear
-- [ ] Output destinations clear
-- [ ] Transformation steps explicit
-
-**Dependencies:**
-- [ ] All dependencies exist
-- [ ] Dependency interfaces documented
-- [ ] Circular dependencies resolved
-
-**External Services:**
-- [ ] API endpoints specified
-- [ ] Authentication method clear
-- [ ] Rate limits documented
-- [ ] Error mapping complete
-
-**Storage:**
-- [ ] Schema matches types
-- [ ] Queries match access patterns
-- [ ] Indexes support queries
-
-**Configuration:**
-- [ ] All config has defaults
-- [ ] Environment variables named
-- [ ] Validation rules specified
+NCE-V2-specific ambiguity flags:
+- Library access without `library/Librarian` mediation (must be explicit)
+- Output Form ambiguity (JSON vs rendered)
+- Async/await missing on D1 calls
 
 ---
 
-## PASS 4: TEST COVERAGE REVIEW
+## PASS 3 — IMPLEMENTABILITY
 
-Ensure specs define what to test.
+Ensure specs can be implemented without further questions. Use `IMPLEMENTABILITY-REVIEW-TEMPLATE.md`.
 
-### Required Test Categories
+Checks:
+- **Data flow:** input sources, output destinations, transformation steps explicit
+- **Dependencies:** all exist; circular resolved
+- **External services:** API endpoints, auth, rate limits, error mapping complete
+- **Storage:** D1 schema matches TS types; queries match access patterns; indexes support queries
+- **Configuration:** all config has defaults; Worker bindings + secrets named
 
-| Category | Coverage |
-|----------|----------|
-| Unit tests | Every public function |
-| Validation tests | Every input field |
-| Error tests | Every error code |
-| Integration tests | Every dependency call |
-| Edge case tests | Every documented edge case |
-
-### Test Specification Checklist
-
-For each function:
-- [ ] Happy path test defined
-- [ ] Validation error tests defined
-- [ ] Business error tests defined
-- [ ] Dependency failure tests defined
-- [ ] Edge cases identified
+NCE-V2-specific implementability checks:
+- Worker topology coherent (every system has its Worker grouping declared)
+- D1 migrations exist for every library schema declared in STORAGE.md
+- `resilience/` patterns referenced where external integrations or critical D1/R2 ops occur
+- TypeScript types are concrete (not `any`)
 
 ---
 
-## OUTPUT FILES
+## PASS 4 — TEST COVERAGE
 
-### COMPLETENESS-REVIEW.md
+Ensure specs define what to test. Use `TEST-COVERAGE-REVIEW-TEMPLATE.md`.
 
-```markdown
-# Completeness Review
+Required coverage:
+- Unit tests per public function (FUNCTIONS.md)
+- Validation tests per input field (TYPES.md / CONTRACT.md)
+- Error tests per error code (ERRORS.md)
+- Integration tests per dependency call
+- Edge case tests per documented edge case
 
-## Summary
-- Components reviewed: X
-- Fully complete: X
-- Partially complete: X
-- Incomplete: X
+NCE-V2-specific:
+- D1 schema migration tests
+- Worker fetch handler tests (request/response shape)
+- resilience/ pattern tests (retry, fallback, rate-limit)
 
-## By Component
+---
 
-### {{component}}
-| File | Status | Missing |
-|------|--------|---------|
-| INDEX.md | ✅ Complete | — |
-| FUNCTIONS.md | ⚠️ Partial | Error codes for updateX() |
+## OUTPUT LOCATION
 
-## Action Items
-1. [ ] Add missing error codes to {{component}}
 ```
-
-### AMBIGUITY-REVIEW.md
-
-```markdown
-# Ambiguity Review
-
-## Summary
-- Ambiguities found: X
-- Resolved: X
-- Pending: X
-
-## Findings
-
-### AMB-001: Vague validation in {{component}}
-**Location:** FUNCTIONS.md → createUser()
-**Issue:** "validate email" doesn't specify rules
-**Resolution:** Add: "RFC 5322 format, max 254 chars, lowercase normalized"
-**Status:** RESOLVED / PENDING
-```
-
-### IMPLEMENTABILITY-REVIEW.md
-
-```markdown
-# Implementability Review
-
-## Summary
-- Blocking issues: X
-- Warnings: X
-- Ready to implement: X components
-
-## Blocking Issues
-
-### IMP-001: Missing dependency spec
-**Component:** billing-subsystem
-**Issue:** Depends on payment-system which doesn't exist
-**Resolution:** Create payment-system specs OR use int-stripe directly
-**Status:** BLOCKING
-```
-
-### TEST-COVERAGE-REVIEW.md
-
-```markdown
-# Test Coverage Review
-
-## Summary
-- Functions specified: X
-- Test cases defined: X
-- Coverage gaps: X
-
-## By Component
-
-### {{component}}
-| Function | Happy | Validation | Error | Edge | Total |
-|----------|-------|------------|-------|------|-------|
-| create() | ✅ | ✅ | ✅ | ⚠️ | 4/5 |
-| update() | ✅ | ✅ | ❌ | ❌ | 2/5 |
-```
-
-### HARDENING-SUMMARY.md
-
-```markdown
-# Hardening Summary
-
-## Overall Assessment
-**Status:** READY / NOT READY
-
-## Metrics
-| Metric | Value | Target | Status |
-|--------|-------|--------|--------|
-| Completeness | 95% | 100% | ⚠️ |
-| Ambiguities resolved | 12/12 | 100% | ✅ |
-| Implementability issues | 0 | 0 | ✅ |
-| Test coverage | 90% | 80% | ✅ |
-
-## Blocking Issues
-(List any issues that prevent implementation)
-
-## Recommendations
-(List improvements for future)
-```
-
-### IMPLEMENTATION-READY.md
-
-```markdown
-# Implementation Ready Checklist
-
-## Pre-Implementation Gate
-
-### Documentation Complete
-- [ ] All systems have complete specs
-- [ ] All subsystems have complete specs
-- [ ] All integrations have complete specs
-- [ ] All libraries have complete specs
-- [ ] Project-wide docs complete
-
-### Quality Checks
-- [ ] No ambiguities remaining
-- [ ] No blocking implementability issues
-- [ ] Test cases defined for all functions
-- [ ] Error codes registered
-
-### Dependencies Ready
-- [ ] All internal dependencies specified
-- [ ] All external services documented
-- [ ] All libraries identified
-
-### Sign-off
-- [ ] Human reviewed hardening results
-- [ ] Human approved for implementation
-
-## Go / No-Go Decision
-
-**Decision:** GO / NO-GO
-**Date:** {{date}}
-**Approved by:** {{name}}
-**Notes:** {{any conditions or notes}}
+NCE-V2/specs/hardening/
+├── COMPLETENESS-REVIEW.md
+├── AMBIGUITY-REVIEW.md
+├── IMPLEMENTABILITY-REVIEW.md
+├── TEST-COVERAGE-REVIEW.md
+├── HARDENING-SUMMARY.md
+└── IMPLEMENTATION-READY.md
 ```
 
 ---
 
-## RULES
+## MANDATORY RULES
 
-### DO:
-- Be thorough — check everything
-- Be specific — cite exact locations
+- Be thorough — check every component
+- Be specific — cite exact file locations
 - Be actionable — provide resolutions
-- Prioritize — blocking vs. nice-to-have
-
-### DO NOT:
-- Skip components
-- Accept "good enough"
-- Fix issues inline (document for fixing)
-- Proceed with blocking issues
+- Prioritize blocking vs nice-to-have
+- Do **NOT** fix issues inline — document for fixing
+- Do **NOT** proceed with blocking issues
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
 ## APPROVAL GATE
 
 Phase 27 is COMPLETE when:
-
 - [ ] All 4 review passes complete
 - [ ] HARDENING-SUMMARY.md created
 - [ ] IMPLEMENTATION-READY.md created
 - [ ] All blocking issues resolved
-- [ ] Human approves go/no-go decision
+- [ ] Human approves go/no-go
+
+---
+
+## TEMPLATES (enriched for NCE-V2)
+
+- [COMPLETENESS-REVIEW-TEMPLATE.md](./COMPLETENESS-REVIEW-TEMPLATE.md)
+- [AMBIGUITY-REVIEW-TEMPLATE.md](./AMBIGUITY-REVIEW-TEMPLATE.md)
+- [IMPLEMENTABILITY-REVIEW-TEMPLATE.md](./IMPLEMENTABILITY-REVIEW-TEMPLATE.md)
+- [TEST-COVERAGE-REVIEW-TEMPLATE.md](./TEST-COVERAGE-REVIEW-TEMPLATE.md)
+- [HARDENING-SUMMARY-TEMPLATE.md](./HARDENING-SUMMARY-TEMPLATE.md)
+- [IMPLEMENTATION-READY-TEMPLATE.md](./IMPLEMENTATION-READY-TEMPLATE.md)
 
 ---
 
@@ -357,5 +180,12 @@ Phase 27 is COMPLETE when:
 After Phase 27 approval → Phase 28 (Full Spec Checklist)
 
 ---
-Generated: {{timestamp}}
+
+## STATUS
+
+**Draft Complete – Awaiting Review**
+
 ---
+
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?

@@ -2,235 +2,115 @@
 
 ---
 Phase: 25
-Name: Post-Spec Analysis
-Section: 0c. Full Specs
-Location: 0. Admin/0c. Full Specs/25.Post-Spec-Analysis/
+Name: Post-Spec Analysis (cross-cutting analysis after Phase 21–24 specs)
+Location: NCE-V2/NCE V2.0 Spec & Build/25. Post-Spec-Analysis/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
 ---
 
 ## ROLE
 
-You are analyzing all completed specs to identify patterns, gaps, inconsistencies, and opportunities for improvement BEFORE implementation begins.
-
-This is the "grep phase" — systematically scanning all specs to surface issues.
+You analyze the completed component specs (Phases 21–24) for cross-cutting patterns, gaps, dependency issues, type duplication, and error-code conflicts. Output is 5 analysis docs.
 
 ---
 
-## PURPOSE
+## LOCKED CONTEXT (Required Reading)
 
-Post-Spec Analysis answers:
-- Are all error codes unique and consistent?
-- Are all types defined and used consistently?
-- Are there duplicate patterns that should be libraries?
-- Are all dependencies documented and valid?
-- Are there gaps or contradictions between specs?
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
+
+1. [Project-Intent.md](../../Project-Intent.md)
+2. [STACK-AND-RUNTIME.md](../../STACK-AND-RUNTIME.md)
+3. [FileTree-v2.md](../../FileTree-v2.md)
+4. All component specs (Phases 21–24) under `NCE-V2/specs/`
 
 ---
 
 ## TASK
 
-Run 5 analysis passes across all completed specs:
+Produce 5 analysis documents:
 
-| Pass | Focus | Output | Template |
-|------|-------|--------|----------|
-| 1 | Error Codes | ERROR-CODE-ANALYSIS.md | **Create using ERROR-CODE-ANALYSIS-TEMPLATE.md** |
-| 2 | Types & Schemas | TYPE-ANALYSIS.md | **Create using TYPE-ANALYSIS-TEMPLATE.md** |
-| 3 | Dependencies | DEPENDENCY-ANALYSIS.md | **Create using DEPENDENCY-ANALYSIS-TEMPLATE.md** |
-| 4 | Patterns & Duplication | PATTERN-ANALYSIS.md | **Create using PATTERN-ANALYSIS-TEMPLATE.md** |
-| 5 | Gaps & Inconsistencies | GAP-ANALYSIS.md | **Create using GAP-ANALYSIS-TEMPLATE.md** |
+### 1. PATTERN-ANALYSIS.md
+Identify recurring patterns across component specs that should become `lib/` utilities. Candidates:
+- Same code in 3+ component specs (likely lib/ candidates)
+- Cross-cutting concerns (logging, validation, error formatting, date handling)
+- For NCE-V2: D1 query patterns may be candidates for `lib/d1-query/`; SVG drawing already in `lib/svg/`
 
----
+### 2. TYPE-ANALYSIS.md
+Find type duplication across components:
+- Same interface defined in multiple TYPES.md files → candidate for shared types module
+- Inconsistent naming (e.g. `BrandID` in one, `brand_id` in another)
+- For NCE-V2: Each library's entry types — should they be shared across consumers via `lib/types/`?
 
-## PROCESS
+### 3. ERROR-CODE-ANALYSIS.md
+Aggregate all error codes from per-component ERRORS.md files:
+- Detect conflicts (two systems claiming same error code)
+- Detect gaps (failure mode in CONTRACT.md without a code in ERRORS.md)
+- Produce input for Phase 26 (`ERROR-CODES.md` project-wide registry)
 
-### Pass 1: Error Code Analysis
+### 4. DEPENDENCY-ANALYSIS.md
+Re-validate dependencies from per-component specs against Pass 3 DEPENDENCY-MAP.md:
+- New dependencies introduced by spec work?
+- Removed dependencies?
+- Circular dependencies introduced?
+- Library access bypasses (direct D1 from outside `library/`)?
 
-Scan all ERRORS.md files:
-
-- [ ] Collect all error codes
-- [ ] Check for duplicates
-- [ ] Verify prefix conventions
-- [ ] Check code range allocation
-- [ ] Identify missing error handling
-
-**Output:** ERROR-CODE-ANALYSIS.md
-
----
-
-### Pass 2: Type Analysis
-
-Scan all TYPES.md files:
-
-- [ ] Collect all type definitions
-- [ ] Find duplicate/similar types
-- [ ] Identify shared types to extract
-- [ ] Check naming consistency
-- [ ] Verify type references are valid
-
-**Output:** TYPE-ANALYSIS.md
-
----
-
-### Pass 3: Dependency Analysis
-
-Scan all specs for dependencies:
-
-- [ ] Build dependency graph
-- [ ] Check for circular dependencies
-- [ ] Verify all dependencies exist
-- [ ] Check dependency direction rules
-- [ ] Identify missing dependencies
-
-**Output:** DEPENDENCY-ANALYSIS.md
-
----
-
-### Pass 4: Pattern Analysis
-
-Look for repeated patterns:
-
-- [ ] Find duplicate code patterns
-- [ ] Identify library candidates
-- [ ] Find repeated validation logic
-- [ ] Find repeated error handling
-- [ ] Recommend extractions
-
-**Output:** PATTERN-ANALYSIS.md
-
----
-
-### Pass 5: Gap Analysis
-
-Check for completeness:
-
-- [ ] Missing spec files
-- [ ] Incomplete sections
-- [ ] Contradictions between specs
-- [ ] Unresolved questions
-- [ ] Missing edge cases
-
-**Output:** GAP-ANALYSIS.md
-
----
-
-## ANALYSIS TECHNIQUES
-
-### Grep Patterns
-
-```bash
-# Find all error codes
-grep -r "{{PREFIX}}_[0-9]" */spec/ERRORS.md
-
-# Find all type definitions
-grep -r "^### " */spec/TYPES.md
-
-# Find all dependencies
-grep -r "Depends On" */spec/OVERVIEW.md
-
-# Find all functions
-grep -r "^### .*()$" */spec/FUNCTIONS.md
-```
-
-### Cross-Reference Checks
-
-| Check | Method |
-|-------|--------|
-| Error code uniqueness | Collect all, find duplicates |
-| Type consistency | Compare definitions across files |
-| Dependency validity | Verify referenced components exist |
-| Function signatures | Compare similar functions |
-
----
-
-## RULES
-
-### DO:
-- Be systematic — check everything
-- Document every finding
-- Propose specific fixes
-- Prioritize by impact
-- Reference specific files/lines
-
-### DO NOT:
-- Fix issues during analysis (just document)
-- Skip components
-- Make assumptions
-- Ignore "minor" issues
+### 5. GAP-ANALYSIS.md
+Aggregate spec gaps from each component's INDEX.md "Spec Gaps":
+- Critical gaps blocking implementation
+- Nice-to-have gaps for follow-up
+- Cross-component gaps (multiple components missing the same info)
 
 ---
 
 ## OUTPUT LOCATION
 
 ```
-0. Admin/0c. Full Specs/25.Post-Spec-Analysis/
-├── PHASE-25-PROMPT.md
-├── ERROR-CODE-ANALYSIS.md
-├── TYPE-ANALYSIS.md
-├── DEPENDENCY-ANALYSIS.md
+NCE-V2/specs/analysis/
 ├── PATTERN-ANALYSIS.md
+├── TYPE-ANALYSIS.md
+├── ERROR-CODE-ANALYSIS.md
+├── DEPENDENCY-ANALYSIS.md
 └── GAP-ANALYSIS.md
 ```
 
 ---
 
-## FINDINGS FORMAT
+## MANDATORY RULES
 
-Each analysis file should use this format for findings:
-
-```markdown
-### Finding: {{Title}}
-
-**Severity:** Critical / High / Medium / Low
-**Location:** {{file path}}
-**Issue:** {{description}}
-**Impact:** {{what breaks if not fixed}}
-**Recommendation:** {{specific fix}}
-```
+- Do **NOT** propose fixes inline — surface for resolution in Phase 26 (project-wide specs) or via spec revision
+- Do **NOT** silently merge duplicates — flag each
+- Apply output-boundary rule when assessing patterns
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
-## SUMMARY REQUIREMENTS
+## END CONDITION
 
-Each analysis file must end with:
+- [ ] All 5 analysis docs created
+- [ ] Library candidates surfaced (input to Phase 23 if new libraries identified post-spec)
+- [ ] Error code conflicts surfaced (input to Phase 26)
+- [ ] PASS-PROGRESS.md updated
 
-1. **Summary Statistics**
-   - Total items analyzed
-   - Issues found by severity
-   - Components affected
-
-2. **Action Items**
-   - Prioritized list of fixes
-   - Estimated effort
-   - Dependencies between fixes
-
-3. **Sign-off Checklist**
-   - [ ] Analysis complete
-   - [ ] All findings documented
-   - [ ] Recommendations provided
+**Next:** Phase 26 (Project-Wide Specs)
 
 ---
 
-## APPROVAL GATE
+## TEMPLATES (enriched for NCE-V2)
 
-Phase 25 is COMPLETE when:
-
-- [ ] All 5 analysis passes complete
-- [ ] All findings documented
-- [ ] Critical/High issues have recommendations
-- [ ] Human reviews and approves
-- [ ] Decision made on each finding (fix now / defer / accept)
+- [PATTERN-ANALYSIS-TEMPLATE.md](./PATTERN-ANALYSIS-TEMPLATE.md)
+- [TYPE-ANALYSIS-TEMPLATE.md](./TYPE-ANALYSIS-TEMPLATE.md)
+- [ERROR-CODE-ANALYSIS-TEMPLATE.md](./ERROR-CODE-ANALYSIS-TEMPLATE.md)
+- [DEPENDENCY-ANALYSIS-TEMPLATE.md](./DEPENDENCY-ANALYSIS-TEMPLATE.md)
+- [GAP-ANALYSIS-TEMPLATE.md](./GAP-ANALYSIS-TEMPLATE.md)
 
 ---
 
-## WHAT HAPPENS NEXT
+## STATUS
 
-After Phase 25:
-1. **Critical findings** → Fix immediately, update specs
-2. **Library candidates** → Create PRE-SPEC-NOTES, go to Phase 23
-3. **Shared types** → Document in Phase 26 (Project-Wide Specs)
-4. **Minor issues** → Track in Phase 28 checklist
-
-**Next Phase:** Phase 26 (Project-Wide Specs)
+**Draft Complete – Awaiting Review**
 
 ---
-Generated: {{timestamp}}
----
+
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?

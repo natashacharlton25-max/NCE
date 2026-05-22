@@ -2,182 +2,114 @@
 
 ---
 Phase: 24
-Name: Repo Specs
-Section: 0c. Full Specs
-Location: 0. Admin/0c. Full Specs/24.Repo-Specs/
+Name: Repo Specs (repository structure spec)
+Location: NCE-V2/NCE V2.0 Spec & Build/24. Repo-Specs/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
 ---
 
 ## ROLE
 
-You are documenting the repository structure, conventions, and development setup — everything a new developer needs to understand the codebase.
+You produce a Repo Spec — a single document defining the NCE-V2 repository structure: top-level directories, naming conventions, build/deploy layout, file organization rules.
 
 ---
 
-## PURPOSE
+## LOCKED CONTEXT (Required Reading)
 
-Repo Specs answer:
-- How is this codebase organized?
-- What conventions do we follow?
-- How do I set up my environment?
-- How do I build, test, and deploy?
-- Where do things go?
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
+
+1. [Project-Intent.md](../../Project-Intent.md)
+2. [STACK-AND-RUNTIME.md](../../STACK-AND-RUNTIME.md) — Worker topology + deployment
+3. [FileTree-v2.md](../../FileTree-v2.md) — 27 systems + lib/
+4. `NCE-V2/specs/IMPLEMENTATION-PLAN.md` (Pass 4)
+
+---
+
+## RUNTIME CONTEXT
+
+- One Worker per system (except `services`/`system`/`state`/`library` grouped into `platform`)
+- `wrangler.toml` per Worker; D1 migrations in `migrations/{library}/`
+- Shared utilities in `lib/`
+- TypeScript with `tsconfig.json`; types in `*.types.ts` (excluded from runtime LOC)
 
 ---
 
 ## TASK
 
-Create a single comprehensive REPO-SPEC.md that documents:
+Produce `REPO-SPEC.md` covering:
 
-1. **Repository Structure** — Folder layout, naming conventions
-2. **Development Setup** — Environment, tools, configuration
-3. **Build & Run** — Commands, scripts, pipelines
-4. **Testing** — Test structure, running tests, coverage
-5. **Conventions** — Code style, naming, patterns
-6. **Workflows** — Git flow, PR process, deployment
+1. **Top-level layout**
+   - `src/<system>/` per system (matches FileTree-v2.md)
+   - `src/lib/` for shared utilities
+   - `migrations/` for D1 migrations per library
+   - `tests/` for `*.test.ts` files
+   - `__debug__/` for debug utilities (excluded from runtime)
+   - `wrangler/` for per-Worker wrangler configs
+   - `package.json`, `tsconfig.json`, etc.
+
+2. **Naming conventions**
+   - System folders: lowercase, hyphens (match FileTree-v2.md)
+   - TypeScript files: PascalCase for classes (BrandManager.ts), camelCase for utility modules
+   - Types-only files: `*.types.ts`
+   - Test files: `*.test.ts`
+   - Debug files: `*.debug.ts` or under `__debug__/`
+
+3. **File organization rules**
+   - Per-system runtime files in `src/<system>/`
+   - Per-subsystem TS files at `src/<system>/<SubsystemName>.ts`
+   - Type definitions per subsystem at `src/<system>/<SubsystemName>.types.ts`
+   - Tests parallel structure under `tests/<system>/`
+
+4. **Build/deploy**
+   - Per-Worker `wrangler.toml` with bindings (D1, R2, KV, DO, secrets)
+   - Build pipeline: TypeScript compile → bundle per Worker → wrangler deploy
+   - Environment separation: dev / staging / prod
+
+5. **LOC enforcement**
+   - 2000 LOC band per runtime `.ts` (with file exclusions)
+   - Lint rule or CI check optional (Phase 35 territory)
 
 ---
 
-## OUTPUT
+## OUTPUT LOCATION
 
-**Create `REPO-SPEC.md` using `REPO-SPEC-TEMPLATE.md`**
-
-Location: Repository root
 ```
-project/
-├── REPO-SPEC.md      ← Create using REPO-SPEC-TEMPLATE.md
-├── README.md         ← Quick start (references REPO-SPEC.md)
-├── systems/
-├── lib/
-└── ...
+NCE-V2/specs/REPO-SPEC.md
 ```
 
 ---
 
-## WHEN TO CREATE
+## MANDATORY RULES
 
-Create REPO-SPEC.md when:
-- All system/subsystem specs are complete (Phases 21-23)
-- Repository structure is finalized
-- Development conventions are decided
-
----
-
-## INPUTS
-
-| Source | Information |
-|--------|-------------|
-| System specs | Folder structure for systems |
-| Subsystem specs | Folder structure for subsystems |
-| Library specs | Folder structure for libraries |
-| Project decisions | Tech stack, conventions |
-
----
-
-## TEMPLATE SECTIONS
-
-### 1. Repository Overview
-- Purpose of the repository
-- Tech stack summary
-- Key directories
-
-### 2. Directory Structure
-- Full tree view
-- Explanation of each folder
-- Where new code goes
-
-### 3. Naming Conventions
-- Files and folders
-- Functions and variables
-- Types and interfaces
-- Error codes
-
-### 4. Development Setup
-- Prerequisites
-- Installation steps
-- Environment variables
-- IDE setup
-
-### 5. Build & Run
-- Build commands
-- Run locally
-- Environment modes
-
-### 6. Testing
-- Test location
-- Test naming
-- Running tests
-- Coverage requirements
-
-### 7. Code Style
-- Formatting rules
-- Linting configuration
-- Auto-formatting
-
-### 8. Git Workflow
-- Branch naming
-- Commit messages
-- PR process
-- Merge strategy
-
-### 9. Deployment
-- Environments
-- Deployment process
-- Rollback procedure
-
-### 10. Troubleshooting
-- Common issues
-- Debug tips
-- Getting help
-
----
-
-## RULES
-
-### DO:
-- Be specific and concrete
-- Include actual commands
-- Show real examples
-- Keep it updated
-
-### DO NOT:
-- Duplicate content from system specs
-- Include sensitive credentials
-- Assume knowledge — explain everything
-- Let it get stale
-
----
-
-## MAINTENANCE
-
-| Trigger | Action |
-|---------|--------|
-| New system added | Update directory structure |
-| Convention changed | Update relevant section |
-| New dependency | Update setup section |
-| Process changed | Update workflow section |
-
----
-
-## APPROVAL GATE
-
-- [ ] All sections completed
-- [ ] Commands tested and working
-- [ ] Directory structure matches reality
-- [ ] No sensitive information included
-- [ ] Human approves
+- Use FileTree-v2.md verbatim for system names
+- Honor 2000 LOC band
+- Do **NOT** invent new top-level systems
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
 ## END CONDITION
 
-Phase 24 is COMPLETE when:
-- [ ] REPO-SPEC.md is comprehensive
-- [ ] All sections are accurate
-- [ ] A new developer could onboard using it
-- [ ] Human approves
+- [ ] REPO-SPEC.md exists with all sections
+- [ ] Folder layout matches FileTree-v2.md
+- [ ] Status: Draft Complete – Awaiting Review
 
 **Next:** Phase 25 (Post-Spec Analysis)
 
 ---
-Generated: {{timestamp}}
+
+## TEMPLATES
+
+- [REPO-SPEC-TEMPLATE.md](./REPO-SPEC-TEMPLATE.md)
+
 ---
+
+## STATUS
+
+**Draft Complete – Awaiting Review**
+
+---
+
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?

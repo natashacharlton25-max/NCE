@@ -2,229 +2,161 @@
 
 ---
 Phase: 22
-Name: External Integration Specs
-Section: 0c. Full Specs
-Location: 0. Admin/0c. Full Specs/22.External-Integration-Specs/
+Name: External Integration Specs (implementation-ready specs for providers + services)
+Location: NCE-V2/NCE V2.0 Spec & Build/22. External-Integration-Specs/
+Project: NCE-V2 (TypeScript on Cloudflare Workers)
+Status: Draft Complete – Awaiting Review
+Last Updated: 2026-05-22
 ---
 
 ## ROLE
 
-You are writing implementation-ready specifications for external integrations (third-party APIs and services).
-
-This phase takes PRE-SPEC-NOTES.md (external template) and expands it into spec files.
-
-**Key difference from internal specs:** We don't control external APIs. We document THEIR surface and OUR wrapper around it.
+You are writing implementation-ready specs for NCE-V2 external integrations. Each provider + service combination produces a focused set of spec files documenting the external boundary, our wrapper, and field mappings.
 
 ---
 
-## PROVIDER/SERVICE HIERARCHY
+## LOCKED CONTEXT (Required Reading)
 
-External integrations use a **two-level hierarchy**:
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
 
-```
-integrations/
-├── stripe/                    # PROVIDER (system-level)
-│   ├── PROVIDER.md            # Shared config: auth, base URL, rate limits
-│   ├── payments/              # SERVICE (subsystem-level)
-│   │   └── spec/
-│   │       ├── INDEX.md
-│   │       └── ... (9 files)
-│   ├── billing/               # Another service
-│   │   └── spec/
-│   └── identity/              # Another service
-│       └── spec/
-│
-├── supabase/                  # Another provider
-│   ├── PROVIDER.md
-│   ├── auth/
-│   ├── database/
-│   └── storage/
-```
+1. [Project-Intent.md](../../Project-Intent.md)
+2. [CLAUDE.md](../../../CLAUDE.md)
+3. [STACK-AND-RUNTIME.md](../../STACK-AND-RUNTIME.md) — Worker `fetch()`, secret bindings
+4. [FileTree-v2.md](../../FileTree-v2.md) — `integrations/` system listing
+5. `NCE-V2/specs/integrations/<provider>/<service>/PRE-SPEC-NOTES.md` (Phase 20 — primary source)
+6. `NCE-V2/specs/integrations/<provider>/PROVIDER-NOTES.md` + `SERVICE-SCOPE.md`
+7. `NCE-V2/specs/integrations/<provider>/<service>/SERVICE-NOTES.md` + `CONTRACT.md`
 
-### Provider = System-Level
-- Owns shared configuration (API keys, base URL, auth method)
-- Contains PROVIDER.md with authentication, rate limits, webhooks
-- Groups related services together
+---
 
-### Service = Subsystem-Level
-- Specific API surface (endpoints, operations)
-- Own field mappings, errors, constraints
-- Full 9-file spec structure
+## RUNTIME CONTEXT
+
+- **Outbound from Workers** via `fetch()`; auth via Worker secret bindings
+- **5-min CPU, 128 MB memory** per invocation
+- **`resilience/`** patterns (RateLimiter, RetryPolicyEngine, FallbackStrategyResolver, etc.)
+- **`assets/` (R2)** for inbound binary sinks
+- **`library/` (D1)** for inbound metadata sinks
+
+---
+
+## OUTPUT-BOUNDARY RULE (CANONICAL)
+
+For each integration, the spec must respect:
+- **Outbound receivers** (Emailit, Canva, Google Docs/Sheets/Slides): we send rendered artefacts (HTML / PDF blob / DOCX blob / etc.) — never raw JSON expecting downstream rendering
+- **Inbound sources** (Pexels, Unsplash, Recraft, Phosphor): we receive raw data; binaries land in `assets/`/R2, metadata lands in library D1 via `library/`
+- **Downstream renderers** (Astro): not a provider — listed separately if applicable
 
 ---
 
 ## TASK
 
-**For EACH provider:**
+**For EACH service in each provider's `SERVICE-SCOPE.md`:**
 
-1. Create PROVIDER.md using PROVIDER-TEMPLATE.md
-2. For each service under the provider:
-   - Read service's PRE-SPEC-NOTES.md
-   - Create `spec/` folder
-   - Create all 9 spec files
-3. Get approval before moving to next provider
+1. Read `PRE-SPEC-NOTES.md` for the service (Phase 20)
+2. Create `spec/` folder at `NCE-V2/specs/integrations/<provider>/<service>/`
+3. Create spec files using templates (10 files — slightly different set from Phase 21)
+4. Get approval per service
+
+---
+
+## SPEC FILES PER SERVICE (10 files)
+
+| File | Purpose | NCE-V2 Notes |
+|------|---------|---------------|
+| INDEX-EXTERNAL.md | Quick reference + spec gaps | Includes Direction (inbound/outbound/renderer) |
+| OVERVIEW-EXTERNAL.md | Purpose, scope, boundaries | State direction + form |
+| PROVIDER.md | Provider context (auth, account, billing) | Worker secret binding name |
+| API-SURFACE.md | External API endpoints + auth scopes | TypeScript types for request/response |
+| OUR-WRAPPER.md | Our internal wrapper (function names, retry/fallback patterns) | resilience/ involvement |
+| FIELD-MAPPING.md | Map between external API fields and our internal types | TS type ↔ external field |
+| ERRORS-EXTERNAL.md | External error codes + our mapping to error categories | resilience/ failure category |
+| CONSTRAINTS.md | Rate limits, payload caps, quotas | Worker CPU/memory interaction |
+| FAILURE-MODES.md | What failures + our handling | resilience/ pattern reference |
+| EXAMPLES.md | Request/response examples (TypeScript code) | |
 
 ---
 
 ## PROCESS ORDER
 
+Per provider (alphabetical), then per service inside that provider:
 ```
-Provider: stripe/
-├── Create PROVIDER.md (shared config)
-├── Service: payments/
-│   ├── Read PRE-SPEC-NOTES.md
-│   ├── Create spec/INDEX.md
-│   ├── Create spec/OVERVIEW.md
-│   ├── Create spec/API-SURFACE.md      ← Their API
-│   ├── Create spec/OUR-WRAPPER.md      ← Our functions
-│   ├── Create spec/FIELD-MAPPING.md    ← Translation
-│   ├── Create spec/ERRORS.md           ← Their errors → ours
-│   ├── Create spec/CONSTRAINTS.md      ← Rate limits, quotas
-│   ├── Create spec/FAILURE-MODES.md    ← What can fail
-│   ├── Create spec/EXAMPLES.md
-│   └── Get approval
-├── Service: billing/
-│   └── ... same pattern
-└── Service: identity/
-    └── ... same pattern
-
-Provider: supabase/
-├── Create PROVIDER.md
-├── Service: auth/
-├── Service: database/
-└── Service: storage/
+NCE-V2/specs/integrations/{{provider}}/{{service}}/spec/
+├── INDEX-EXTERNAL.md
+├── OVERVIEW-EXTERNAL.md
+├── PROVIDER.md
+├── API-SURFACE.md
+├── OUR-WRAPPER.md
+├── FIELD-MAPPING.md
+├── ERRORS-EXTERNAL.md
+├── CONSTRAINTS.md
+├── FAILURE-MODES.md
+└── EXAMPLES.md
 ```
-
-**Order:**
-1. By provider (alphabetically)
-2. PROVIDER.md first (shared config)
-3. Then services within provider (alphabetically)
-
----
-
-## SPEC FILES
-
-### Provider Level (1 file)
-
-| File | Purpose | Target LOC |
-|------|---------|------------|
-| PROVIDER.md | Shared auth, URLs, rate limits, webhooks | ~150 |
-
-### Service Level (9 files)
-
-| File | Purpose | Source (PRE-SPEC Section) | Target LOC |
-|------|---------|---------------------------|------------|
-| INDEX.md | Quick reference, status | 1, 4, 12 | ~80 |
-| OVERVIEW.md | Purpose, what we use it for | 1, 2, 4 | ~100 |
-| API-SURFACE.md | Their API (endpoints we call) | 5 | ~200 |
-| OUR-WRAPPER.md | Our functions wrapping their API | 3, 4 | ~250 |
-| FIELD-MAPPING.md | Their fields ↔ our fields | 6 | ~150 |
-| ERRORS.md | Their error codes → our error codes | 7 | ~150 |
-| CONSTRAINTS.md | Service-specific limits, quotas | 8 | ~100 |
-| FAILURE-MODES.md | What can fail, degradation | 9 | ~100 |
-| EXAMPLES.md | Full request/response examples | New | ~200 |
-
----
-
-## KEY DIFFERENCES FROM INTERNAL SPECS
-
-| Aspect | Internal Component | External Integration |
-|--------|-------------------|---------------------|
-| **Who controls API** | We do | They do |
-| **API spec** | FUNCTIONS.md (we define) | API-SURFACE.md (they define) + OUR-WRAPPER.md (we define) |
-| **Types** | TYPES.md (we define) | FIELD-MAPPING.md (theirs → ours) |
-| **Errors** | ERRORS.md (our codes) | ERRORS.md (their codes → our codes) |
-| **Config** | CONFIG.md (our settings) | PROVIDER.md (shared) + CONSTRAINTS.md (service-specific) |
-| **Behaviour** | BEHAVIOUR.md (our flows) | FAILURE-MODES.md (their failures) |
-| **Storage** | STORAGE.md | N/A (they store it) |
 
 ---
 
 ## MANDATORY RULES
 
-- Do NOT invent API endpoints — document what they actually provide
-- Do NOT invent functionality not in PRE-SPEC-NOTES.md
-- Do NOT skip files (mark N/A if not applicable)
-- If information is missing from provider docs, mark as "Unknown — verify"
-- Reference PRE-SPEC-NOTES.md section numbers
-- Never include actual credentials or API keys
-- Provider-level config goes in PROVIDER.md, not repeated per service
+- Do **NOT** invent provider functionality
+- Do **NOT** store credentials in spec — reference Worker secret binding names only
+- Apply output-boundary direction (inbound / outbound / renderer)
+- Reference `resilience/` patterns in OUR-WRAPPER.md and FAILURE-MODES.md
+- Inbound binary sinks go to `assets/` (R2); inbound metadata sinks go via `library/` (D1)
+- TypeScript signatures everywhere
+- Do **NOT** exceed ~300 LOC per spec file
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
 ## OUTPUT LOCATION
 
 ```
-{{project}}/
-└── integrations/
-    └── {{provider}}/
-        ├── PROVIDER.md              ← Provider-level config
-        │
-        └── {{service}}/
-            └── spec/
-                ├── INDEX.md
-                ├── OVERVIEW.md
-                ├── API-SURFACE.md
-                ├── OUR-WRAPPER.md
-                ├── FIELD-MAPPING.md
-                ├── ERRORS.md
-                ├── CONSTRAINTS.md
-                ├── FAILURE-MODES.md
-                └── EXAMPLES.md
+NCE-V2/specs/integrations/{{provider}}/{{service}}/spec/
 ```
 
 ---
 
 ## APPROVAL GATE
 
-Per provider:
-- [ ] PROVIDER.md created
-- [ ] All services have 9 spec files (or marked N/A)
-- [ ] INDEX.md shows all files status per service
-- [ ] No critical gaps
+Per service:
+- [ ] All 10 spec files created
+- [ ] Direction correctly identified
+- [ ] Worker secret binding name set
+- [ ] resilience/ patterns referenced where applicable
 - [ ] Human approves
 
 ---
 
 ## END CONDITION
 
-Phase 22 is COMPLETE only when:
-- [ ] Every provider has PROVIDER.md
-- [ ] Every service has spec/ folder with all files
-- [ ] All approved by human
-- [ ] All issues logged in INDEX.md or resolved
+Phase 22 is COMPLETE when:
+- [ ] Every approved service has `spec/` with all 10 files
+- [ ] All approved
+- [ ] PASS-PROGRESS.md updated
 
 **Next:** Phase 23 (Library Specs)
 
 ---
 
-## TEMPLATES
+## TEMPLATES (enriched for NCE-V2)
 
-**Provider Level:**
-- PROVIDER-TEMPLATE.md (new)
-
-**Service Level (9 files):**
-- INDEX-TEMPLATE.md (reuse internal)
-- OVERVIEW-TEMPLATE.md (reuse internal)
-- API-SURFACE-TEMPLATE.md
-- OUR-WRAPPER-TEMPLATE.md
-- FIELD-MAPPING-TEMPLATE.md
-- ERRORS-TEMPLATE.md (modified for mapping)
-- CONSTRAINTS-TEMPLATE.md
-- FAILURE-MODES-TEMPLATE.md
-- EXAMPLES-TEMPLATE.md (reuse internal)
+10 templates in this folder.
 
 ---
 
 ## INPUTS
 
-From Phase 20:
-- PRE-SPEC-NOTES.md (external template)
-
-From earlier phases:
-- EXTERNAL-INTEGRATION-NOTES.md
-- Provider documentation (external)
+- `NCE-V2/specs/integrations/<provider>/<service>/PRE-SPEC-NOTES.md` (Phase 20)
+- `NCE-V2/specs/integrations/<provider>/<service>/PASS-NOTES.md` (Phase 19)
+- `NCE-V2/specs/integrations/<provider>/PROVIDER-NOTES.md`, `SERVICE-SCOPE.md`
 
 ---
-Generated: {{timestamp}}
+
+## STATUS
+
+**Draft Complete – Awaiting Review**
+
 ---
+
+### Review & Clarification Needed
+- May this draft be promoted to "Approved"?
