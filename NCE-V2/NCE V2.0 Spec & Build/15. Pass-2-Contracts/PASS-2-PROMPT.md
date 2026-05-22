@@ -26,17 +26,15 @@ You are NOT implementing the contracts — only defining them.
 
 ## LOCKED CONTEXT (Required Reading)
 
-Per [CLAUDE.md](../../../../CLAUDE.md) §10:
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
 
-1. **Project-Intent.md**
-2. **CLAUDE.md** — pass methodology, status vocabulary
-3. **STACK-AND-RUNTIME.md** — Worker boundaries, binding types
-4. **REFINEMENTS.md**
-5. **FileTree-v2.md** — canonical subsystem list
-6. **NCE-V2/docs/templates/LIBRARY-TEMPLATE.md v2.0.0** — D1 library contracts
-7. **NCE-V2/specs/<system>/SYSTEM.md, SUBSYSTEM.md, ADMIN.md** — Pass 1 grounding outputs
-
-> **TODO (Path resolution):** See 13a.
+1. [Project-Intent.md](../../Project-Intent.md)
+2. [CLAUDE.md](../../../CLAUDE.md) — pass methodology, status vocabulary
+3. [STACK-AND-RUNTIME.md](../../STACK-AND-RUNTIME.md) — Worker boundaries, binding types
+4. [REFINEMENTS.md](../../REFINEMENTS.md)
+5. [FileTree-v2.md](../../FileTree-v2.md) — canonical 27-system list
+6. [LIBRARY-TEMPLATE.md v2.0.0](../../docs/templates/LIBRARY-TEMPLATE.md) — D1 library contracts
+7. Pass 1 grounding outputs under `NCE-V2/specs/<system>/`
 
 ---
 
@@ -47,7 +45,7 @@ Per [CLAUDE.md](../../../../CLAUDE.md) §10:
 - **Binding types as contract surfaces:** service bindings, D1, R2, KV, DO, Queues, Vectorize
 - **External constraints:** 5-min CPU, 128 MB memory per invocation
 - **D1 access:** async `await env.{BINDING}.prepare(...).all()` — contracts must reflect async nature
-- **Type system:** TypeScript types are the contract artefact — schemas, interfaces, generics
+- **Type system:** TypeScript types are the contract artefact
 
 ---
 
@@ -55,7 +53,7 @@ Per [CLAUDE.md](../../../../CLAUDE.md) §10:
 
 > **NCE-V2 owns content authoring + the rendering of any artefact it itself ships to a final consumer.**
 
-Contracts must reflect this:
+Contracts must reflect:
 - A `website/` system contract MUST output JSON, not rendered HTML
 - A `renderers/` system contract MUST consume JSON and output a final rendered artefact (PDF/DOCX/Markdown/HTML for non-Astro use)
 - An `email/` system contract MUST output rendered email HTML before handoff to `integrations/EmailitIntegration`
@@ -84,6 +82,8 @@ Contracts on library boundaries must declare:
 ### Step 1 — Update Tracking
 - Update `NCE-V2/admin/PASS-PROGRESS.md`: mark Phase 15 as **ACTIVE**
 
+> **Logging rule:** Contract surface decisions go in `NCE-V2/admin/PASS-DECISION-NOTES.md`.
+
 ### Step 2 — Execute Contracts in Strict Order
 
 #### 2a. SYSTEM CONTRACTS
@@ -98,7 +98,7 @@ Contracts on library boundaries must declare:
 #### 2c. EXTERNAL INTEGRATION CONTRACTS
 - For each provider (alphabetically), process its services
 - For each service, create **CONTRACT.md** defining the external boundary
-- Specify: protocol (REST/GraphQL/WebSocket/binary), auth (API key / OAuth / signed), rate limits, retry policy, cost-per-call (where relevant)
+- Specify: protocol, auth, rate limits, retry policy, cost-per-call
 
 ---
 
@@ -134,8 +134,8 @@ Contracts on library boundaries must declare:
 - Do **NOT** define error codes yet (categories only — codes are Pass 3 territory)
 - Apply the output-boundary rule to every contract surface
 - Apply the storage model context to every library boundary
-- If a contract cannot be defined, flag it — don't guess
-- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../../CLAUDE.md) §7
+- If a contract cannot be defined, flag it and log — don't guess
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
@@ -156,8 +156,6 @@ Contracts on library boundaries must declare:
 A contract is complete when:
 > "Could a developer implement this boundary without asking questions?"
 
-If no, the contract is incomplete.
-
 ---
 
 ## OUTPUT LOCATION
@@ -176,14 +174,13 @@ NCE-V2/specs/integrations/{{provider}}/{{service}}/
 
 ## END CONDITION
 
-PASS 2 is COMPLETE only when:
 - [ ] All system CONTRACT.md created and approved (27 systems)
 - [ ] All subsystem CONTRACT.md created and approved
 - [ ] All external integration CONTRACT.md created and approved (or N/A)
-- [ ] Contracts are consistent across boundaries (output type = downstream input type)
+- [ ] Contracts consistent across boundaries (output type = downstream input type)
 - [ ] Binding type and output form declared on every contract surface
 - [ ] Library boundaries declare D1 binding name and read/write side
-- [ ] PASS-PROGRESS.md updated: Phase 15 marked **COMPLETE**
+- [ ] `PASS-PROGRESS.md` updated: Phase 15 marked **COMPLETE**
 
 **Next:** Proceed to Phase 16 (Pass 3 — Dependencies)
 
@@ -205,7 +202,7 @@ PASS 2 is COMPLETE only when:
 ### Dependencies
 - [ ] All system dependencies declared
 - [ ] D1 bindings declared for library access
-- [ ] Any questionable dependency challenged
+- [ ] Any questionable dependency challenged and logged
 - [ ] TS type/interface assumptions noted lightly
 
 ### Errors (Categories Only)
@@ -233,23 +230,24 @@ PASS 2 is COMPLETE only when:
 - [ ] Pass 1 grounding consulted; no contradictions
 - [ ] All contract surfaces have binding type + output form declared
 - [ ] Library access contracts go through `library/Librarian`, not direct D1
-- [ ] Output-boundary rule respected (no rendered web output from JSON-emitter contracts)
+- [ ] Output-boundary rule respected
 - [ ] No error codes defined (categories only)
+- [ ] Anything noteworthy logged in `PASS-DECISION-NOTES.md`
 - [ ] Status marked "Draft Complete – Awaiting Review" (not "Approved")
 
 ---
 
-## TEMPLATES
+## TEMPLATES (enriched with project-specific columns)
 
 - [CONTRACT-TEMPLATE.md](./CONTRACT-TEMPLATE.md)
 
-> **TODO (Template enrichment):** B's CONTRACT-TEMPLATE.md doesn't have binding-type, output-form, or library-D1-binding columns. Decide enrichment vs prompt enforcement.
+The template carries columns for binding type, output form, and library D1 binding — fill per the rules in this prompt.
 
 ---
 
 ## INPUTS
 
-From Pass 1: All SYSTEM.md, SUBSYSTEM.md, EXTERNAL-INTEGRATION.md, ADMIN.md
+From Pass 1: All SYSTEM.md, SUBSYSTEM.md, EXTERNAL-INTEGRATION.md, ADMIN.md (under `NCE-V2/specs/`)
 
 ---
 
@@ -260,6 +258,5 @@ From Pass 1: All SYSTEM.md, SUBSYSTEM.md, EXTERNAL-INTEGRATION.md, ADMIN.md
 ---
 
 ### Review & Clarification Needed
-- Binding type as a first-class contract field — keep or simplify?
-- Library D1-binding contract pattern — does it match how you want library access expressed?
-- May I proceed with 16–17?
+- All prior TODOs resolved per user decisions on 2026-05-22.
+- May this draft be promoted to "Approved"?

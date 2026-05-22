@@ -6,6 +6,16 @@
 ## Purpose
 (1–2 sentences. Why this subsystem exists within the parent.)
 
+## NCE-V2 Project-Specific Fields
+
+| Field | Value |
+|-------|-------|
+| **Output Form** | JSON / rendered artefact / library entry / metadata |
+| **Output Destination** | parent / sibling / external system / Astro / external provider / human |
+| **Storage Touch** | none / D1 (library) / R2 (asset) / KV / DO / Queue |
+| **D1 Binding (if library-touching)** | N/A / {{BINDING_NAME}} |
+| **Library Access via Librarian?** | Yes / N/A / Direct D1 (flag if outside `library/`) |
+
 ## Scope — What This Subsystem Owns
 - …
 - …
@@ -33,22 +43,22 @@
 ### Inputs
 (What this subsystem receives.)
 
-| Input | Source | Description |
-|-------|--------|-------------|
-| | Parent / Sibling / External | |
+| Input | Source | Binding Type | Description |
+|-------|--------|--------------|-------------|
+| | Parent / Sibling / External | service / D1 / R2 / KV / DO / Queue / in-Worker | |
 
 ### Outputs
 (What this subsystem produces.)
 
-| Output | Destination | Description |
-|--------|-------------|-------------|
-| | Parent / Sibling / External | |
+| Output | Destination | Form (JSON / rendered / library / metadata) | Description |
+|--------|-------------|----------------------------------------------|-------------|
+| | Parent / Sibling / External | | |
 
 ### Allowed Dependencies
 
-| Dependency | Type | Why Allowed |
-|------------|------|-------------|
-| | Sibling / Parent / External | |
+| Dependency | Type | Binding | Why Allowed |
+|------------|------|---------|-------------|
+| | Sibling / Parent / External | service / D1 / etc. | |
 
 ### Forbidden Dependencies
 (What this subsystem must never depend on.)
@@ -63,7 +73,7 @@
 
 ---
 Status: DRAFT | APPROVED | BLOCKED
-Version: v0.1.0
+Version: v0.2.0 (enriched for NCE-V2)
 Last Updated: {{timestamp}}
 Owner: Claude | Human
 Phase: 14 (Pass 1)

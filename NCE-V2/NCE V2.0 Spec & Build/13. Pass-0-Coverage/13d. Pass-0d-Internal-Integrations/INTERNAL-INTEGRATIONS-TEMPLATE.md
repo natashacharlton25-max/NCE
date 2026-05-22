@@ -1,7 +1,7 @@
 # Internal Integrations Map
 
 ## Project
-{{Project Name}}
+NCE-V2 (TypeScript on Cloudflare Workers)
 
 ---
 
@@ -9,9 +9,11 @@
 
 | Metric | Value |
 |--------|-------|
-| Total Systems | {{n}} |
+| Total Systems | 27 (per FileTree-v2.md) |
 | Total Internal Integrations | {{n}} |
 | Systems with no integrations | {{n}} |
+| Library accesses (via `library/Librarian`) | {{n}} |
+| Boundary violations flagged | {{n}} |
 
 ---
 
@@ -19,12 +21,11 @@
 
 (✓ = row sends to column)
 
-|  | System A | System B | System C | System D |
-|--|----------|----------|----------|----------|
+|  | System A | System B | System C | ... |
+|--|----------|----------|----------|-----|
 | **System A** | — | | | |
 | **System B** | | — | | |
 | **System C** | | | — | |
-| **System D** | | | | — |
 
 ---
 
@@ -37,9 +38,14 @@
 | **Source** | {{source system}} |
 | **Destination** | {{destination system}} |
 | **Direction** | One-way / Bi-directional |
+| **Binding Type** | service binding / D1 / R2 / KV / DO / Queue / in-Worker import |
+| **D1 Binding Name (if D1)** | {{NAME}} or N/A |
 | **Data/Responsibility** | {{what crosses the boundary}} |
+| **Output Form** | JSON / rendered artefact / library entry / metadata / binary asset |
 | **Initiator** | {{who initiates}} |
 | **Frequency** | On-demand / Scheduled / Event-driven |
+| **Output-Boundary Respected?** | Yes / Flag — see notes |
+| **Library Access via Librarian?** | Yes / N/A / Flag (direct D1) |
 
 **Purpose:**
 (Why does this integration exist?)
@@ -53,6 +59,22 @@
 
 ---
 
+## Output-Boundary Audit
+
+| Pair | Issue | Action |
+|------|-------|--------|
+| {{source → dest}} | e.g. JSON-emitter passing rendered HTML | Flag for Pass 1 grounding fix |
+
+---
+
+## Library Access Audit
+
+| Pair | Issue | Action |
+|------|-------|--------|
+| {{source → dest}} | e.g. direct D1 binding from outside library/ | Flag for re-routing through `library/Librarian` |
+
+---
+
 ## Systems With No Internal Integrations
 
 | System | Notes |
@@ -61,11 +83,11 @@
 
 ---
 
-## Unclear Integrations
+## Unclear Integrations (TBD — Needs Clarification)
 
-| Source | Destination | Question |
-|--------|-------------|----------|
-| {{system}} | {{system}} | {{what needs clarification}} |
+| Source | Destination | Question | Logged in DECISION-NOTES? |
+|--------|-------------|----------|----------------------------|
+| {{system}} | {{system}} | {{what needs clarification}} | Yes / No |
 
 ---
 
@@ -73,16 +95,13 @@
 
 ```
 (ASCII representation)
-
-┌──────────┐      ┌──────────┐
-│ System A │─────▶│ System B │
-└──────────┘      └────┬─────┘
-                       │
-                       ▼
-                 ┌──────────┐
-                 │ System C │
-                 └──────────┘
 ```
+
+---
+
+## Worker Topology Note
+
+`platform` Worker groups `services` + `system` + `state` + `library` — their inter-dependencies are in-Worker imports, not cross-Worker service bindings. Other 23 systems each have their own Worker; cross-system flows use service bindings.
 
 ---
 
@@ -92,7 +111,7 @@
 
 ---
 Status: DRAFT | APPROVED | BLOCKED
-Version: v0.1.0
+Version: v0.2.0 (enriched for NCE-V2)
 Last Updated: {{timestamp}}
 Phase: 13d (Pass 0d)
 Owner: Claude | Human

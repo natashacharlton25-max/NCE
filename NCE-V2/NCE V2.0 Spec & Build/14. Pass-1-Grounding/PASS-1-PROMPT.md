@@ -17,7 +17,7 @@ Last Updated: 2026-05-22
 
 ## ROLE
 
-You are establishing clear boundaries and ownership for each component in NCE-V2.
+You are establishing clear boundaries and ownership for each NCE-V2 component.
 
 This phase takes the *-NOTES.md files (from build phases) and the coverage reviews (from Pass 0) and produces formal grounding documents.
 
@@ -27,17 +27,15 @@ You are NOT designing implementation or writing code.
 
 ## LOCKED CONTEXT (Required Reading)
 
-Per [CLAUDE.md](../../../../CLAUDE.md) §10:
+Per [CLAUDE.md](../../../CLAUDE.md) §10:
 
-1. **Project-Intent.md** — Project intention, design principles, non-goals
-2. **CLAUDE.md** — AI collaboration contract; pass methodology; status vocabulary
-3. **STACK-AND-RUNTIME.md** — Runtime, infrastructure, Worker boundaries
-4. **REFINEMENTS.md** — Active architectural refinements
-5. **FileTree-v2.md** — Canonical subsystem list
-6. **NCE-V2/docs/templates/LIBRARY-TEMPLATE.md v2.0.0** — D1-based library template (apply when grounding library-owning systems)
-7. **NCE-V2/specs/<system>/SYSTEM-COVERAGE.md** + per-subsystem coverage docs from Phase 13a (per-system inputs)
-
-> **TODO (Path resolution):** See 13a.
+1. [Project-Intent.md](../../Project-Intent.md) — Project intention, design principles, non-goals
+2. [CLAUDE.md](../../../CLAUDE.md) — AI collaboration contract; pass methodology; status vocabulary
+3. [STACK-AND-RUNTIME.md](../../STACK-AND-RUNTIME.md) — Runtime, Worker boundaries
+4. [REFINEMENTS.md](../../REFINEMENTS.md) — Active architectural refinements
+5. [FileTree-v2.md](../../FileTree-v2.md) — Canonical 27-system list
+6. [LIBRARY-TEMPLATE.md v2.0.0](../../docs/templates/LIBRARY-TEMPLATE.md) — D1-based library template (for library-owning systems)
+7. Pass 0 coverage reviews under `NCE-V2/pass-0/<system>/`
 
 ---
 
@@ -46,7 +44,7 @@ Per [CLAUDE.md](../../../../CLAUDE.md) §10:
 - **Language:** TypeScript (strict mode)
 - **Runtime:** Cloudflare Workers (V8 isolates)
 - **Storage primitives:** D1, R2, KV, Durable Objects, Vectorize
-- **Per-system organisation:** one Worker per system; `services`/`system`/`state`/`library` grouped into `platform` Worker
+- **Per-system organisation:** one Worker per system; `services`/`system`/`state`/`library` grouped into a `platform` Worker
 - **External constraints:** Workers paid plan (5-min CPU max, 128 MB memory)
 
 ---
@@ -55,8 +53,8 @@ Per [CLAUDE.md](../../../../CLAUDE.md) §10:
 
 > **NCE-V2 owns content authoring + the rendering of any artefact it itself ships to a final consumer.**
 >
-> - Web content shipped as JSON to Astro (web rendering is NOT NCE-V2's responsibility).
-> - PDFs, DOCX, emails, embedded mark assets shipped in final rendered form (their rendering IS NCE-V2's responsibility).
+> - Web content shipped as JSON to Astro (web rendering is NOT NCE-V2's responsibility)
+> - PDFs, DOCX, emails, embedded mark assets shipped in final rendered form (their rendering IS NCE-V2's responsibility)
 
 Grounding documents (SYSTEM.md, SUBSYSTEM.md) must explicitly state:
 - What output form the component produces (JSON / rendered artefact / library entry / metadata)
@@ -70,10 +68,11 @@ Per [LIBRARY-TEMPLATE.md v2.0.0](../../docs/templates/LIBRARY-TEMPLATE.md):
 
 - Libraries hold **text and JSON only** — stored in **D1**, accessed by Worker binding
 - Binary assets handled by `assets/` system (R2)
-- For library-owning systems (`brand`, `content`, `ai`, `template`, `social`, `assets`, etc.), grounding must declare:
-  - Which library/libraries the system owns
-  - Which libraries it reads (via `library/Librarian`)
-  - The D1 binding name(s) for each owned library
+
+For library-owning systems (`brand`, `content`, `ai`, `template`, `social`, `assets`, etc.), grounding must declare:
+- Which library/libraries the system owns
+- Which libraries it reads (via `library/Librarian`)
+- The D1 binding name(s) for each owned library
 
 ---
 
@@ -81,6 +80,8 @@ Per [LIBRARY-TEMPLATE.md v2.0.0](../../docs/templates/LIBRARY-TEMPLATE.md):
 
 ### Step 1 — Update Tracking
 - Update `NCE-V2/admin/PASS-PROGRESS.md`: mark Phase 14 as **ACTIVE**
+
+> **Logging rule:** Significant decisions go in `NCE-V2/admin/PASS-DECISION-NOTES.md` as they happen.
 
 ### Step 2 — Execute Grounding in Strict Order
 
@@ -127,7 +128,7 @@ Per [LIBRARY-TEMPLATE.md v2.0.0](../../docs/templates/LIBRARY-TEMPLATE.md):
 ## AFTER EACH GROUP
 
 - Pause for user approval
-- If approved: update Status to APPROVED, update Version, Last Updated, add to `PASS-DECISION-NOTES.md` if significant
+- If approved: update Status to APPROVED, update Version, Last Updated, add significant decisions to `PASS-DECISION-NOTES.md`
 - If blocked: log in `PASS-DECISION-NOTES.md`, consult `PASS-RESTART-RULES.md`
 
 ---
@@ -137,11 +138,11 @@ Per [LIBRARY-TEMPLATE.md v2.0.0](../../docs/templates/LIBRARY-TEMPLATE.md):
 - Do **NOT** invent new systems, subsystems, or integrations
 - Do **NOT** add implementation details (no code, no schemas, no APIs)
 - Do **NOT** contradict the *-NOTES.md files or Pass 0 coverage reviews
-- If information is missing, state it explicitly in ADMIN.md
+- If information is missing, state it explicitly in ADMIN.md and log it
 - Use the templates exactly
 - Apply the output-boundary rule when stating output form/destination
 - Apply the storage model context when stating library ownership
-- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../../CLAUDE.md) §7
+- Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../CLAUDE.md) §7
 
 ---
 
@@ -153,7 +154,7 @@ Per [LIBRARY-TEMPLATE.md v2.0.0](../../docs/templates/LIBRARY-TEMPLATE.md):
 ### File Size Risk Bands
 - **Low:** <1500 LOC
 - **Medium:** 1500–2000 LOC
-- **High:** >2000 LOC (design smell — flag and consider splitting at Pass 0 or returning to coverage)
+- **High:** >2000 LOC (design smell — flag and log)
 
 ---
 
@@ -181,7 +182,7 @@ NCE-V2/specs/integrations/{{provider}}/{{service}}/
 └── ADMIN.md                           ← NEW
 ```
 
-> **TODO (Output destination):** Same as 13a — confirm `NCE-V2/specs/<system>/` hierarchy.
+Pass 1+ outputs live in `NCE-V2/specs/<system>/`. Pass 0 work stays in `NCE-V2/pass-0/`.
 
 ---
 
@@ -199,8 +200,8 @@ PASS 1 is COMPLETE only when:
 - [ ] All external integration EXTERNAL-INTEGRATION.md + ADMIN.md created and approved (or N/A)
 - [ ] Every component's grounding states output form + destination
 - [ ] Library-owning systems declare their library ownership and D1 binding names
-- [ ] PASS-PROGRESS.md updated: Phase 14 marked **COMPLETE**
-- [ ] Any decisions logged in `PASS-DECISION-NOTES.md`
+- [ ] `PASS-PROGRESS.md` updated: Phase 14 marked **COMPLETE**
+- [ ] Significant decisions logged in `PASS-DECISION-NOTES.md`
 
 **Next:** Proceed to Phase 15 (Pass 2 — Contracts)
 
@@ -209,20 +210,20 @@ PASS 1 is COMPLETE only when:
 ## PASS 1 CHECKLIST
 
 ### Prerequisite Check
-- [ ] All Pass 0 coverage docs are APPROVED
-- [ ] PASS-0-CHECKLIST.md is APPROVED
+- [ ] All Pass 0 coverage docs APPROVED
+- [ ] `PASS-0-CHECKLIST.md` APPROVED
 
 ### Purpose & Scope
 - [ ] System purpose stated in 1–2 sentences
 - [ ] Scope lists what it owns, not how it works
-- [ ] Explicit non-goals written (critical)
+- [ ] Explicit non-goals written
 - [ ] Output form declared (JSON / rendered / library entry / metadata)
 
 ### Boundaries
 - [ ] Allowed dependencies listed
 - [ ] Forbidden dependencies explicitly stated
 - [ ] Library ownership declared (if applicable, with D1 binding names)
-- [ ] Output-boundary direction is correct (rendered web output flagged if present in a JSON-emitter)
+- [ ] Output-boundary direction correct
 
 ### Maturity & Reality
 - [ ] Status set (Concept / Draft / Active / Stable)
@@ -232,7 +233,7 @@ PASS 1 is COMPLETE only when:
 ### Sanity Test
 - [ ] Could another developer understand what this owns in 60 seconds?
 
-### DO NOT (from A's PASS1PROMPT and B's checklist)
+### DO NOT
 - Define schemas
 - Name error codes
 - Design internals
@@ -243,31 +244,30 @@ PASS 1 is COMPLETE only when:
 ## PRE-SUBMISSION SELF-CHECK
 
 - [ ] Did NOT invent systems, subsystems, or integrations
-- [ ] All Pass 0 outputs were consulted
+- [ ] All Pass 0 outputs consulted
 - [ ] Output form and destination stated for every component
 - [ ] Library ownership declared where applicable
-- [ ] Output-boundary rule applied (no rendered web output from JSON-emitters)
+- [ ] Output-boundary rule applied
+- [ ] Anything noteworthy logged in `PASS-DECISION-NOTES.md`
 - [ ] Status marked "Draft Complete – Awaiting Review" (not "Approved")
 
 ---
 
-## TEMPLATES
+## TEMPLATES (enriched with project-specific sections)
 
 - [SYSTEM-TEMPLATE.md](./SYSTEM-TEMPLATE.md)
 - [SUBSYSTEM-TEMPLATE.md](./SUBSYSTEM-TEMPLATE.md)
 - [EXTERNAL-INTEGRATION-TEMPLATE.md](./EXTERNAL-INTEGRATION-TEMPLATE.md)
 - [ADMIN-TEMPLATE.md](./ADMIN-TEMPLATE.md)
 
-> **TODO (Template enrichment):** B's templates don't have Output Form + Library Ownership sections. Decide whether to enrich the templates or rely on this prompt to enforce.
+The templates carry sections for Output Form and Library Ownership — fill per the rules in this prompt.
 
 ---
 
 ## INPUTS
 
-From Build Phases (B's chain): All SYSTEM-NOTES.md, SUBSYSTEM-NOTES.md, PROVIDER-NOTES.md, SERVICE-NOTES.md
-From Pass 0: All coverage reviews, PASS-0-CHECKLIST.md
-
-> **TODO (Inputs from build phases):** Build phase NOTES don't exist for NCE-V2. Substitutes: FileTree-v2.md (system + subsystem list), Pass 0 coverage docs (when produced), Project-Intent.md (system purpose hints). Confirm.
+Build Phases 1–12 must run first to produce: All SYSTEM-NOTES.md, SUBSYSTEM-NOTES.md, PROVIDER-NOTES.md, SERVICE-NOTES.md
+From Pass 0: All coverage reviews (under `NCE-V2/pass-0/`), `PASS-0-CHECKLIST.md`
 
 ---
 
@@ -278,6 +278,5 @@ From Pass 0: All coverage reviews, PASS-0-CHECKLIST.md
 ---
 
 ### Review & Clarification Needed
-- Output Form + Library Ownership as new grounding sections — keep, or remove (rely on contracts in Pass 2)?
-- Template enrichment vs prompt-only enforcement
-- May I proceed with 15–17?
+- All prior TODOs resolved per user decisions on 2026-05-22.
+- May this draft be promoted to "Approved"?

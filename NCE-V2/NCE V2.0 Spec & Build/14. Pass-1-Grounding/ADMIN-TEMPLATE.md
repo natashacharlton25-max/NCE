@@ -4,7 +4,17 @@
 - **Name:** {{name}}
 - **Type:** System / Subsystem / External Integration
 - **Parent:** {{parent or N/A}}
-- **Location:** `{{path}}`
+- **Location:** `NCE-V2/specs/{{path}}`
+
+## NCE-V2 Project-Specific Fields
+
+| Field | Value |
+|-------|-------|
+| **Output Form** | JSON / rendered artefact / library entry / metadata |
+| **Worker Grouping** | own Worker / `platform` Worker |
+| **D1 Bindings Used** | None / {{names}} |
+| **LOC Band (current estimate)** | Low (<1500) / Medium (1500–2000) / High (>2000) |
+| **LOC Exception Logged?** | N/A / Yes — see PASS-DECISION-NOTES.md |
 
 ---
 
@@ -16,7 +26,7 @@
 | **Pass 1 (Grounding)** | Pending / Complete |
 | **Pass 2 (Contracts)** | Pending / Complete |
 | **Pass 3 (Dependencies)** | Pending / Complete |
-| **Pass 4 (Implementation)** | Pending / Complete |
+| **Pass 4 (Implementation Plan)** | Pending / Complete |
 | **Last Updated** | {{timestamp}} |
 | **Owner** | Claude / Human |
 
@@ -32,9 +42,9 @@
 
 ## Open Questions
 
-| Question | Impact if Unresolved | Owner |
-|----------|----------------------|-------|
-| | Low / Medium / High | |
+| Question | Impact if Unresolved | Logged in DECISION-NOTES? | Owner |
+|----------|----------------------|----------------------------|-------|
+| | Low / Medium / High | Yes / No | |
 
 ---
 
@@ -66,6 +76,6 @@
 (Any additional context, assumptions, or considerations.)
 
 ---
-Version: v0.1.0
+Version: v0.2.0 (enriched for NCE-V2)
 Last Updated: {{timestamp}}
 ---

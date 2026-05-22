@@ -22,13 +22,11 @@ This is an **ASSESSMENT-ONLY** phase. You are NOT designing, refactoring, or pro
 
 Per [CLAUDE.md](../../../../CLAUDE.md) §10:
 
-1. **Project-Intent.md** — Project intention, design principles, non-goals
-2. **CLAUDE.md** — AI collaboration contract; pass methodology; status vocabulary
-3. **STACK-AND-RUNTIME.md** — Runtime, infrastructure, Worker boundaries
-4. **REFINEMENTS.md** — Active architectural refinements
-5. **FileTree-v2.md** — Canonical subsystem list (includes `integrations/` system with 15 subsystems)
-
-> **TODO (Path resolution):** See 13a for the open path question. Same resolution applies here.
+1. [Project-Intent.md](../../../Project-Intent.md) — Project intention, design principles, non-goals
+2. [CLAUDE.md](../../../../CLAUDE.md) — AI collaboration contract, status vocabulary
+3. [STACK-AND-RUNTIME.md](../../../STACK-AND-RUNTIME.md) — Runtime, Worker boundaries
+4. [REFINEMENTS.md](../../../REFINEMENTS.md) — Active architectural refinements
+5. [FileTree-v2.md](../../../FileTree-v2.md) — Canonical subsystem list (includes `integrations/` system with 15 subsystems)
 
 ---
 
@@ -47,13 +45,13 @@ Per [CLAUDE.md](../../../../CLAUDE.md) §10:
 
 > **NCE-V2 owns content authoring + the rendering of any artefact it itself ships to a final consumer.**
 
-External providers (Google, Canva, Pexels, Unsplash, Recraft, Phosphor, Emailit, YouTube, etc.) sit on the *receiving* side of this boundary for some artefacts and the *sending* side for others:
+External providers map to one of three directions:
 
-- A provider that **receives a rendered artefact from NCE-V2** (e.g. Emailit receives email HTML; Canva/Google Docs receive rendered docs) is an outbound integration target. NCE-V2 rendering still applies before send.
-- A provider that **supplies raw inputs to NCE-V2** (e.g. Pexels/Unsplash supplies images; Recraft supplies AI vectors; Phosphor supplies icons) is an inbound integration source. Assets land in the `assets/` system (R2) and metadata in the relevant D1 library.
-- A provider that is **a downstream renderer** (Astro for web pages) receives JSON from NCE-V2 and renders it. NCE-V2 does NOT render web HTML.
+- **Outbound receivers** of rendered NCE-V2 artefacts (e.g. Emailit, Canva, Google Docs/Sheets/Slides). NCE-V2 rendering applies before send.
+- **Inbound sources** supplying raw inputs to NCE-V2 (e.g. Pexels, Unsplash, Recraft, Phosphor). Assets land in `assets/` (R2); metadata lands in the relevant D1 library via `library/`.
+- **Downstream renderers** receiving JSON from NCE-V2 (Astro for web pages). NCE-V2 does NOT render web HTML.
 
-Flag any provider/service review that gets the inbound/outbound side wrong.
+Flag any provider/service review that gets the direction wrong.
 
 ---
 
@@ -62,12 +60,14 @@ Flag any provider/service review that gets the inbound/outbound side wrong.
 ### Step 1 — Update Tracking
 - Update `NCE-V2/admin/PASS-PROGRESS.md`: mark Phase 13b as **ACTIVE**
 
+> **Logging rule:** Note decisions and observations in `NCE-V2/admin/PASS-DECISION-NOTES.md` as they happen.
+
 ### Step 2 — Execute PASS 0b in Strict Order
 
 #### 2a. PROVIDER COVERAGE
 - Process providers **alphabetically (A–Z)**
 - For each provider, generate a Provider Coverage Review using **PROVIDER-COVERAGE-TEMPLATE.md** only
-- Note: providers map to `integrations/<Provider>Integration.ts` subsystems in FileTree-v2.md
+- Providers map to `integrations/<Provider>Integration.ts` subsystems in FileTree-v2.md
 
 #### 2b. SERVICE COVERAGE
 - For each provider (same order), process its services
@@ -79,7 +79,7 @@ Flag any provider/service review that gets the inbound/outbound side wrong.
 
 - Pause for user approval
 - If approved: update Status to APPROVED, update Version, Last Updated
-- If blocked: record failure reason in `PASS-DECISION-NOTES.md`; do not proceed until resolved
+- If blocked: record reason in `PASS-DECISION-NOTES.md`; do not proceed until resolved
 
 ---
 
@@ -90,8 +90,8 @@ Flag any provider/service review that gets the inbound/outbound side wrong.
 - Do **NOT** rename anything
 - Do **NOT** make architectural decisions; flag observations only
 - If information is missing, state it explicitly
-- Treat file size as a **design signal**, not an optimisation target
-- Apply the output-boundary rule when assessing provider/service direction
+- Treat file size as a **design signal**
+- Apply the output-boundary rule to provider/service direction
 - Do **NOT** self-assign the status "Approved" — per [CLAUDE.md](../../../../CLAUDE.md) §7
 
 ---
@@ -99,8 +99,7 @@ Flag any provider/service review that gets the inbound/outbound side wrong.
 ## BUILD SIZE CONSTRAINT
 
 - **Target:** ~2000 LOC per integration wrapper
-- **Exceptions allowed** with explicit justification at Pass 0
-- TypeScript is 1.3–1.5× more verbose than Python — apply when porting prior estimates
+- TypeScript 1.3–1.5× more verbose than Python — apply when porting prior estimates
 - Excludes `*.debug.ts`, `*.test.ts`, `__debug__/`, `*.types.ts`, comments
 
 ### File Size Risk Bands
@@ -113,33 +112,32 @@ Flag any provider/service review that gets the inbound/outbound side wrong.
 ## OUTPUT LOCATION
 
 ```
-NCE-V2/specs/integrations/
+NCE-V2/pass-0/integrations/
 ├── PROVIDER-COVERAGE-{{provider}}.md
 ├── SERVICE-COVERAGE-{{provider}}-{{service}}.md
 └── ...
 ```
 
-> **TODO (Output destination):** Same as 13a — confirm `NCE-V2/specs/integrations/` vs parallel `NCE-V2/pass-0/`.
+All Pass 0 work lives under `NCE-V2/pass-0/`.
 
 ---
 
 ## SKIP CONDITION
 
-If no external integrations are identified for NCE-V2:
+If no external integrations exist:
 - Skip PASS 0b entirely
-- Mark as "N/A — No external integrations"
+- Mark as "N/A — No external integrations" in `PASS-DECISION-NOTES.md`
 - Proceed directly to Phase 13c
 
-For NCE-V2 this is unlikely — FileTree-v2.md `integrations/` system already lists 15 provider subsystems.
+For NCE-V2 this is unlikely — `integrations/` system has 15 provider subsystems.
 
 ---
 
 ## END CONDITION
 
-PASS 0b is COMPLETE only when:
 - [ ] All provider coverage docs approved
 - [ ] All service coverage docs approved
-- [ ] PASS-PROGRESS.md updated: Phase 13b marked **COMPLETE**
+- [ ] `PASS-PROGRESS.md` updated: Phase 13b marked **COMPLETE**
 
 **Next:** Proceed to Phase 13c (Pass 0 Checklist)
 
@@ -148,28 +146,28 @@ PASS 0b is COMPLETE only when:
 ## PRE-SUBMISSION SELF-CHECK
 
 - [ ] Did NOT invent any providers/services
-- [ ] All providers from FileTree-v2.md `integrations/` were reviewed
-- [ ] Output-boundary direction (inbound vs outbound) correctly identified per provider
+- [ ] All providers from FileTree-v2.md `integrations/` reviewed
+- [ ] Output-boundary direction (inbound / outbound / downstream renderer) correctly identified
 - [ ] LOC estimates use ~2000 limit with TS verbosity multiplier
+- [ ] Anything noteworthy logged in `PASS-DECISION-NOTES.md`
 - [ ] Status marked "Draft Complete – Awaiting Review" (not "Approved")
 
 ---
 
-## TEMPLATES
+## TEMPLATES (enriched with project-specific columns)
 
 - [PROVIDER-COVERAGE-TEMPLATE.md](./PROVIDER-COVERAGE-TEMPLATE.md)
 - [SERVICE-COVERAGE-TEMPLATE.md](./SERVICE-COVERAGE-TEMPLATE.md)
+
+The templates carry columns for direction, LOC band, and credential handling — fill per the rules in this prompt.
 
 ---
 
 ## INPUTS
 
-From phases 9–11 (per B's chain):
+Phases 9–11 must run first to produce:
 - EXTERNAL-INTEGRATIONS-REGISTER.md
-- All PROVIDER-NOTES.md
-- All SERVICE-SCOPE.md, SERVICE-NOTES.md
-
-> **TODO (Inputs from phases 9–11):** None of these exist yet for NCE-V2. For this project, the substitute input is `FileTree-v2.md` `integrations/` system list. Confirm.
+- All PROVIDER-NOTES.md, SERVICE-SCOPE.md, SERVICE-NOTES.md
 
 ---
 
@@ -180,6 +178,5 @@ From phases 9–11 (per B's chain):
 ---
 
 ### Review & Clarification Needed
-- Inbound/outbound framing of the output-boundary rule for integrations — does this match your model?
-- Path resolution and inputs TODOs — same as 13a
-- May I proceed with 13c, 13d, 14–17?
+- All prior TODOs resolved per user decisions on 2026-05-22.
+- May this draft be promoted to "Approved"?
