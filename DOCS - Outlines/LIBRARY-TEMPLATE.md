@@ -1,3 +1,5 @@
+> **Superseded by `NCE-V2/docs/templates/LIBRARY-TEMPLATE.md` v2.0.0; retained for history.**
+
 # Library Documentation Template
 
 > **Purpose:** Template for documenting SQLite-based content libraries

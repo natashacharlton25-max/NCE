@@ -1,3 +1,5 @@
+> **Superseded (pending) — index maintenance falls under NCE-V2's Phase 18 (Post-Pass-Checklist) and onward. Phase not yet merge-adapted; A's content remains relevant for now. Retained for history (2026-05-22).**
+
 You are updating a system index file.
 Do NOT invent functionality. If information is missing, leave TODO markers.
 

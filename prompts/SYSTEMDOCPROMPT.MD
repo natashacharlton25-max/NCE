@@ -1,3 +1,5 @@
+> **Superseded by NCE-V2's merged `PASS-1-PROMPT.md` (Phase 14 Grounding) which absorbs SYSTEM.md production; retained for history (2026-05-22).**
+
 You are helping me document a software system.
 Do NOT invent functionality. If information is missing, leave TODO markers.
 

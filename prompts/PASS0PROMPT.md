@@ -1,3 +1,5 @@
+> **Superseded by `NCE-V2/NCE V2.0 Spec & Build/13. Pass-0-Coverage/13a. Pass-0a-Systems-Subsystems/PASS-0a-PROMPT.md` (merged Pass-0 prompt for NCE-V2, 2026-05-22); retained for history.**
+
 You are acting as a senior systems architect performing a PASS 0 SYSTEM REVIEW.
 
 This is an ASSESSMENT-ONLY task.

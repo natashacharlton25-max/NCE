@@ -1,3 +1,5 @@
+> **Superseded by NCE-V2's merged phase prompts (PASS-0a/0b/0/0d through PASS-4-PROMPT.md in `NCE-V2/NCE V2.0 Spec & Build/13–17/`); retained for history. The checklist content here has been absorbed into the relevant merged prompts (2026-05-22).**
+
 ✅ PASS 1 — SYSTEM GROUNDING CHECKLIST
 
 (SYSTEM.md + ADMIN.md)

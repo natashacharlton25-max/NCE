@@ -1,3 +1,5 @@
+> **Superseded (pending) by NCE-V2's Phase 21–22 Spec prompts (Internal-Component-Specs, External-Integration-Specs) — those phases not yet merge-adapted. For now, A's full-spec content remains relevant for any per-component spec drafting. Retained for history (2026-05-22).**
+
 You are writing a FULL SPECIFICATION for a subsystem.
 Do NOT invent functionality. If information is missing, leave TODO markers.
 

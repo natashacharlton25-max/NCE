@@ -1,3 +1,5 @@
+> **Superseded by `NCE-V2/docs/templates/LIBRARY-TEMPLATE.md` v2.0.0 (which merges in REPOS-TEMPLATE.md); retained for history.**
+
 # Content Library (Repos) Documentation Template
 
 > **Purpose:** Template for documenting content libraries in /repos/

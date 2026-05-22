@@ -1,3 +1,5 @@
+> **Superseded by `NCE-V2/NCE V2.0 Spec & Build/15. Pass-2-Contracts/PASS-2-PROMPT.md` (merged Pass-2 prompt for NCE-V2, 2026-05-22); retained for history.**
+
 You are acting as a senior systems architect.Do NOT invent functionality. If information is missing, leave TODO markers.
 
 

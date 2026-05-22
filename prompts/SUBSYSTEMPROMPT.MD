@@ -1,3 +1,5 @@
+> **Superseded by NCE-V2's merged `PASS-1-PROMPT.md` (Phase 14 Grounding) and `PASS-2-PROMPT.md` (Phase 15 Contracts) which absorb SUBSYSTEM pre-spec production; retained for history (2026-05-22).**
+
 You are writing a PRE-SPEC for a subsystem/module.
 Do NOT invent functionality. If information is missing, leave TODO markers.
 

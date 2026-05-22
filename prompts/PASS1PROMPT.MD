@@ -1,3 +1,5 @@
+> **Superseded by `NCE-V2/NCE V2.0 Spec & Build/14. Pass-1-Grounding/PASS-1-PROMPT.md` (merged Pass-1 prompt for NCE-V2, 2026-05-22); retained for history.**
+
 You are acting as a senior systems architect.
 Do NOT invent functionality. If information is missing, leave TODO markers.
 
