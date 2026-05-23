@@ -56,7 +56,7 @@ Single project-wide doc using [PROJECT-SPEC-TEMPLATE.md](./PROJECT-SPEC-TEMPLATE
 8. **Environment** — dev/staging/prod tiers; Worker secrets inventory; per-environment D1/R2/KV
 9. **Dependency Map** — system-to-system flows; binding types per edge; no circular deps
 10. **Worker Topology** — all 24 Workers (`platform` + 23 own-Workers); cross-Worker call graph; cold-start ordering; cross-Worker rules
-11. **Implementation Plan** — build order (foundation `platform` first), parallel groups, milestones, file structure summary
+11. **Implementation Plan** — canonical Dependency Tiers (drives both Stage 2 spec order AND Stage 4 Worker build order), Foundation Milestone, Subsequent Milestones (M0–M4), LOC Estimate Summary
 
 ### 3b. `NCE-V2/specs/platform/WORKER.md`
 

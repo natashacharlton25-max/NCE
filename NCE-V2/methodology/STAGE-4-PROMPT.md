@@ -38,7 +38,7 @@ Per [CLAUDE.md](../../CLAUDE.md) §10:
 
 ## TASK
 
-### Per Worker (in dependency order from PROJECT-SPEC.md Build Order)
+### Per Worker (in dependency order from PROJECT-SPEC.md §11 Dependency Tiers → Stage 4 Worker Build Order)
 
 For each Worker (starting with `platform`, then dependency-ordered):
 
@@ -94,13 +94,15 @@ For each Worker (starting with `platform`, then dependency-ordered):
 
 ## ORDER
 
-Per PROJECT-SPEC.md Build Order:
+Per PROJECT-SPEC.md §11 Dependency Tiers → Stage 4 Worker Build Order:
 
-1. **M0 Foundation**: `platform` Worker first
-2. **M1 Core utilities**: `resilience`, `observability`, `audit`, `versioning`, `state`, `system` (state and system are inside platform, but their subsystems need implementation focus here)
-3. **M2 Authentication + data**: `access`, `brand`, `ai`, `content`, library-owning systems
-4. **M3 Assets + templates**: `assets`, `document-templates`, `documents`, `marks`, `social`, `email`, `template`
-5. **M4 Integrations + rendering + publishing**: `integrations`, `renderers`, `publishing`, `review`, `verification`, `checks`, `orchestration`, `website`
+1. **M0 Foundation**: `platform` Worker first (contains Tier 1: services, system, state, library)
+2. **M1 Cross-cutting infrastructure**: Tier 2 — `access`, `audit`, `observability`, `resilience`, `versioning` (each its own Worker)
+3. **M2 Data-owning systems**: Tier 3 — `ai`, `assets`, `brand`, `content`, `social`, `template` (each its own Worker)
+4. **M3 Production / output systems**: Tier 4 — `checks`, `document-templates`, `documents`, `email`, `marks`, `orchestration`, `publishing`, `renderers`, `review`, `verification`, `website` (each its own Worker)
+5. **M4 Integrations**: Tier 5 — `integrations` providers + services
+
+Within a tier, parallel-safe (deploy multiple Workers concurrently). Across tiers, sequential (each tier completes before the next begins).
 
 Adjust per actual dependency map.
 

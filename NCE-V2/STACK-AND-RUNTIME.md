@@ -17,7 +17,7 @@
 
 ## Purpose of this Document
 
-This document describes **the concrete runtime, files, configuration, and Cloudflare setup** needed to deploy NCEMPIRE. It is the operational reference a developer (or you, or Claude Code) opens when they need to know: *what files exist, what services are enabled, where things go, and what runs where.*
+This document describes **the concrete runtime, files, configuration, and Cloudflare setup** needed to deploy NCE-V2. It is the operational reference a developer (or you, or Claude Code) opens when they need to know: *what files exist, what services are enabled, where things go, and what runs where.*
 
 It is **not**:
 
@@ -46,8 +46,8 @@ These are inputs to this document, not decisions it makes:
 |---|---|---|
 | Language | TypeScript on Cloudflare Workers | Yes |
 | Heavy-compute approach | Workers as much as possible; external only as last resort | Yes |
-| NCEMPIRE boundary | Ends at validated content in storage; Astro consumes separately | Yes |
-| Cloudflare account structure | Separate account per system (NCEMPIRE has its own; brand websites separate) | Yes |
+| NCE-V2 boundary | Ends at validated content in storage; Astro consumes separately | Yes |
+| Cloudflare account structure | Separate account per system (NCE-V2 has its own; brand websites separate) | Yes |
 | Repo structure | Single npm package, multiple Workers, Service Bindings between them | Yes |
 | Worker granularity | Grouped foundational Workers + per-system Workers for the rest | Yes |
 | Wrangler config format | `wrangler.jsonc` | Yes |
@@ -59,7 +59,7 @@ These are inputs to this document, not decisions it makes:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│  Cloudflare Account: NCEMPIRE                                          │
+│  Cloudflare Account: NCE-V2                                          │
 │                                                                        │
 │  ┌──────────────────────┐  ┌──────────────────────┐                   │
 │  │  Workers (compute)   │  │  Durable Objects     │                   │
@@ -103,11 +103,11 @@ These are inputs to this document, not decisions it makes:
                                   │
                                   ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│  Cloudflare Account: Brand Websites (SEPARATE, OUT OF NCEMPIRE SCOPE) │
+│  Cloudflare Account: Brand Websites (SEPARATE, OUT OF NCE-V2 SCOPE) │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-Everything inside the NCEMPIRE account is what this document covers. The brand websites account is out of scope; it consumes from R2 and is operated independently.
+Everything inside the NCE-V2 account is what this document covers. The brand websites account is out of scope; it consumes from R2 and is operated independently.
 
 ---
 
@@ -115,9 +115,9 @@ Everything inside the NCEMPIRE account is what this document covers. The brand w
 
 ### 2.1 — Accounts
 
-**One Cloudflare account per system.** NCEMPIRE has its own account. Brand websites are in their own account(s). This document covers only the NCEMPIRE account.
+**One Cloudflare account per system.** NCE-V2 has its own account. Brand websites are in their own account(s). This document covers only the NCE-V2 account.
 
-For NCEMPIRE itself, environments are managed via Wrangler's `--env` flag (Cloudflare's recommended pattern), not via separate accounts:
+For NCE-V2 itself, environments are managed via Wrangler's `--env` flag (Cloudflare's recommended pattern), not via separate accounts:
 
 | Environment | Purpose | Wrangler invocation |
 |---|---|---|
@@ -125,7 +125,7 @@ For NCEMPIRE itself, environments are managed via Wrangler's `--env` flag (Cloud
 | `staging` | Integration testing; receives main-branch pushes | `wrangler deploy --env staging` |
 | `prod` | Production | `wrangler deploy --env prod` |
 
-All three environments live in the same NCEMPIRE Cloudflare account. Each environment has its own:
+All three environments live in the same NCE-V2 Cloudflare account. Each environment has its own:
 
 - Worker names (auto-suffixed: `platform-worker-dev`, `platform-worker-staging`, `platform-worker-prod`)
 - D1 database bindings (pointing at separate D1 databases per environment)
@@ -138,7 +138,7 @@ All three environments live in the same NCEMPIRE Cloudflare account. Each enviro
 
 | Step | Action |
 |---|---|
-| 1 | Create Cloudflare account for NCEMPIRE (free tier OK initially) |
+| 1 | Create Cloudflare account for NCE-V2 (free tier OK initially) |
 | 2 | Upgrade to Workers Paid plan ($5/month minimum) — required for Queues, longer CPU times, more requests |
 | 3 | Enable Workers, D1, R2, KV, Queues, Durable Objects, Vectorize, AI Gateway, Browser Rendering as needed |
 | 4 | Set spend cap on the account to prevent surprise overages |
@@ -148,7 +148,7 @@ All three environments live in the same NCEMPIRE Cloudflare account. Each enviro
 
 ### 2.3 — Cost overview
 
-| Service | Free tier | Paid (NCEMPIRE plan) | NCEMPIRE expected use |
+| Service | Free tier | Paid (NCE-V2 plan) | NCE-V2 expected use |
 |---|---|---|---|
 | Workers | 100k requests/day | $5/mo + 10M requests + 30M CPU-ms | Workers Paid required |
 | D1 | 5GB / 5M reads / 100k writes daily | Included in Workers Paid | Adequate at expected scale |
@@ -161,7 +161,7 @@ All three environments live in the same NCEMPIRE Cloudflare account. Each enviro
 | Browser Rendering | Limited free tier | Pay-per-use | For PDF rendering |
 | Logpush | Free 10M records/month | $0.05/M beyond | Optional |
 
-Realistic monthly platform cost: **£5–15/month** for development and modest production use. Scales with content production volume, not user traffic (which is on Astro, not NCEMPIRE).
+Realistic monthly platform cost: **£5–15/month** for development and modest production use. Scales with content production volume, not user traffic (which is on Astro, not NCE-V2).
 
 > **OQ-COST-1** (from previous review): Consolidated cost ceiling and monitoring still needs a Pass 0 home. CostBudgetManager covers AI cost specifically, not platform cost.
 
@@ -169,11 +169,11 @@ Realistic monthly platform cost: **£5–15/month** for development and modest p
 
 ## 3. Cloudflare Services Enabled
 
-Each service used by NCEMPIRE, why it's used, and the day-one setup required.
+Each service used by NCE-V2, why it's used, and the day-one setup required.
 
 ### 3.1 — Workers
 
-**What:** Edge-distributed TypeScript runtime. Where all NCEMPIRE compute runs.
+**What:** Edge-distributed TypeScript runtime. Where all NCE-V2 compute runs.
 
 **Why:** Native fetch-based runtime, V8 isolates, edge-distributed, sub-ms cold start, paid plan supports 5-minute CPU per invocation.
 
@@ -191,7 +191,7 @@ Each service used by NCEMPIRE, why it's used, and the day-one setup required.
 
 **What:** SQLite at the edge. Per-database, queryable, transactional.
 
-**Why:** NCEMPIRE's library data (brands, themes, etc.) was originally specified for SQLite. D1 is the direct equivalent. Also the right home for audit, decision timeline, library registry.
+**Why:** NCE-V2's library data (brands, themes, etc.) was originally specified for SQLite. D1 is the direct equivalent. Also the right home for audit, decision timeline, library registry.
 
 **Setup:**
 
@@ -254,7 +254,7 @@ Specific queue topology is deferred to orchestration system Pass 1; day-one scaf
 
 **What:** Managed vector database for embeddings.
 
-**Why:** Required for `services/VectorStore`. Embedding-based semantic search across NCEMPIRE content.
+**Why:** Required for `services/VectorStore`. Embedding-based semantic search across NCE-V2 content.
 
 **Setup:**
 
@@ -266,7 +266,7 @@ wrangler vectorize create ncempire-embeddings-dev --dimensions=1536 --metric=cos
 
 **What:** Proxy/observability layer between Workers and external AI providers.
 
-**Why:** Centralised AI call logging, caching, rate-limit visibility across providers. Optional but strongly recommended given NCEMPIRE's heavy AI usage.
+**Why:** Centralised AI call logging, caching, rate-limit visibility across providers. Optional but strongly recommended given NCE-V2's heavy AI usage.
 
 **Setup:** Created in the Cloudflare dashboard under AI > AI Gateway. Provides a base URL that replaces direct provider URLs in AICaller.
 
@@ -296,7 +296,7 @@ wrangler secret put OPENAI_API_KEY --env dev
 
 **What:** Reverse tunnel from a local machine to Cloudflare's edge.
 
-**Why:** Only if NCEMPIRE needs to call a local LLM (Ollama on dedicated hardware) from Workers. Per OQ-AI-2, this is deferred.
+**Why:** Only if NCE-V2 needs to call a local LLM (Ollama on dedicated hardware) from Workers. Per OQ-AI-2, this is deferred.
 
 **Setup:** Install `cloudflared` on the local machine; create a tunnel; route a hostname to the local LLM port. Not part of day-one scaffold.
 
@@ -304,7 +304,7 @@ wrangler secret put OPENAI_API_KEY --env dev
 
 **What:** Stream Workers Logs to external storage.
 
-**Why:** Long-term log retention beyond Workers' default. NCEMPIRE's audit data lives in D1 (durable by design), so Logpush is for technical logs only.
+**Why:** Long-term log retention beyond Workers' default. NCE-V2's audit data lives in D1 (durable by design), so Logpush is for technical logs only.
 
 **Setup:** Configure Logpush job in Cloudflare dashboard, pointing at an R2 bucket.
 
@@ -444,7 +444,7 @@ Project-Intent.md mandates no single file > ~2000 LOC (TypeScript runtime, with 
 
 Considered: workspace-based monorepo (one `package.json` per Worker, npm/pnpm workspaces). Rejected because:
 
-- Single package is simpler to operate at NCEMPIRE's scale
+- Single package is simpler to operate at NCE-V2's scale
 - Shared types and utilities are directly importable without workspace plumbing
 - No version-sync issues between internal packages
 - TypeScript's `paths` config in `tsconfig.json` gives clean import paths without workspaces
@@ -682,7 +682,7 @@ module.exports = {
 ### 5.10 — CI: `.github/workflows/deploy.yml`
 
 ```yaml
-name: Deploy NCEMPIRE
+name: Deploy NCE-V2
 on:
   push:
     branches: [main]
@@ -921,7 +921,7 @@ Cloudflare retains the previous Worker version for 24 hours, accessible via inst
 
 ## 10. Minimum Viable Scaffold (Day One)
 
-The smallest possible NCEMPIRE that exists on Cloudflare. No subsystems yet — just the bones.
+The smallest possible NCE-V2 that exists on Cloudflare. No subsystems yet — just the bones.
 
 ### 10.1 — Files that must exist
 
@@ -943,7 +943,7 @@ ncempire/
 │   └── platform/
 │       ├── wrangler.jsonc
 │       ├── src/
-│       │   └── index.ts            # bare "Hello NCEMPIRE" worker
+│       │   └── index.ts            # bare "Hello NCE-V2" worker
 │       └── README.md
 │
 ├── src/
@@ -974,13 +974,13 @@ ncempire/
 
 | Resource | Name | Purpose |
 |---|---|---|
-| Account | NCEMPIRE | Hosts everything |
+| Account | NCE-V2 | Hosts everything |
 | Workers Paid plan | (subscription) | Required for Queues, longer CPU |
 | D1 database | `ncempire-registry-dev` | Library registry, first migrations |
 | R2 bucket | `ncempire-drafts-dev` | Draft staging area |
 | KV namespace | `ncempire-flags-dev` | Feature flags |
 
-That's enough to deploy the platform Worker and confirm everything is connected. No actual NCEMPIRE work runs yet.
+That's enough to deploy the platform Worker and confirm everything is connected. No actual NCE-V2 work runs yet.
 
 ### 10.3 — Day-one platform Worker (`workers/platform/src/index.ts`)
 
@@ -999,7 +999,7 @@ export default {
       JSON.stringify({
         status: 'ok',
         environment: env.ENVIRONMENT,
-        message: 'NCEMPIRE platform Worker scaffold. No subsystems deployed yet.',
+        message: 'NCE-V2 platform Worker scaffold. No subsystems deployed yet.',
       }),
       { headers: { 'Content-Type': 'application/json' } }
     );
@@ -1161,15 +1161,15 @@ These remain Pass-managed concerns. This document is the substrate they run on.
 
 ## 15. Summary
 
-NCEMPIRE on Cloudflare:
+NCE-V2 on Cloudflare:
 
-- **One Cloudflare account** for NCEMPIRE; brand websites separate.
+- **One Cloudflare account** for NCE-V2; brand websites separate.
 - **Single npm package, multiple Workers** organised by system; foundational systems grouped into a `platform` Worker; per-system Workers for the rest.
 - **TypeScript 5.x** on Cloudflare Workers, **wrangler.jsonc** for config.
 - **D1** for library data and audit; **R2** for drafts and artefacts; **KV** for cache and feature flags; **Queues** for async; **Durable Objects** for stateful coordination; **Vectorize** for embeddings.
 - **AI Gateway** in front of LLM providers; **Browser Rendering** for PDF.
 - **Single shared D1 (`ncempire-registry`)** day-one; per-library splits when Pass 0 verdicts warrant.
-- **dev / staging / prod** environments within the NCEMPIRE account, managed via Wrangler env flag.
+- **dev / staging / prod** environments within the NCE-V2 account, managed via Wrangler env flag.
 - **Day-one scaffold** is a single platform Worker, three Cloudflare resources, no subsystems. Confirms the pipe is connected before subsystem work begins.
 - **Adding systems** follows a documented recipe; each requires its Pass 0 complete first.
 - **Cost** approximately £5–15/month at modest production scale.
@@ -1180,7 +1180,7 @@ This document is the operational reference for *how it runs*, not *what runs*. T
 ---
 
 ### Review & Clarification Needed
-- Does this document accurately reflect how you want NCEMPIRE to run on Cloudflare?
+- Does this document accurately reflect how you want NCE-V2 to run on Cloudflare?
 - Are the day-one scaffold contents (§10) the right minimum, or is anything missing/over?
 - Is the "add a new system" recipe (§11) sufficient, or does it need more detail?
 - Are there services or configs needed that I haven't included?
