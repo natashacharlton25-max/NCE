@@ -56,13 +56,17 @@ Per [CLAUDE.md](../../CLAUDE.md) §10:
 
 ### Order
 
-Process systems **alphabetically (A–Z)** from `FileTree-v2.md`. Within each system:
+Process systems **in dependency order** per the Implementation Plan dependency map in [PROJECT-SPEC-TEMPLATE.md §11](./PROJECT-SPEC-TEMPLATE.md) (Build Order + Foundation Milestone + Subsequent Milestones). Within a tier/milestone, alphabetical.
+
+**Why dependency order, not alphabetical:** every data-owning system's spec references `library/Librarian` for D1 reads, and every system spec references foundation services (`services/DatabaseHandler`, `system/Logger`, `state/StateManager`). If those are not yet specced, downstream specs stand on undefined contracts. Foundational systems (`system`, `services`, `state`, `library`) are therefore specced first. The dependency map is the single source of truth — do not "tidy" this order back to alphabetical.
+
+Within each system:
 
 1. **System-level SPEC.md** (using `SYSTEM-SPEC-TEMPLATE.md`)
 2. **Each subsystem's SPEC.md** (using `SUBSYSTEM-SPEC-TEMPLATE.md`) — alphabetical within parent
 3. **Each library this system owns** (using existing `NCE-V2/docs/templates/LIBRARY-TEMPLATE.md` v2.0.0) — produces `<system>/libraries/<library>.library.md`
 
-After all 27 systems done, process **integrations**:
+After all 27 systems done, process **integrations** (Tier 5 — last):
 
 4. For each integration provider (alphabetical):
    - Each service's SPEC.md (using `INTEGRATION-SERVICE-SPEC-TEMPLATE.md`)
