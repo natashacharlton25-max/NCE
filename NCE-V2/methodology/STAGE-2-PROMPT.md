@@ -9,30 +9,15 @@ Status: Draft Complete – Awaiting Review
 Last Updated: 2026-05-22
 ---
 
-## BLOCKING OPEN QUESTION — must resolve BEFORE speccing `content/` or `template/` (both in Tier 3)
+## SETTLED DECISIONS (record — not for re-litigation)
 
-**Where does the therapeutic frameworks library live?**
+**Frameworks library home (resolved 2026-05-23):**
 
-`C:/Users/NCE/LibraryJsonFilled/` contains **30 evidence-based + proprietary therapeutic frameworks** (CBT, polyvagal, attachment theory, stages of change, COM-B, habit loop, etc.) — ~140 KB of structured JSON across 12 files. Each framework has professional + peer-led descriptions, background, structure (stages/components/steps), usage guidance, and content application rules. This IS real library content that must populate an NCE-V2 library.
+The therapeutic frameworks in `C:/Users/NCE/LibraryJsonFilled/` (30 evidence-based + proprietary frameworks: CBT, polyvagal, attachment theory, stages of change, COM-B, habit loop, etc. — ~140 KB across 12 JSON files) live in a **new `frameworks` library owned by `content/`**.
 
-**The decision is which library** — and that determines which system's library list owns it (and therefore which system's spec writes the `.library.md`). Three candidates are NOT equivalent; they reflect different models of what a therapeutic framework IS:
+**Rationale:** `content/` is the system that generates the pieces (workbooks, emails, sequences); a therapeutic framework is the methodology the generation draws on. Frameworks-as-construction-input sits with the system that does the constructing. The other two candidates were considered and rejected: folding into `content/themes` risks schema mismatch (themes were generated topics; frameworks are structured methodologies); placing under `template/cognitive-types` conflates two different concepts that wore similar words.
 
-| Candidate | Model | Owner system | Risk |
-|---|---|---|---|
-| **New `frameworks` library** | Frameworks are their own thing — methodology with stages/components AND content application rules. | `content/` (most likely owner) | Adds a library not in v1 `_LIBRARIES.md`; needs explicit subsystem mapping |
-| **Expand `content/themes` library** | Frameworks are themes — content topics that drive workbook generation. | `content/` (ContentManager owns themes) | A theme in v1 was a *generated content topic*; folding 30 structured frameworks into the same schema risks fitting neither well |
-| **`cognitive-types` library under `template/`** | Frameworks are structural patterns content follows. | `template/` (TemplateEngine owns cognitive-types per v1 `_LIBRARIES.md`) | "Cognitive-types" and "therapeutic frameworks" may be different concepts wearing similar words |
-
-**Why this is blocking:** LibraryJsonFilled's structure (stages, components, usage guidance, content application rules) has BOTH methodology content AND structural pattern — meaning frameworks may warrant their own library, not be folded into either themes or cognitive-types. The "right answer" is an architecture decision, not a labelling decision. Defer it past Tier 3 and the system whose `.library.md` should have included it gets specced without it.
-
-**How to resolve:**
-1. When approaching Tier 3 speccing (`content/` and `template/` are both Tier 3), pause.
-2. Open the 12 LibraryJsonFilled JSON files. Read at least 2 frameworks end-to-end.
-3. Decide: content, template, or its own thing?
-4. **Log the decision + rationale in `NCE-V2/admin/PASS-DECISION-NOTES.md`** before continuing.
-5. Proceed with the affected system's spec including the frameworks library in its ownership list.
-
-Do NOT spec `content/` or `template/` past their system-level SPEC.md without this resolved.
+Recorded in `NCE-V2/docs/LIBRARIES.md` (canonical v2 library index — created with this decision). Next session does not need to re-decide; just spec `content/` with `frameworks` in its library list, populated from `LibraryJsonFilled/`.
 
 ---
 
@@ -110,8 +95,8 @@ In addition to the LOCKED CONTEXT above, the following **per-component external 
 **`ai/` (Tier 3) — partial existing work:**
 - `C:/Users/Business/BrandKit AIGen/` — AI generation workflows (prompts, sections, `_config/`); may inform ai/ subsystems, especially around prompt building and generation patterns. Verify before treating as authoritative; may be more orientation than canonical input.
 
-**For the therapeutic frameworks library (home TBD — see BLOCKING OPEN QUESTION at top):**
-- `C:/Users/NCE/LibraryJsonFilled/` — 30 frameworks across 12 JSON files (~140 KB); informs the library's schema AND populates it with actual entries. The library's owner system gets decided per the BLOCKING OPEN QUESTION; once resolved, this content goes into that library.
+**`content/` (Tier 3) — new `frameworks` library:**
+- `C:/Users/NCE/LibraryJsonFilled/` — 30 evidence-based + proprietary therapeutic frameworks across 12 JSON files (~140 KB); `content/` owns a new `frameworks` library populated from these files. Used as both schema-informing examples AND actual entry content. See `NCE-V2/docs/LIBRARIES.md` for the canonical v2 library index.
 
 **All other systems (Tiers 1, 2, 4, 5):**
 - **Greenfield draft** from FileTree-v2 + foundation docs (PROJECT-FRAME, Project-Intent, STACK-AND-RUNTIME, LIBRARY-TEMPLATE v2.0.0). No authoritative external input.
