@@ -9,6 +9,33 @@ Status: Draft Complete – Awaiting Review
 Last Updated: 2026-05-22
 ---
 
+## BLOCKING OPEN QUESTION — must resolve BEFORE speccing `content/` or `template/` (both in Tier 3)
+
+**Where does the therapeutic frameworks library live?**
+
+`C:/Users/NCE/LibraryJsonFilled/` contains **30 evidence-based + proprietary therapeutic frameworks** (CBT, polyvagal, attachment theory, stages of change, COM-B, habit loop, etc.) — ~140 KB of structured JSON across 12 files. Each framework has professional + peer-led descriptions, background, structure (stages/components/steps), usage guidance, and content application rules. This IS real library content that must populate an NCE-V2 library.
+
+**The decision is which library** — and that determines which system's library list owns it (and therefore which system's spec writes the `.library.md`). Three candidates are NOT equivalent; they reflect different models of what a therapeutic framework IS:
+
+| Candidate | Model | Owner system | Risk |
+|---|---|---|---|
+| **New `frameworks` library** | Frameworks are their own thing — methodology with stages/components AND content application rules. | `content/` (most likely owner) | Adds a library not in v1 `_LIBRARIES.md`; needs explicit subsystem mapping |
+| **Expand `content/themes` library** | Frameworks are themes — content topics that drive workbook generation. | `content/` (ContentManager owns themes) | A theme in v1 was a *generated content topic*; folding 30 structured frameworks into the same schema risks fitting neither well |
+| **`cognitive-types` library under `template/`** | Frameworks are structural patterns content follows. | `template/` (TemplateEngine owns cognitive-types per v1 `_LIBRARIES.md`) | "Cognitive-types" and "therapeutic frameworks" may be different concepts wearing similar words |
+
+**Why this is blocking:** LibraryJsonFilled's structure (stages, components, usage guidance, content application rules) has BOTH methodology content AND structural pattern — meaning frameworks may warrant their own library, not be folded into either themes or cognitive-types. The "right answer" is an architecture decision, not a labelling decision. Defer it past Tier 3 and the system whose `.library.md` should have included it gets specced without it.
+
+**How to resolve:**
+1. When approaching Tier 3 speccing (`content/` and `template/` are both Tier 3), pause.
+2. Open the 12 LibraryJsonFilled JSON files. Read at least 2 frameworks end-to-end.
+3. Decide: content, template, or its own thing?
+4. **Log the decision + rationale in `NCE-V2/admin/PASS-DECISION-NOTES.md`** before continuing.
+5. Proceed with the affected system's spec including the frameworks library in its ownership list.
+
+Do NOT spec `content/` or `template/` past their system-level SPEC.md without this resolved.
+
+---
+
 ## ROLE
 
 You produce a comprehensive spec doc for every NCE-V2 component:
@@ -70,6 +97,31 @@ After all 27 systems done, process **integrations** (Tier 5 — last):
 
 4. For each integration provider (alphabetical):
    - Each service's SPEC.md (using `INTEGRATION-SERVICE-SPEC-TEMPLATE.md`)
+
+### Per-Component Input Sources
+
+In addition to the LOCKED CONTEXT above, the following **per-component external inputs** apply. Read these before drafting the relevant component's spec.
+
+**`brand/` (Tier 3) — substantial existing work:**
+- `C:/Users/Business/BrandKit Workflow/` — actual TypeScript code (`tsconfig.json`, `package.json`, `lib/`, `scripts/`, `steps/`, `node_modules/`); closest thing to working v2-compatible code in your workspace; informs brand/ TS implementation patterns
+- `C:/Users/Business/BrandLib/` — library content organised by category (compliance, content, ops, outcomes, safety, voice); informs brand library schemas + content
+- `C:/Users/Business/BrandData/test-brand/` — actual brand data for one test brand; informs brand library schema validation
+
+**`ai/` (Tier 3) — partial existing work:**
+- `C:/Users/Business/BrandKit AIGen/` — AI generation workflows (prompts, sections, `_config/`); may inform ai/ subsystems, especially around prompt building and generation patterns. Verify before treating as authoritative; may be more orientation than canonical input.
+
+**For the therapeutic frameworks library (home TBD — see BLOCKING OPEN QUESTION at top):**
+- `C:/Users/NCE/LibraryJsonFilled/` — 30 frameworks across 12 JSON files (~140 KB); informs the library's schema AND populates it with actual entries. The library's owner system gets decided per the BLOCKING OPEN QUESTION; once resolved, this content goes into that library.
+
+**All other systems (Tiers 1, 2, 4, 5):**
+- **Greenfield draft** from FileTree-v2 + foundation docs (PROJECT-FRAME, Project-Intent, STACK-AND-RUNTIME, LIBRARY-TEMPLATE v2.0.0). No authoritative external input.
+
+**Explicitly DO NOT port from `C:/Users/NCE/NCEMPIRE/`:**
+- 2,276 markdown files but **zero code** (per `C:/Users/NCE/AUDIT-REPORT.md` 2026-02-20)
+- All architecture/design docs from earlier pre-implementation phase
+- The project owner has explicitly chosen fresh draft over porting
+- `NCEMPIRE/<system>/Pass0-Coverage.md` (exists for 17 of 31 v1 systems) may be read as **orientation only** — to see what was already thought through — but the v2 spec is fresh-drafted from NCE-V2 templates, not derived from this content.
+- Note: v1 had 31 systems; v2 has 27 systems plus `lib/` (see FileTree-v2.md for collapses: colours/typography/visual → brand; image/ai-image → assets; svg → lib/svg/; library/ is new). Do not assume v1 → v2 1:1 mapping for any system.
 
 ### Output locations
 
