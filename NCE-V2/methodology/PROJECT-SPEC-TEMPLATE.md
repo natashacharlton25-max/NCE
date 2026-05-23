@@ -296,31 +296,102 @@ Set via `wrangler secret put`; never in repo.
 
 ## 11. Implementation Plan
 
-### Build Order
+### Dependency Tiers (canonical — drives both Stage 2 spec order AND Stage 4 build order)
 
-| Order | Worker | Depends On | Parallel-safe with |
-|---|---|---|---|
-| 1 | platform | (none — foundation) | (none — must be first) |
-| 2 | resilience | platform | observability |
-| 2 | observability | platform | resilience |
-| 3 | access | platform, resilience | (all of 3 in parallel) |
-| 3 | ai | platform, resilience, observability | other order-3 Workers |
-| ... | | | |
+This tier list is the single source of truth for both:
+- **Stage 2 component spec order** — referenced by `methodology/STAGE-2-PROMPT.md`
+- **Stage 4 Worker build/deploy order** — referenced by `methodology/STAGE-4-PROMPT.md`
 
-### Foundation Milestone
+Within a tier, alphabetical. Tier 1 must complete before Tier 2 begins; same for each subsequent tier.
 
-`platform` Worker deployed + library D1 migrations applied + smoke tests pass = M0 (foundation complete).
+#### Tier 1 — Foundation (no internal dependencies)
 
-### Subsequent Milestones
-
-| Milestone | Workers complete |
+| System | Rationale |
 |---|---|
-| M0 | platform |
-| M1 | platform, resilience, observability, audit, versioning, state, system |
-| M2 | + access, brand, ai, content, library-owning systems |
-| M3 | + assets, document-templates, documents, marks, social, email, template |
-| M4 | + integrations, renderers, publishing, review, verification, checks, orchestration, website |
-| **M5 — Ready for testing** | all 27 systems |
+| `system` | Pure utilities (Logger, FailureHandler, Parsers, Builders, GarbageCollector); everyone uses these |
+| `services` | Foundation services (DatabaseHandler, AuthHandler, etc.); `library/` depends on `services/DatabaseHandler` |
+| `state` | StateManager + ContextAssembler; used by orchestration and library write-flows |
+| `library` | Librarian + FileManager + Writer + Archivist + CacheHandler; every data-owning system inherits its access contract |
+
+These 4 systems share the `platform` Worker (Stage 4 deployment grouping). At Stage 2, each gets its own SYSTEM spec.
+
+#### Tier 2 — Cross-cutting infrastructure (depend on Tier 1; every higher-tier system depends on at least one)
+
+| System | Rationale |
+|---|---|
+| `access` | BrandPermissionResolver, CapabilityManager, RoleManager — every data-owning system checks permissions through this |
+| `audit` | DecisionTimeline, HumanOverrideLedger — every AI-decision and human-override path logs through this |
+| `observability` | MetricsCollector, TraceLogger — every Worker reports through this |
+| `resilience` | RateLimiter, RetryPolicyEngine, FallbackStrategyResolver — every external call goes through this |
+| `versioning` | ChangeLog, VersionManager — every content-state-change uses this |
+
+#### Tier 3 — Data-owning systems (own D1 libraries; depend on Tier 1+2)
+
+| System | Rationale |
+|---|---|
+| `ai` | Owns prompts + model-configs libraries; provides AI capability to content + others |
+| `assets` | Owns asset catalog library; R2 binary store; provides asset access to content + others |
+| `brand` | Owns brands + audiences + voices + tones libraries; provides brand context to everything content-related |
+| `content` | Owns themes + outlines libraries; depends on brand + ai + template |
+| `social` | Owns social-templates library; depends on brand + content + template |
+| `template` | Owns templates + section-specs + content-types + cognitive-types libraries; provides template structure to content + others |
+
+#### Tier 4 — Production / output systems (depend on Tier 1+2+3)
+
+| System | Rationale |
+|---|---|
+| `checks` | Content-level validation (Grammar, Language, Layout, Values); used by verification + review |
+| `document-templates` | Document structural templates; consumed by documents/ |
+| `documents` | Composes documents using templates, content, brand, assets, marks |
+| `email` | Composes rendered email HTML; hands off to `integrations/EmailitIntegration` for send |
+| `marks` | Generates logos/icons/marks (logo is brand-derived) |
+| `orchestration` | Workflow coordination across systems; depends on most of Tier 1–3 |
+| `publishing` | Distribution + publishing controller; final step before integrations |
+| `renderers` | PDF/DOCX/Markdown/HTML rendering; consumes JSON from website + documents + email |
+| `review` | Approval queue and human override path |
+| `verification` | Content-level validation (Accessibility, Integrity, SemanticCoherence, Signposting, Scope) |
+| `website` | Generates website page JSON (Astro consumes); must NOT depend on `renderers/` per output-boundary rule |
+
+#### Tier 5 — External integrations (depend on everything; specced last)
+
+| System | Rationale |
+|---|---|
+| `integrations` | 15 provider wrappers (Canva, Google, YouTube, Recraft, Pexels, Unsplash, Phosphor, Emailit, WebhookReceiver, WebScraper, plus the 4 Google renderer services and CanvaRenderer). All inbound binary → `assets/`/R2; inbound metadata → relevant library via `library/`; outbound rendered artefact via `resilience/` patterns. |
+
+#### Note on `lib/` utilities
+
+`lib/svg/` is utility code, **not a Pass 0 / Stage 2 spec target**. It's spec'd briefly as part of Stage 2's library-template work but doesn't follow the per-system spec pattern.
+
+---
+
+### Stage 4 Worker Build Order (derived from tier list)
+
+Stage 4 deploys Workers in dependency-tier order. Within a tier, parallel-safe.
+
+| Order | Worker | Contains Systems (Stage 2) | Depends On |
+|---|---|---|---|
+| 1 | platform | system, services, state, library (Tier 1) | (none — foundation) |
+| 2 | resilience, observability, audit, versioning, access (each its own Worker) | Tier 2 | platform |
+| 3 | ai, assets, brand, content, social, template (each its own Worker) | Tier 3 | platform + Tier 2 Workers as needed |
+| 4 | checks, document-templates, documents, email, marks, orchestration, publishing, renderers, review, verification, website (each its own Worker) | Tier 4 | platform + Tier 2 + Tier 3 as needed |
+| 5 | integrations | Tier 5 | All prior tiers |
+
+#### Foundation Milestone
+
+`platform` Worker deployed + library D1 migrations applied + smoke tests pass = **M0 (foundation complete)**. All other Worker deploys gated on M0.
+
+#### Subsequent Milestones
+
+| Milestone | Workers complete | What this enables |
+|---|---|---|
+| M0 | platform | Library D1 access via `library/Librarian` |
+| M1 | + Tier 2 (resilience, observability, audit, versioning, access) | Cross-cutting safety net |
+| M2 | + Tier 3 (ai, assets, brand, content, social, template) | Data-owning systems live; content can be produced |
+| M3 | + Tier 4 (checks, document-templates, documents, email, marks, orchestration, publishing, renderers, review, verification, website) | Full output pipeline live |
+| M4 | + Tier 5 (integrations) | External producers/consumers connected |
+| **M5 — Ready for testing** | All 27 systems | End-to-end ready |
+
+---
 
 ### LOC Estimate Summary
 
