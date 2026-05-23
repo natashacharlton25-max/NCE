@@ -1,9 +1,17 @@
 # STACK-AND-RUNTIME.md
 
-**Status:** Draft Complete – Awaiting Review
+> **Updates 2026-05-23 (Stage 1 frame-lock alignment):**
+> - System count corrected from "31 systems" to **27 systems** (reflects FileTree-v2.md collapses: colours/typography/visual absorbed into brand/; image/ai-image absorbed into assets/; svg/ moved to lib/svg/ utilities; library/ added as new system).
+> - LOC band updated from 1500 to **2000** per runtime file (with TS verbosity multiplier 1.3–1.5× over Python; excludes `*.debug.ts`, `*.test.ts`, `__debug__/`, `*.types.ts`, comments).
+> - Methodology reference: this document is the operational reference for the 5-stage reduced methodology (see `NCE-V2/docs/REDUCED-METHODOLOGY.md`), which superseded the 68-phase methodology now archived at `NCE-V2/archive/68-phase-methodology/`.
+> - Library access pattern: all library reads via `library/Librarian` (D1 access mediated through the library system; no direct D1 binding from outside library/).
+> - Output-boundary rule: NCE-V2 emits JSON for web (rendered by Astro consumer); NCE-V2 emits final rendered artefacts for PDF/DOCX/email/embedded marks.
+
+**Status:** Approved (2026-05-23, post-Stage 1 alignment)
 **Type:** Operational reference (not a Pass; runtime/infrastructure scaffolding doc)
 **Generated:** 2026-05-18
-**Scope:** The concrete stack, files, and Cloudflare setup needed to run NCEMPIRE
+**Last updated:** 2026-05-23
+**Scope:** The concrete stack, files, and Cloudflare setup needed to run NCE-V2 (formerly NCEMPIRE)
 
 ---
 
@@ -356,7 +364,7 @@ ncempire/
 │   │   │   ├── core/
 │   │   │   ├── identity/
 │   │   │   └── … per FileTree groups …
-│   │   └── … all 31 systems …
+│   │   └── … all 27 systems …
 │   │
 │   ├── schemas/                    # Zod schemas (one file per major type)
 │   │   ├── Brand.ts
@@ -427,10 +435,10 @@ export default {
 
 ### 4.3 — File-size rule enforcement
 
-Project-Intent.md mandates no single file > ~1500 LOC. Two mechanisms:
+Project-Intent.md mandates no single file > ~2000 LOC (TypeScript runtime, with file exclusions). Two mechanisms:
 
 1. **ESLint rule** in `.eslintrc.js`: `max-lines` configured at warning (1200) and error (1500)
-2. **CI check**: `scripts/check-file-sizes.sh` fails build if any `.ts` file exceeds 1500 lines
+2. **CI check**: `scripts/check-file-sizes.sh` fails build if any runtime `.ts` file exceeds 2000 lines (excludes `*.test.ts`, `*.debug.ts`, `__debug__/`, `*.types.ts`)
 
 ### 4.4 — Why not per-system packages
 
@@ -663,7 +671,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
   rules: {
-    'max-lines': ['warn', { max: 1200, skipBlankLines: true, skipComments: true }],
+    'max-lines': ['warn', { max: 1600, skipBlankLines: true, skipComments: true }],
     'max-lines-per-function': ['warn', 100],
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/explicit-function-return-type': 'warn',
@@ -821,7 +829,7 @@ wrangler dev -c workers/platform/wrangler.jsonc -c workers/ai/wrangler.jsonc -c 
 
 The first config is the primary (exposed over HTTP). The others are reachable via Service Bindings from the primary.
 
-### 8.3 — Practical reality of dev loop at 31 systems
+### 8.3 — Practical reality of dev loop at 27 systems
 
 The honest answer: running all 31 Worker configs locally at once is slow and may exceed local resource limits. Practical patterns:
 
@@ -1125,7 +1133,7 @@ Carried forward from STACK-PROPOSAL review and not resolved by this document:
 | OQ-AI-2 | Local LLM (Ollama) routing | Future |
 | OQ-OBS-1 | Audit retention | Audit Pass 0 |
 | OQ-DEV-1 | Worker granularity per system | Per-system Pass 1 |
-| OQ-DEV-2 | Local dev loop at 31-Worker scale | Documented in §8.3 |
+| OQ-DEV-2 | Local dev loop at 27-Worker scale | Documented in §8.3 |
 | OQ-CRON-1 | Cron Trigger limits per system | Per-system Pass 1 |
 | OQ-SEC-1 | Secret rotation policy | Services Pass 0 |
 | OQ-COST-1 | Consolidated cost monitoring | Observability Pass 0 |

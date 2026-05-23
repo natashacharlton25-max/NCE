@@ -1,8 +1,15 @@
 # REFINEMENTS.md
 
-**Status:** Draft Complete – Awaiting Review
+> **HISTORICAL REFERENCE — 2026-05-23**
+>
+> The proposals in this document have been adopted into `NCE-V2/FileTree-v2.md`. The system collapses (colours/typography/visual → brand; image/ai-image → assets), the integration additions (Recraft, Pexels, Unsplash, Phosphor, Emailit), the factual grounding subsystems in `ai/`, and the library system are all reflected in the canonical tree.
+>
+> This document is retained as a record of WHY those decisions were made. Subsystem counts in the "before/after" tables below are no longer current — use FileTree-v2.md as the authoritative source.
+
+**Status:** Historical (proposals adopted into FileTree-v2.md)
 **Type:** Architectural refinements identified after initial system scoping; not a Pass document
 **Generated:** 2026-05-18
+**Archived as historical:** 2026-05-23
 **Scope:** Four refinements to NCEMPIRE's architecture identified during stack work
 
 ---

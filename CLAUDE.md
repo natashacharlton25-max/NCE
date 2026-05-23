@@ -38,6 +38,8 @@ This project follows an **architecture-first, pass-based workflow**.
 
 ## 3. Pass-Based Workflow (MANDATORY)
 
+> **NCE-V2 supersession note (2026-05-23):** For NCE-V2 specifically, this §3 pass-based workflow is superseded by the 5-stage Reduced Methodology at `NCE-V2/docs/REDUCED-METHODOLOGY.md` (Project Frame → Component Specs → Project-Wide Spec → Implementation → Release). The principles in §1, §2, §4, §5, §6, §7, §8, §9, §10, §11 still apply to NCE-V2 in full — only this pass structure is replaced. The original 68-phase methodology that built on these passes is archived at `NCE-V2/archive/68-phase-methodology/` for reference. For other projects in this workspace, the passes below remain in force.
+
 Claude MUST respect the following passes and may **not** skip or merge them.
 
 ---
@@ -137,7 +139,7 @@ Validate system consistency and readiness.
 - Failure decisions belong to `resilience/`
 - Brand decisions belong to `brand/`
 - Renderers must remain logic-free
-- No single build file should exceed ~1500 LOC  
+- No single build file should exceed ~2000 LOC (NCE-V2; TypeScript runtime, with file exclusions `*.debug.ts`, `*.test.ts`, `__debug__/`, `*.types.ts`; TS verbosity multiplier 1.3–1.5× over Python) — or ~1500 LOC for other projects in this workspace  
   *(file size is a design signal, not an optimisation target)*
 
 ---

@@ -1,5 +1,12 @@
 # Project Intention
 
+**Status:** Approved
+**Project name:** NCE-V2
+**Last reviewed:** 2026-05-23
+**Owner:** Human (Natasha)
+
+---
+
 ## Core Intention
 
 This project exists to provide a **system-of-systems for controlled, explainable planning, generation, governance, and publishing of brand-aligned content and assets**.
@@ -55,15 +62,17 @@ If a feature primarily serves speed, abstraction, or convenience at the cost of 
 ## Design Principles (Non-Negotiable)
 
 - Architecture before implementation
-- Pass-based development (structure → contracts → specs → build)
+- Stage-based development (5 stages: Project Frame → Component Specs → Project-Wide Spec → Implementation → Release; see `NCE-V2/docs/REDUCED-METHODOLOGY.md`)
 - Each module belongs to one authoritative system only
 - Systems communicate via explicit, documented contracts
 - Brand, access, and resilience are global constraints
 - Failure states are explainable, recoverable, and auditable
 - Human intervention is explicit and reviewable
 - Documentation must remain truthful over time
-- No single build file should exceed ~1500 lines of code  
-  (file size is treated as a design signal, not an optimisation target)
+- All library data access goes through `library/Librarian` (mediated; no direct database access from outside the library system)
+- Output-boundary rule: NCE-V2 emits JSON for web (rendered by Astro consumer); NCE-V2 emits final rendered artefacts for PDF/DOCX/email/embedded marks
+- No single build file should exceed ~2000 lines of runtime code  
+  (file size is treated as a design signal, not an optimisation target; excludes test, debug, and type-only files; applies to TypeScript with a 1.3–1.5× verbosity multiplier when porting Python-era estimates)
 
 ---
 
@@ -103,6 +112,23 @@ Regardless of system or phase:
 
 ---
 
+## Technical Substrate (locked)
+
+The architectural intent above is implemented on this concrete substrate. These are not negotiable without revisiting this document.
+
+- **Runtime:** TypeScript on Cloudflare Workers (V8 isolates; paid plan — 5-minute CPU limit per invocation, 128 MB memory)
+- **Storage:**
+  - **D1** for content libraries (SQLite at edge; text and JSON only; accessed by Worker binding, not file path)
+  - **R2** for binary assets (handled by the `assets/` system; never stored in libraries directly)
+  - **KV** for cache and feature flags
+  - **Durable Objects** for stateful coordination
+  - **Vectorize** for embeddings
+- **System count:** 27 top-level systems plus `lib/` shared utilities (canonical list in `NCE-V2/FileTree-v2.md`)
+- **Worker organisation:** one Worker per system, except `services`/`system`/`state`/`library` grouped together into a `platform` Worker (foundation tier)
+- **Downstream:** Astro website platform consumes NCE-V2's JSON output for web rendering; NCE-V2 itself does not render web HTML
+
+---
+
 ## Review & Evolution
 
 This document is intended to be stable and slow-moving.
@@ -111,5 +137,3 @@ Changes require:
 - Explicit justification
 - Review against existing system contracts
 - Confirmation that the core intention is still being served
-
-Last reviewed: <date>
