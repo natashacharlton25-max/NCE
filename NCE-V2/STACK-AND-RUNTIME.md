@@ -3,7 +3,7 @@
 > **Updates 2026-05-23 (Stage 1 frame-lock alignment):**
 > - System count corrected from "31 systems" to **27 systems** (reflects FileTree-v2.md collapses: colours/typography/visual absorbed into brand/; image/ai-image absorbed into assets/; svg/ moved to lib/svg/ utilities; library/ added as new system).
 > - LOC band updated from 1500 to **2000** per runtime file (with TS verbosity multiplier 1.3–1.5× over Python; excludes `*.debug.ts`, `*.test.ts`, `__debug__/`, `*.types.ts`, comments).
-> - Methodology reference: this document is the operational reference for the 5-stage reduced methodology (see `NCE-V2/docs/REDUCED-METHODOLOGY.md`), which superseded the 68-phase methodology now archived at `NCE-V2/archive/68-phase-methodology/`.
+> - Methodology reference: this document is the operational reference for the 5-stage reduced methodology (see `NCE-V2/docs/REDUCED-METHODOLOGY.md`), which superseded the 68-phase methodology (deleted 2026-05-24 — see `NCE-V2/admin/PROJECT-FRAME.md` Frame Amendment; recoverable from git commit 678d2d6).
 > - Library access pattern: all library reads via `library/Librarian` (D1 access mediated through the library system; no direct D1 binding from outside library/).
 > - Output-boundary rule: NCE-V2 emits JSON for web (rendered by Astro consumer); NCE-V2 emits final rendered artefacts for PDF/DOCX/email/embedded marks.
 

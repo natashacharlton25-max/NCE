@@ -54,7 +54,7 @@ If anything significant in those foundation documents changes — the stack, the
 | LOC band uniform (2000 with TS verbosity + file exclusions) | ✓ |
 | Library access via `library/Librarian` stated | ✓ |
 | `lib/svg/` classified as utilities (not a Pass-target system) | ✓ |
-| Methodology referenced consistently (5-stage Reduced; pass-based archived) | ✓ |
+| Methodology referenced consistently (5-stage Reduced is canonical; pass-based methodology superseded for NCE-V2 per CLAUDE.md §3) | ✓ |
 
 ### Check 3 — Methodology readiness: PASS
 
@@ -64,7 +64,7 @@ If anything significant in those foundation documents changes — the stack, the
 | `NCE-V2/admin/` directory | ✓ (this doc is its first content) |
 | `NCE-V2/specs/<27 system folders>/` skeleton | ✓ |
 | `NCE-V2/docs/templates/LIBRARY-TEMPLATE.md` v2.0.0 | ✓ |
-| 68-phase methodology archived at `NCE-V2/archive/68-phase-methodology/` | ✓ |
+| 68-phase methodology superseded (archive folder deleted 2026-05-24 — see Frame Amendment) | ✓ |
 
 ---
 
@@ -96,7 +96,7 @@ Stage 1 found inconsistencies and surfaced them honestly. To reach FRAME LOCKED,
 - Library access mediated by `library/Librarian` (no direct D1 from outside library/)
 - 2000 LOC per runtime `.ts` file (with exclusions; TS verbosity 1.3–1.5×)
 - 5-stage Reduced Methodology (`NCE-V2/methodology/`)
-- 68-phase methodology archived; not for active use
+- 5-stage Reduced Methodology is canonical; 68-phase methodology superseded and deleted 2026-05-24 (recoverable from git commit 678d2d6 if ever needed)
 
 ---
 
@@ -121,7 +121,7 @@ The Stage 2 prompt + four templates are ready at `NCE-V2/methodology/`. To begin
 
 - This is the first artefact under the Reduced Methodology, produced at the close of Stage 1.
 - Any future change to the foundation docs that affects the locked constraints above requires re-running Stage 1 before Stage 2 work continues — to confirm the frame still holds.
-- The 68-phase methodology and its 200+ phase prompts remain at `NCE-V2/archive/68-phase-methodology/` as historical reference. They are not for active use.
+- The 68-phase methodology and its 200+ phase prompts were deleted 2026-05-24 (commit 678d2d6) — see Frame Amendment for that date. Recoverable from git history if ever needed; owner also retains a local copy outside the repo. The 5-stage Reduced Methodology is canonical for active use.
 
 ---
 
@@ -129,7 +129,7 @@ The Stage 2 prompt + four templates are ready at `NCE-V2/methodology/`. To begin
 
 Amendments below are small, deliberate changes after FRAME LOCKED that do NOT require re-running Stage 1. Each is logged with date, reason, and impact.
 
-**Convention** (set 2026-05-24): grep-driven referrer closure used in OQ-* amendments applies to *live* docs only. `NCE-V2/archive/` is frozen historical reference — archive hits in greps are expected and left as-is.
+**Convention** (set 2026-05-24, re-scoped 2026-05-24 after archive deletion): grep-driven referrer closure used in OQ-* amendments applies to *live* docs only. Materials outside the active project tree (deleted, external, historical) are out of scope.
 
 ### 2026-05-24 — PythonRunner removed from services/
 
@@ -164,3 +164,18 @@ Amendments below are small, deliberate changes after FRAME LOCKED that do NOT re
 | **Subsystem count impact** | `system/`: 5 → 4. System count unchanged: 27. |
 | **Files updated** | FileTree-v2.md (subsystem list + Open Flags OQ-FH-1 + count summary); PLATFORM-WORKER-TEMPLATE.md (module structure + §9 coordination order including DatabaseHandler-drift cleanup); PROJECT-SPEC-TEMPLATE.md §11 Tier 1 system row; TIER-2-PREP-NOTES.md (`system/`-coherence flag appended); PROJECT-FRAME.md (this amendment record + Convention note above OQ-PY-1). |
 | **Frame still LOCKED?** | Yes. Sub-threshold substantive amendment (same shape as OQ-PY-1 and OQ-DB-1). System count still 27. Does not invalidate Stage 1 validation. The `system/`-coherence flag is logged for future review but does not change current frame state. Sign-off: Human. |
+
+### 2026-05-24 — archive/68-phase-methodology removed (retroactive amendment for commit 678d2d6)
+
+| Field | Value |
+|---|---|
+| **Change** | Deleted the `NCE-V2/archive/68-phase-methodology/` folder and all 340 files within it (74,725 lines), already committed as 678d2d6 on 2026-05-24. Updated four live documents that referenced the deleted folder: PROJECT-FRAME.md (5 lines), STACK-AND-RUNTIME.md (1 line), README.md (folder map), methodology/README.md (1 line). |
+| **Reason** | The 68-phase methodology was sourced from the SYSBuildTemplates template library and imported during early v2 work. When the 5-stage Reduced Methodology was adopted at Stage 1 (see `NCE-V2/docs/REDUCED-METHODOLOGY.md`), the 68-phase content was moved to `archive/` as historical reference rather than deleted, on the assumption it might be useful for future reference. In practice it was never consulted — the 5-stage methodology has been canonical throughout, no decision needed the archived content. Owner judgement: unused historical reference taking 74,725 lines of repo space; deletion is cleaner than preservation. |
+| **Reverses prior decision** | Yes, partially. Stage 1 frame-lock (2026-05-23) explicitly chose to *preserve* the 68-phase methodology as historical reference rather than delete it (see `NCE-V2/docs/REDUCED-METHODOLOGY.md` line 169 pre-edit). This amendment reverses that preservation decision after ~24 hours of practical experience confirmed the archive was unused. The earlier preservation decision is not retroactively wrong — at the time, the value of keeping vs deleting was unclear. The amendment records the updated judgement. |
+| **Recorded retroactively** | Yes. The 2026-05-24 archive-deletion commit (678d2d6) shipped as a bare commit with no amendment record — a documentation defect, especially given it was the largest change of the session (340 files / 74,725 lines). This amendment closes that gap retroactively, matching the OQ-PY-1, OQ-DB-1, OQ-FH-1 pattern: every substantive change to frame-locked content gets a PROJECT-FRAME amendment record. The original commit message stands; this amendment provides the structured record that the commit alone did not. |
+| **Safety / recoverability** | Fully recoverable. Deleted in commit 678d2d6; git history preserves every file. To restore: `git checkout 678d2d6^ -- NCE-V2/archive/`. Owner also retains a local copy outside the repo. No working code lost (NCE-V2 has no code yet — entire project is pre-implementation architecture). No active documentation lost (all active docs in `admin/`, `methodology/`, `docs/`, `specs/`, and `NCE-V2/` root were untouched by the deletion). |
+| **Cross-document corrections in this commit** | PROJECT-FRAME.md (Check 2 line 57, Check 3 line 67, Locked constraints line 99, Notes paragraph line 124, Convention note line 132 re-scoped); STACK-AND-RUNTIME.md (banner line 6); README.md (folder map lines 49–50, plus parent re-indentation for ASCII tree correctness); methodology/README.md (table row line 104). Pre-deletion these were true; post-deletion they were false. Without these corrections, foundation documents would assert something false about the project's own structure. |
+| **Separate commit for REDUCED-METHODOLOGY.md** | REDUCED-METHODOLOGY.md contains three references (lines 5, 11, 169) that are now also false. Handled in a separate immediately-following commit because they're compounded by a *pre-existing path drift* — REDUCED-METHODOLOGY.md points at `NCE-V2/NCE V2.0 Spec & Build/` (an older location) rather than `NCE-V2/archive/` (where the content actually lived before deletion). That pre-existing drift is independent of the archive deletion and warrants its own honest fix with its own commit. |
+| **Convention note re-scoping** | The Convention note added 2026-05-24 in commit 025f9d3 said "grep-driven referrer closure applies to live docs only; `NCE-V2/archive/` is frozen historical reference." The principle (referrer closure scoped to live docs) still holds; the specific `archive/` reference is moot. Updated to: "grep-driven referrer closure applies to live docs. Materials outside the active project tree (deleted, external, historical) are out of scope." |
+| **Subsystem count impact** | None. Archive contained no NCE-V2 systems/subsystems — methodology documentation only. System count unchanged: 27. |
+| **Frame still LOCKED?** | Yes. Sub-threshold structural amendment: removes historical-reference content that Stage 1 validation never depended on, plus five cross-document corrections bringing the docs back into truth about current state. System count unchanged, methodology unchanged (5-stage Reduced remains canonical), no foundation document substance changed. Sign-off: Human. |

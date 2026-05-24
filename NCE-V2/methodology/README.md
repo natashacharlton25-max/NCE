@@ -101,5 +101,5 @@ Plus the universal contract from `CLAUDE.md`: no decisions without human approva
 | Stage 1 output | `NCE-V2/admin/PROJECT-FRAME.md` | What was validated; FRAME LOCKED verdict |
 | Foundation docs | `NCE-V2/Project-Intent.md`, `FileTree-v2.md`, `STACK-AND-RUNTIME.md`, `REFINEMENTS.md` (historical) | The locked frame Stage 2+ build on |
 | D1 library template | `NCE-V2/docs/templates/LIBRARY-TEMPLATE.md` v2.0.0 | For Stage 2 library specs |
-| 68-phase methodology (archived) | `NCE-V2/archive/68-phase-methodology/` | Historical reference; not for active use |
+| 68-phase methodology (deleted 2026-05-24) | — (recoverable from git commit 678d2d6 / local copy) | Superseded by 5-stage Reduced Methodology; see `admin/PROJECT-FRAME.md` Frame Amendment |
 | AI collaboration contract | `C:/Users/NCE/CLAUDE.md` | Universal rules; §3 supersession note explains methodology choice |

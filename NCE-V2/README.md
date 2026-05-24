@@ -41,13 +41,10 @@ NCE-V2/
 │   ├── access/, ai/, assets/ … (27 system folders, currently empty awaiting Stage 2)
 │   └── integrations/
 │
-├── docs/                                  ← supporting docs
-│   ├── REDUCED-METHODOLOGY.md             ← design rationale for the 5-stage methodology
-│   └── templates/
-│       └── LIBRARY-TEMPLATE.md            ← v2.0.0; D1-based library template used by Stage 2
-│
-└── archive/                               ← historical reference; not for active use
-    └── 68-phase-methodology/              ← the 68-phase methodology this project used before reducing to 5 stages
+└── docs/                                  ← supporting docs
+    ├── REDUCED-METHODOLOGY.md             ← design rationale for the 5-stage methodology
+    └── templates/
+        └── LIBRARY-TEMPLATE.md            ← v2.0.0; D1-based library template used by Stage 2
 ```
 
 ---
