@@ -48,7 +48,6 @@ src/platform/
 │   ├── IngestionEngine.ts
 │   ├── PromptBuilder.ts
 │   ├── PromptCondenser.ts
-│   ├── PythonRunner.ts               # [FLAG] OQ-PY-1 — disposition unresolved
 │   ├── ResearchTools.ts
 │   └── VectorStore.ts
 │

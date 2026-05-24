@@ -307,7 +307,10 @@
 │  ├─ IngestionEngine.ts           # stays in services/ (confirmed)
 │  ├─ PromptBuilder.ts
 │  ├─ PromptCondenser.ts
-│  ├─ PythonRunner.ts              # [FLAG] OQ-PY-1 — disposition unresolved; see note below
+│  # [REMOVED 2026-05-24] PythonRunner.ts — was a Python placeholder from v1; never needed.
+│  # Cloudflare Workers run V8 isolates, which execute TypeScript/JavaScript, not Python.
+│  # If Python is ever genuinely needed, it must be an outside service the Worker calls over HTTP
+│  # (wrapper goes in integrations/, never inside the Worker). OQ-PY-1 RESOLVED. See §Open Flags below.
 │  ├─ ResearchTools.ts
 │  └─ VectorStore.ts
 │
@@ -399,7 +402,7 @@
 
 ### Subsystem counts (v2)
 
-access 3 · ai 14 · assets 7 · audit 3 · brand 31 · checks 7 · content 11 · library 5 · website 9 · email 8 · social 4 · document-templates 11 · documents 12 · renderers 4 · marks 17 · integrations 15 · observability 4 · orchestration 16 · publishing 2 · resilience 10 · review 3 · services 12 · state 3 · template 5 · verification 5 · versioning 2 · system 5 · lib/svg 8
+access 3 · ai 14 · assets 7 · audit 3 · brand 31 · checks 7 · content 11 · library 5 · website 9 · email 8 · social 4 · document-templates 11 · documents 12 · renderers 4 · marks 17 · integrations 15 · observability 4 · orchestration 16 · publishing 2 · resilience 10 · review 3 · services 11 · state 3 · template 5 · verification 5 · versioning 2 · system 5 · lib/svg 8
 
 ---
 
@@ -419,7 +422,7 @@ The library/repo templates should be updated to this storage model before they d
 
 ## Open Flags
 
-**OQ-PY-1 — `services/PythonRunner.ts`.** This subsystem assumes Python execution, which V8 isolates cannot do. Its disposition (drop / external service / absorb into TS equivalents) is unresolved and was carried forward through the stack work. Flagged here; resolution belongs to `services/` Pass 0.
+**OQ-PY-1 — `services/PythonRunner.ts`. RESOLVED 2026-05-24.** Removed from `services/`. Was a "just in case we ever need Python" placeholder from the v1 Python-era architecture (NCEMPIRE/services/PythonRunner/PythonRunner.md: status "Placeholder", version 0.0.0, no specific task or library ever named). Cloudflare Workers run V8 isolates which execute TypeScript/JavaScript, not Python — so an in-Worker Python runner cannot exist as written. The original decision to move from Python to TypeScript-on-Workers already implied this resolution; this entry completes it. If a Python-only library is ever genuinely needed in future, it must be an external service the Worker calls over HTTP (wrapper goes in `integrations/`, never inside the Worker). services/ subsystem count: 12 → 11.
 
 **v1 subsystems intentionally dropped during collapse.** When `colours/` collapsed, `ColourMix.ts` was not carried into `brand/colour/` — colour mixing is a rendering concern (Astro's job), not brand intent. When `image/` collapsed, `ImageAssetLibrary`, `ImageBrowser`, `ImageFieldRenderer`, `ImageRenderer` were not carried as-is: `ImageBrowser` became `assets/AssetBrowser`, `ImageAssetLibrary` became `assets/AssetCatalog`, and the two renderers (`ImageFieldRenderer`, `ImageRenderer`) were dropped as rendering concerns. When `ai-image/` collapsed, `AIImageCreation` became `ai/ImageGeneration`; `AIVizCaller`, `AIVizManager`, `AIVizPrompter`, `AIVizTemplate` are flagged for per-system Pass 0 to place (likely fold into `ai/` or `template/`). These drops are noted explicitly so Pass 0 can confirm or restore.
 

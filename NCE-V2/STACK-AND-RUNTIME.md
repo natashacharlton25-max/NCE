@@ -1124,7 +1124,7 @@ Carried forward from STACK-PROPOSAL review and not resolved by this document:
 
 | ID | Question | Owner |
 |---|---|---|
-| OQ-PY-1 | PythonRunner resolution (drop/external/absorb) | Services Pass 0 |
+| ~~OQ-PY-1~~ | ~~PythonRunner resolution~~ | **RESOLVED 2026-05-24 — dropped; was a v1 Python-era placeholder, never had a specific task. See FileTree-v2.md §Open Flags for full rationale.** |
 | OQ-RT-1 | Continuous background processes for any specific subsystem | Pass 0 per system |
 | OQ-STORE-1 | File-system path assumptions in existing Pass 0 docs | Stack Pass 0 |
 | OQ-STORE-2 | Vectorize confirmed for VectorStore? | AI Pass 1 |
@@ -1153,9 +1153,10 @@ This document describes the **mechanism**; the open questions are about **policy
 - Cron schedules per subsystem (Pass 1)
 - Failure recovery policies per system (resilience Pass 1)
 - API surface of any individual Worker (per-system Pass 2/3)
-- PythonRunner resolution (OQ-PY-1, blocking)
 
 These remain Pass-managed concerns. This document is the substrate they run on.
+
+(PythonRunner / OQ-PY-1 — resolved 2026-05-24: dropped; was a v1 Python-era placeholder. See FileTree-v2.md §Open Flags.)
 
 ---
 

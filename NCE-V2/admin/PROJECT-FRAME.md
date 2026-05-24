@@ -122,3 +122,20 @@ The Stage 2 prompt + four templates are ready at `NCE-V2/methodology/`. To begin
 - This is the first artefact under the Reduced Methodology, produced at the close of Stage 1.
 - Any future change to the foundation docs that affects the locked constraints above requires re-running Stage 1 before Stage 2 work continues — to confirm the frame still holds.
 - The 68-phase methodology and its 200+ phase prompts remain at `NCE-V2/archive/68-phase-methodology/` as historical reference. They are not for active use.
+
+---
+
+## Frame Amendments (post-lock)
+
+Amendments below are small, deliberate changes after FRAME LOCKED that do NOT require re-running Stage 1. Each is logged with date, reason, and impact.
+
+### 2026-05-24 — PythonRunner removed from services/
+
+| Field | Value |
+|---|---|
+| **Change** | Removed `services/PythonRunner.ts` from FileTree-v2.md + PLATFORM-WORKER-TEMPLATE.md module structure |
+| **Reason** | OQ-PY-1 resolved. Was a "just in case we need Python" placeholder from the v1 Python-era architecture. Cloudflare Workers run V8 isolates — no in-Worker Python. The v1 placeholder doc (NCEMPIRE/services/PythonRunner/PythonRunner.md) was status "Placeholder", version 0.0.0, no specific task or library ever named. The runtime decision (TypeScript on Workers) implied this resolution; this amendment completes it. |
+| **Future Python need** | If a Python-only library is ever genuinely needed, it must be an external service the Worker calls over HTTP (wrapper in `integrations/`, never inside the Worker). |
+| **Subsystem count impact** | `services/`: 12 → 11. System count unchanged: 27. |
+| **Files updated** | FileTree-v2.md (subsystem list + Open Flags + count summary); STACK-AND-RUNTIME.md (OQ-PY-1 marked resolved); PLATFORM-WORKER-TEMPLATE.md (module structure); PROJECT-FRAME.md (this amendment record) |
+| **Frame still LOCKED?** | Yes. Small substantive amendment, does not invalidate Stage 1 validation. Sign-off: Human. |
