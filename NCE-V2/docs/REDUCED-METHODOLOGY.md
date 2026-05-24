@@ -2,13 +2,13 @@
 
 **Status:** Approved
 **Created:** 2026-05-22
-**Replaces (in practice):** 68-phase methodology in `NCE-V2/NCE V2.0 Spec & Build/` (preserved as reference)
+**Replaces (in practice):** 68-phase methodology (first preserved as reference, later deleted 2026-05-24 — see `NCE-V2/admin/PROJECT-FRAME.md` Frame Amendment; recoverable from git commit 678d2d6)
 
 ---
 
 ## Why this exists
 
-The 68-phase methodology in `NCE-V2/NCE V2.0 Spec & Build/` was designed when AI handled less context and was more prone to scope creep. Modern AI is better at both. This reduced methodology preserves the human approval gates and per-subsystem discipline but cuts ~88% of the artefact overhead.
+The 68-phase methodology (deleted 2026-05-24 — see `NCE-V2/admin/PROJECT-FRAME.md` Frame Amendment) was designed when AI handled less context and was more prone to scope creep. Modern AI is better at both. This reduced methodology preserves the human approval gates and per-subsystem discipline but cuts ~88% of the artefact overhead.
 
 ---
 
@@ -166,7 +166,7 @@ vs the 68-phase methodology's ~2,500+ artefacts. **~88% reduction.**
 
 ## Migration
 
-Old 68-phase methodology preserved at `NCE-V2/NCE V2.0 Spec & Build/` — kept as reference rather than deleted.
+Old 68-phase methodology was initially preserved as reference (first at `NCE-V2/NCE V2.0 Spec & Build/`, later moved to `NCE-V2/archive/68-phase-methodology/`), then deliberately deleted 2026-05-24 (commit 678d2d6 — see `NCE-V2/admin/PROJECT-FRAME.md` Frame Amendment) when practical experience confirmed the archive was unused. Recoverable from git history if ever needed; owner also retains a local copy outside the repo.
 
 New 5-stage methodology lives at `NCE-V2/methodology/`.
 
