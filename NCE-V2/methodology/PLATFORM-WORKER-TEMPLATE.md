@@ -51,7 +51,6 @@ src/platform/
 │   └── VectorStore.ts
 │
 ├── system/
-│   ├── FailureHandler.ts
 │   ├── Logger.ts
 │   ├── Parsers.ts
 │   ├── Builders.ts
@@ -246,10 +245,8 @@ export class Librarian {
 
 Order of initialization (for stateful subsystems):
 1. `system/Logger` (no deps)
-2. `system/FailureHandler` (depends on Logger)
-3. `services/DatabaseHandler` (depends on D1 bindings)
-4. `library/Librarian`, `Writer`, etc. (depend on DatabaseHandler)
-5. `state/StateManager` (depends on library/ for persistence)
+2. `library/Librarian`, `Writer`, etc. (use D1 bindings directly)
+3. `state/StateManager` (depends on library/ for persistence)
 
 ---
 

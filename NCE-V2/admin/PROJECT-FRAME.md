@@ -129,6 +129,8 @@ The Stage 2 prompt + four templates are ready at `NCE-V2/methodology/`. To begin
 
 Amendments below are small, deliberate changes after FRAME LOCKED that do NOT require re-running Stage 1. Each is logged with date, reason, and impact.
 
+**Convention** (set 2026-05-24): grep-driven referrer closure used in OQ-* amendments applies to *live* docs only. `NCE-V2/archive/` is frozen historical reference — archive hits in greps are expected and left as-is.
+
 ### 2026-05-24 — PythonRunner removed from services/
 
 | Field | Value |
@@ -150,3 +152,15 @@ Amendments below are small, deliberate changes after FRAME LOCKED that do NOT re
 | **Subsystem count impact** | `services/`: 11 → 10. System count unchanged: 27. |
 | **Files updated** | FileTree-v2.md (subsystem list + Open Flags OQ-DB-1 + count summary); PLATFORM-WORKER-TEMPLATE.md (module structure); PROJECT-SPEC-TEMPLATE.md §11 Tier 1 services row; STAGE-2-PROMPT.md "Why dependency order" example list; PLATFORM-GAP-ANALYSIS.md §7 (DatabaseHandler SUPERSEDED row marked RATIFIED 2026-05-24; PythonRunner row also marked RATIFIED in same edit, completing the OQ-PY-1 referrer closure deferred from the 2026-05-24 amendment above); PROJECT-FRAME.md (this amendment record) |
 | **Frame still LOCKED?** | Yes. Sub-threshold substantive amendment (same shape as OQ-PY-1). System count still 27. Does not invalidate Stage 1 validation. Sign-off: Human. |
+
+### 2026-05-24 — FailureHandler removed from system/
+
+| Field | Value |
+|---|---|
+| **Change** | Removed `system/FailureHandler.ts` from FileTree-v2.md (subsystem list + count + new OQ-FH-1 in Open Flags), PLATFORM-WORKER-TEMPLATE.md (module structure + §9 coordination order), PROJECT-SPEC-TEMPLATE.md §11 (Tier 1 system row reworded). |
+| **Reason** | OQ-FH-1 resolved. v1 FailureHandler was the entire failure-intelligence module — 8 functions all doing judgement work (classifyError, attemptRetry, findAlternative, triggerSelfHealing, escalateToHuman, logFailure, checkCircuitBreaker, handleFailure), per `DOCS - StructureDefined/reference/ROLE-MATRIX.md` lines 669–684. v2 decomposed it wholesale into the `resilience/` system; every v1 function maps to a `resilience/` subsystem. The "mechanical only" annotation on v2's slot labelled an emptied husk with no documented job — no v1 mechanical precedent (v1's one genuinely mechanical error function, `normalizeError`, lived in `RequestHandler`, ROLE-MATRIX line 717), and no v2 spec for a mechanical FailureHandler. Structured-error shape comes from the mandated Result pattern; failure-intelligence is owned by `resilience/`. No distinct v2 role remains. Same shape as OQ-PY-1 and OQ-DB-1: v1 slot whose role the v2 architecture absorbed elsewhere. |
+| **Pattern flagged in same commit** | Third husk drop in `services/`+`system/` (PythonRunner, DatabaseHandler, FailureHandler). **Two of the three are in `system/`.** Tier-1 boundary review has also pre-resolved `system/GarbageCollector` as keep-greenfield with rescoped purpose. Live `system/`-coherence question logged in `NCE-V2/admin/TIER-2-PREP-NOTES.md`: Parsers and Builders boundary reviews must explicitly carry the question "does `system/` remain a system?" — decision at `system/` Stage 2 spec; **do NOT spec `system/` before settled**. |
+| **Cross-amendment cleanup** | This commit also closes two dangling DatabaseHandler referrers in PLATFORM-WORKER-TEMPLATE.md §9 (pre-edit lines 250–251) that were missed in the 2026-05-24 OQ-DB-1 commit's grep (it covered STACK-AND-RUNTIME but not PLATFORM-WORKER-TEMPLATE). Same pattern as OQ-DB-1's commit closing the PythonRunner row in PLATFORM-GAP-ANALYSIS — fix travels with this commit; OQ-DB-1's record is not retroactively edited. Process tightening recorded in the Convention note above the OQ-PY-1 amendment: grep output is shown before edits, not just reported. |
+| **Subsystem count impact** | `system/`: 5 → 4. System count unchanged: 27. |
+| **Files updated** | FileTree-v2.md (subsystem list + Open Flags OQ-FH-1 + count summary); PLATFORM-WORKER-TEMPLATE.md (module structure + §9 coordination order including DatabaseHandler-drift cleanup); PROJECT-SPEC-TEMPLATE.md §11 Tier 1 system row; TIER-2-PREP-NOTES.md (`system/`-coherence flag appended); PROJECT-FRAME.md (this amendment record + Convention note above OQ-PY-1). |
+| **Frame still LOCKED?** | Yes. Sub-threshold substantive amendment (same shape as OQ-PY-1 and OQ-DB-1). System count still 27. Does not invalidate Stage 1 validation. The `system/`-coherence flag is logged for future review but does not change current frame state. Sign-off: Human. |

@@ -308,7 +308,7 @@ Within a tier, alphabetical. Tier 1 must complete before Tier 2 begins; same for
 
 | System | Rationale |
 |---|---|
-| `system` | Pure utilities (Logger, FailureHandler, Parsers, Builders, GarbageCollector); everyone uses these |
+| `system` | Pure utilities (Logger, Parsers, Builders, GarbageCollector); everyone uses these |
 | `services` | Foundation services (APIKeyManager, AuthHandler, DataSanitizer, PromptBuilder, etc.); used by every Tier 2+ system that calls external APIs or builds AI prompts |
 | `state` | StateManager + ContextAssembler; used by orchestration and library write-flows |
 | `library` | Librarian + FileManager + Writer + Archivist + CacheHandler; every data-owning system inherits its access contract |
