@@ -604,10 +604,10 @@ Based on the audit, these areas of NCEMPIRE may overlap with or be superseded by
 
 | NCEMPIRE Component | Potential Overlap | Recommendation |
 |-------------------|-------------------|----------------|
-| `NCEMPIRE/services/DatabaseHandler/` | Cloudflare D1 bindings | 🗑️ SUPERSEDED — D1 replaces SQLite with better-sqlite3 |
+| `NCEMPIRE/services/DatabaseHandler/` | Cloudflare D1 bindings | 🗑️ SUPERSEDED — D1 replaces SQLite with better-sqlite3 — **RATIFIED 2026-05-24** by NCE-V2 (removed from FileTree-v2.md; see `NCE-V2/admin/PROJECT-FRAME.md` Frame Amendments + `NCE-V2/FileTree-v2.md` §Open Flags OQ-DB-1) |
 | `NCEMPIRE/services/FileManager/` + `system/Writer/` | Cloudflare R2 API | 🗑️ SUPERSEDED — R2 replaces filesystem operations |
 | `NCEMPIRE/orchestration/` (17 subsystems) | Cloudflare Workers routing + Queues | 🔄 PARTIALLY SUPERSEDED — Workers/Queues handle some orchestration natively, but content pipeline logic still needed |
-| `NCEMPIRE/services/PythonRunner/` | Not needed on Workers | 🗑️ SUPERSEDED — Workers runs JS/TS only |
+| `NCEMPIRE/services/PythonRunner/` | Not needed on Workers | 🗑️ SUPERSEDED — Workers runs JS/TS only — **RATIFIED 2026-05-24** by NCE-V2 (removed from FileTree-v2.md; see `NCE-V2/admin/PROJECT-FRAME.md` Frame Amendments + `NCE-V2/FileTree-v2.md` §Open Flags OQ-PY-1) |
 | `NCEMPIRE/website/` (9 subsystems) | Cloudflare Pages | 🔄 PARTIALLY SUPERSEDED — Pages handles hosting, but page composition logic still needed |
 | `NCEMPIRE/orchestration/CacheHandler/` | Cloudflare KV / Cache API | 🗑️ SUPERSEDED — Use native Cloudflare caching |
 | `NCEMPIRE/orchestration/Scheduler/` | Cloudflare Cron Triggers | 🗑️ SUPERSEDED — Use native Cloudflare scheduling |

@@ -42,7 +42,6 @@ src/platform/
 │   ├── APIKeyManager.ts
 │   ├── AuthHandler.ts
 │   ├── ContentMetadataManager.ts
-│   ├── DatabaseHandler.ts
 │   ├── DataSanitizer.ts
 │   ├── GeneratedContentCatalog.ts
 │   ├── IngestionEngine.ts

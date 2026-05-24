@@ -70,7 +70,7 @@ Per [CLAUDE.md](../../CLAUDE.md) §10:
 
 Process systems **in dependency order** per the canonical Dependency Tiers in [PROJECT-SPEC-TEMPLATE.md §11](./PROJECT-SPEC-TEMPLATE.md) (Tier 1 → Tier 2 → Tier 3 → Tier 4 → Tier 5). Within a tier, alphabetical.
 
-**Why dependency order, not alphabetical:** every data-owning system's spec references `library/Librarian` for D1 reads, and every system spec references foundation services (`services/DatabaseHandler`, `system/Logger`, `state/StateManager`). If those are not yet specced, downstream specs stand on undefined contracts. Foundational systems (`system`, `services`, `state`, `library`) are therefore specced first. The dependency map is the single source of truth — do not "tidy" this order back to alphabetical.
+**Why dependency order, not alphabetical:** every data-owning system's spec references `library/Librarian` for D1 reads, and every system spec references foundation services (`system/Logger`, `state/StateManager`). If those are not yet specced, downstream specs stand on undefined contracts. Foundational systems (`system`, `services`, `state`, `library`) are therefore specced first. The dependency map is the single source of truth — do not "tidy" this order back to alphabetical.
 
 Within each system:
 

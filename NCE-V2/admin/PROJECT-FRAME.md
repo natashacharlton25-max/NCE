@@ -139,3 +139,14 @@ Amendments below are small, deliberate changes after FRAME LOCKED that do NOT re
 | **Subsystem count impact** | `services/`: 12 → 11. System count unchanged: 27. |
 | **Files updated** | FileTree-v2.md (subsystem list + Open Flags + count summary); STACK-AND-RUNTIME.md (OQ-PY-1 marked resolved); PLATFORM-WORKER-TEMPLATE.md (module structure); PROJECT-FRAME.md (this amendment record) |
 | **Frame still LOCKED?** | Yes. Small substantive amendment, does not invalidate Stage 1 validation. Sign-off: Human. |
+
+### 2026-05-24 — DatabaseHandler removed from services/
+
+| Field | Value |
+|---|---|
+| **Change** | Removed `services/DatabaseHandler.ts` from FileTree-v2.md (subsystem list + count + new OQ-DB-1 in Open Flags), PLATFORM-WORKER-TEMPLATE.md (module structure), PROJECT-SPEC-TEMPLATE.md §11 (Tier 1 services row reworded), STAGE-2-PROMPT.md (foundation-services example list reworded), PLATFORM-GAP-ANALYSIS.md §7 line 607 (SUPERSEDED verdict marked RATIFIED). |
+| **Reason** | OQ-DB-1 resolved. v1 role was the "own-database SQLite primitive": owning modules opened their own `.sqlite` files via `DatabaseHandler.open('/data/{library}.db')` (per `DOCS - StructureDefined/reference/MODULE-SPEC-CHECKLIST.md` access pattern + `DOCS - Outlines/REPOSITORY-STRUCTURE.md` call trace). The v2 substrate eliminates that role: D1 bindings are pre-bound at Worker boot (nothing to "open"), and `Project-Intent.md` locks all library data access via `library/Librarian` (no direct database access from outside library/). The v1 role didn't translate — there is no v2 step that corresponds to opening a SQLite file. `PLATFORM-GAP-ANALYSIS.md` §7 (2026-02-20) had already independently classified DatabaseHandler as SUPERSEDED; v2 ratifies that verdict (same pattern as OQ-PY-1). |
+| **Future shared-D1-utility need** | If `library/FileManager` + `library/Writer` end up wanting shared error-normalization, retry, or query-metric instrumentation during Stage 2, it lands in `lib/d1/` as a small utility (~50–150 LOC) decided on its own merits. **Not** a resurrection of the DatabaseHandler slot — separate question, separate evaluation. |
+| **Subsystem count impact** | `services/`: 11 → 10. System count unchanged: 27. |
+| **Files updated** | FileTree-v2.md (subsystem list + Open Flags OQ-DB-1 + count summary); PLATFORM-WORKER-TEMPLATE.md (module structure); PROJECT-SPEC-TEMPLATE.md §11 Tier 1 services row; STAGE-2-PROMPT.md "Why dependency order" example list; PLATFORM-GAP-ANALYSIS.md §7 (DatabaseHandler SUPERSEDED row marked RATIFIED 2026-05-24; PythonRunner row also marked RATIFIED in same edit, completing the OQ-PY-1 referrer closure deferred from the 2026-05-24 amendment above); PROJECT-FRAME.md (this amendment record) |
+| **Frame still LOCKED?** | Yes. Sub-threshold substantive amendment (same shape as OQ-PY-1). System count still 27. Does not invalidate Stage 1 validation. Sign-off: Human. |
