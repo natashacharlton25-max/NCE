@@ -301,20 +301,13 @@
 │  ├─ APIKeyManager.ts
 │  ├─ AuthHandler.ts
 │  ├─ ContentMetadataManager.ts
-│  # [REMOVED 2026-05-24] DatabaseHandler.ts — v1 SQLite-file-opening primitive; v2 D1 is
-│  # bound, not opened, so the role no longer exists. Library reads go via library/FileManager
-│  # under library/Librarian (per Project-Intent.md locked rule: all library data access mediated
-│  # by library/). PLATFORM-GAP-ANALYSIS.md §7 SUPERSEDED verdict ratified. OQ-DB-1 RESOLVED.
-│  # See §Open Flags below.
+│  # DatabaseHandler.ts removed 2026-05-24 — see OQ-DB-1 in §Open Flags below
 │  ├─ DataSanitizer.ts
 │  ├─ GeneratedContentCatalog.ts   # stays in services/ (confirmed)
 │  ├─ IngestionEngine.ts           # stays in services/ (confirmed)
 │  ├─ PromptBuilder.ts
 │  ├─ PromptCondenser.ts
-│  # [REMOVED 2026-05-24] PythonRunner.ts — was a Python placeholder from v1; never needed.
-│  # Cloudflare Workers run V8 isolates, which execute TypeScript/JavaScript, not Python.
-│  # If Python is ever genuinely needed, it must be an outside service the Worker calls over HTTP
-│  # (wrapper goes in integrations/, never inside the Worker). OQ-PY-1 RESOLVED. See §Open Flags below.
+│  # PythonRunner.ts removed 2026-05-24 — see OQ-PY-1 in §Open Flags below
 │  ├─ ResearchTools.ts
 │  └─ VectorStore.ts
 │
