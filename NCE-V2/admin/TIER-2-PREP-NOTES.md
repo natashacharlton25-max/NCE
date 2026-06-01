@@ -4,6 +4,15 @@ Findings surfaced during Tier 1 boundary review that need a decision when their 
 
 ---
 
+## Next-session pickup (as of 2026-05-25)
+
+**Open task: Builders boundary review** (`system/Builders` vs `documents/email/social`) — the last `system/` slot, and the **deciding slot for the `system/`-coherence question** (see coherence note below). Frame fresh from v2 design, v1 `ROLE-MATRIX.md` as **orientation only**.
+
+- *Lead to test, not confirm:* v1 Builders' RoleMatrix function list (`createOutputPath`, `scaffoldBrand`, `generateId`, `validatePath`, `deletePath`) is filesystem-and-path flavoured, and V8 isolates have no filesystem — which *points* toward husk-four. But this is a lead to test, not a verdict: `generateId` has nothing to do with the filesystem and may be a genuine surviving primitive. Go in open; do not assume husk-four because it completes the pattern tidily.
+- *If Builders does not survive:* the `system/`-coherence decision is immediately on the table — `system/` would be down to `Logger` (clean) + rescoped `GarbageCollector`, and "is `system/` a Tier-1 system or `lib/` material?" stops being a live possibility and becomes the actual decision. **This is a system-shape call — do not rush it. Open it fresh, not at the tail of a long session.**
+
+---
+
 - **orchestration/QueueHandler** — v1 design (per `DOCS - Preplanning/DOCS - SystemPlan/Modules/QUEUEHANDLER.md` + `DOCS - StructureDefined/PhasesPlan/Core Planning/02-SYSTEMS.md` Manager→Workers→Functions pattern) is a rich priority scheduler (5 levels, brand fairness, deadline weighting, token-budget scoring) + WorkerManager dispatch layer; **conflicts** with `PLATFORM-GAP-ANALYSIS.md` §7 line 614 SUPERSEDED verdict ("use native Cloudflare Queues"). Cloudflare Queues is generic transport, not a priority scheduler. Decision at orchestration/ Stage 2: drop scheduling intelligence (use Queues bare) vs keep (port the v1 design on top of Queues + D1). Do NOT ratify the SUPERSEDED verdict the way DatabaseHandler/PythonRunner were.
 
 - **v1 Archiver spec orientation** (`DOCS - StructureDefined/PhasesPlan/Core Planning/01-ARCHITECTURE.md` §Archiver, lines 1230–1342) — substantive v1 design exists for an Archiver that did NOT carry into v2 FileTree. Its filesystem/single-process mechanics are dead on V8 isolates (same shape as PythonRunner/DatabaseHandler — do not port). But its two real responsibilities map cleanly to existing v2 owners: **Job A — content-piece archival → `library/Archivist`** (extends lifecycle-write role to include archival transitions); **Job B — operational data housekeeping** (retention rules: logs 30d, error logs 90d, token usage 7d, cost rollups 30d, etc.) **→ `system/GarbageCollector`** (Cron-triggered stale-row cleanup in D1). Read the v1 spec at Stage 2 for **retention-policy intent and event-driven trigger model**, not for mechanics. Nothing to add to FileTree — capability already split correctly across two existing subsystems.
