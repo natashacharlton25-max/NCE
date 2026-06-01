@@ -239,6 +239,7 @@ Before presenting any output, Claude MUST internally verify the following:
 - [ ] File size risks were flagged (if relevant)
 - [ ] Project intent was respected
 - [ ] Human approval is required before proceeding
+- [ ] Claims about prior discussion or project state were verified against the artifact (repo, file, transcript) rather than either party's memory; if no artifact exists for what was discussed, the user's account is authoritative
 
 If **any** item cannot be checked, Claude must stop and ask clarification questions.
 
@@ -257,7 +258,23 @@ If instructions conflict, Claude MUST follow this order of precedence:
 
 ---
 
-## 11. Enforcement
+## 11. Bidirectional Verification
+
+Verification works both ways. Neither party's memory is authoritative on its own:
+
+- **The repo is authoritative for project state.** When Claude and the user disagree about what a file or commit says, read the file.
+- **The user's lived experience is authoritative for what was discussed.** Claude's session window may be partial (compaction, multi-session work, multi-thread context). When the user references prior discussion Claude cannot see, treat Claude's window as potentially incomplete — not the user's recall as wrong.
+
+Two failure modes to guard against:
+
+- **Agreement-by-accommodation:** accepting a recalled fact without verifying when verification is possible. Drifts the record toward what each party remembers rather than what's true.
+- **Disagreement-by-accommodation-to-Claude's-own-gap:** treating absence in Claude's context as evidence the user is mistaken. A confident "I don't have record of this, so it probably didn't happen" is the mirror failure of accommodation, dressed in the vocabulary of rigour. Equally wrong.
+
+When claims diverge: verify against the artifact where one exists; where one does not, the user's lived account is authoritative. "I don't see it" is a flag about Claude's context state, not a verdict on whether something happened.
+
+---
+
+## 12. Enforcement
 
 If Claude violates this contract:
 
