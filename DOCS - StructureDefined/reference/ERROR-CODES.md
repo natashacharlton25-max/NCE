@@ -2,7 +2,7 @@
 
 > **Purpose:** Central registry of all system error codes
 > **For:** All modules, FailureHandler, monitoring, documentation
-> **Version:** 1.7.0
+> **Version:** 1.9.0
 
 ---
 
@@ -281,9 +281,11 @@
 
 | Code | Level | Description | Recovery | Used By |
 |------|-------|-------------|----------|---------|
-| `DATABASE_ERROR` | 3 | SQLite operation failed | Check database file, logs | ThemeGenerator |
-| `DATABASE_INIT_FAILED` | 4 | Could not create/initialize database | Check permissions, disk space | ThemeGenerator |
-| `DATABASE_MIGRATION_FAILED` | 4 | Schema migration failed | Check migration scripts, rollback | ThemeGenerator |
+| `DATABASE_ERROR` | 3 | D1 statement execution failed (read/write/batch) | Surface to caller; FailureHandler may retry | DatabaseHandler, ThemeGenerator |
+| `DATABASE_INIT_FAILED` | 4 | Could not initialize/access the D1 binding | Check binding/config | DatabaseHandler, ThemeGenerator |
+| `DATABASE_MIGRATION_FAILED` | 4 | Schema migration failed to apply | Check migration; halt | DatabaseHandler, ThemeGenerator |
+| `DATABASE_QUERY_INVALID` | 2 | Unparameterized statement, or unknown table/column in query builder | Use bound params; fix table/column | DatabaseHandler |
+| `DATABASE_MIGRATION_CONFLICT` | 4 | Applied migration's checksum changed (drift) | Halt for review; do not re-run | DatabaseHandler |
 
 ---
 
@@ -370,6 +372,20 @@
 |------|-------|-------------|----------|---------|
 | `CROSS_FS_MOVE_FAILED` | 3 | Cross-filesystem move failed | Check both filesystems | Writer |
 | `CROSS_FS_SOURCE_ORPHAN` | 2 | Move succeeded but source deletion failed | Manual cleanup of source | Writer |
+
+---
+
+### LOG_ (Logging Errors)
+
+| Code | Level | Description | Recovery | Used By |
+|------|-------|-------------|----------|---------|
+| `LOG_ENTRY_INVALID` | 2 | Log entry has unknown level, empty message, or job-type without job_id | Fix entry shape; logging degrades, never fails caller | Logger |
+| `LOG_FORBIDDEN_FIELD` | 2 | Forbidden field (secret/PII/full-content) detected in entry | Field redacted/dropped automatically | Logger |
+| `LOG_JOB_FINALIZED` | 2 | Step appended to an already-finalized job log | Written standalone, not folded into summary | Logger |
+
+**Note:** Logger handles all its own errors under the silent-degrade invariant —
+they are recorded best-effort (dual-write to Workers Logs) and never propagated to
+the caller or routed to FailureHandler (avoids re-entrancy). See Logger Spec.md.
 
 ---
 
@@ -583,6 +599,8 @@ Quick reference: which modules have which errors
 | Orchestrator | JOB_, CHAIN_ |
 | TokenManager | TOKEN_ |
 | CostBudgetManager | TOKEN_, JOB_ |
+| Logger | LOG_, DATABASE_, MODULE_ |
+| DatabaseHandler | DATABASE_, MODULE_ |
 
 ---
 
@@ -591,4 +609,6 @@ Quick reference: which modules have which errors
 *Updated: 2026-01-19 - v1.5.0: Added OUTCOME_DIVERGENT, THEME_VISUAL_KEYWORDS_INSUFFICIENT, OUTLINE_TRUTH_DEPENDENCY_VIOLATION*
 *Updated: 2026-01-19 - v1.6.0: Expanded OUTLINE_ category with TEMPLATE_DRIFT_DETECTED, SECTION_INDEX_OUT_OF_BOUNDS, PRIMARY_TRUTH_UNDERREPRESENTED, COGNITIVE_TYPE_INCOMPATIBLE, SECTION_COUNT_MISMATCH*
 *Updated: 2026-01-19 - v1.7.0: Added TRANSFORMATION_ category, OUTCOME_LIMIT_EXCEEDED, theme validation errors (TRUTHS_OUTCOME_MISALIGNMENT, TRUTHS_DONT_FACILITATE_SHIFT, PERSPECTIVE_MISMATCH), GOVERNANCE_ANGLE_CONTRADICTS_VALUES*
-*Version: 1.7.0*
+*Updated: 2026-06-07 - v1.8.0: Added LOG_ category (LOG_ENTRY_INVALID, LOG_FORBIDDEN_FIELD, LOG_JOB_FINALIZED) for Logger module; added Logger to Module Error Summary*
+*Updated: 2026-06-07 - v1.9.0: Added DATABASE_QUERY_INVALID (L2) + DATABASE_MIGRATION_CONFLICT (L4) for DatabaseHandler; broadened DATABASE_ Used-By to DatabaseHandler (D1 target); added DatabaseHandler to Module Error Summary*
+*Version: 1.9.0*

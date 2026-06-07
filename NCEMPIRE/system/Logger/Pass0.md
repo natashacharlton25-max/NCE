@@ -1,22 +1,24 @@
 # PASS 0 — Subsystem Viability
 
-Subsystem: <Name>
-Parent System: <System>
+Subsystem: Logger
+Parent System: system
 
 ## One-Sentence Job
-…
+Receives structured log entries from any module, stores them durably, and provides retrieval/filtering — including consolidation of per-step entries into a single job log.
 
 ## Distinct Responsibility?
-Yes / No
+Yes
 
 ## Overlap With Siblings?
-None / Possible / Significant
+None — Logger *records* events it is told to log; CostTracker owns cost calculation/token tables and *calls* Logger to log cost events (not the reverse). Writer/Archivist own durable write/archival mechanics; Logger uses them as the persistence layer, it does not own file/DB mechanics. FailureHandler decides recovery; Logger only records failures.
 
 ## Stability Expectation
-Stable / Unclear / Likely to Change
+Stable
 
 ## Size Signal
-<500 / 500–1000 / >1000 LOC
+<500 LOC
 
 ## Verdict
-KEEP / MERGE / DROP
+KEEP
+
+**Status:** Approved
