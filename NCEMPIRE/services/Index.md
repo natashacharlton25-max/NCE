@@ -15,7 +15,7 @@
 | Librarian | Discovery/search/recommend across repos | Placeholder | — | — | |
 | PromptBuilder | Prompt compilation from templates + context | Placeholder | — | — | Feeds AI chain (ThemeGen/OutlineGen/TemplateEngine). |
 | PromptCondenser | Prompt size reduction | Placeholder | — | — | |
-| PythonRunner | (legacy) Python script execution | Placeholder | — | — | ⚠ No native Workers equivalent — needs real PASS 0 viability call (KEEP/MERGE/DROP) when its turn comes. |
+| PythonRunner | (legacy) Python script execution | Placeholder | — | — | ⚠ Ruling 2026-06-07: **DROP or REMAP** — no Workers equivalent. Likely DROP (content gen uses APIs, not local Python). Confirm at PASS 0 when reached. |
 | ResearchTools | Web search / scrape / synthesize | Placeholder | — | — | |
 | VectorStore | Embedding storage/query | Placeholder | — | — | Cloudflare Vectorize candidate (OQ-STORE-2). |
 
@@ -47,8 +47,9 @@
   (this vs legacy MODULE-SPEC-CHECKLIST.md) deferred per user 2026-06-07.
 - This pass: DatabaseHandler filled (Spec Complete). FileManager status carried
   from its own doc. Other 12 remain Placeholder, not yet through PASS 0.
-- ⚠ PythonRunner flagged: its legacy spec assumes CPython subprocess + numpy/
-  pandas/nltk, which have no native Workers equivalent. Needs a genuine PASS 0
-  KEEP/MERGE/DROP decision (not a rubber-stamp) when reached.
+- ⚠ PythonRunner — ruling 2026-06-07: **DROP or REMAP** (no Workers equivalent;
+  CPython subprocess + numpy/pandas/nltk don't run on Workers). Likely DROP, since
+  content generation uses APIs not local Python execution; REMAP only if an
+  external Python service is genuinely needed. Confirm at PASS 0 when reached.
 - Discrepancy to reconcile later: legacy checklist says FileManager "Approved";
   FileManager.md says "Spec Complete".

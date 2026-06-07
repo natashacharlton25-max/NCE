@@ -1,5 +1,19 @@
 # Module Spec Checklist
 
+> ⚠️ **LEGACY — SUPERSEDED (2026-06-07).**
+> This monolithic checklist is **no longer the canonical tracker.** The live,
+> canonical progress trackers are the **per-domain `Index.md` files** inside
+> `NCEMPIRE/<domain>/Index.md` — one source of truth per domain, co-located with
+> the specs they track.
+>
+> This file is retained as a **historical reference only**. It is out of date in
+> several ways: it counts 85 modules (the real structure has ~242 across 31
+> domains), and its spec paths (`systems/<Module>/…`) are wrong — specs actually
+> live at `NCEMPIRE/<domain>/<Module>/`. Do **not** update this file for new
+> progress; record progress in the relevant `NCEMPIRE/<domain>/Index.md` instead.
+
+---
+
 > Track progress on detailed specs for all 85 modules.
 > Order: By category, simplest → most complex within each.
 
