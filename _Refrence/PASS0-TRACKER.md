@@ -30,22 +30,23 @@
 | observability | 4 | [Pass0-Coverage.md](NCEMPIRE/observability/Pass0-Coverage.md) | ✅ | CAN | Low risk; ~1550-2300 LOC |
 | orchestration | 17 | [Pass0-Coverage.md](NCEMPIRE/orchestration/Pass0-Coverage.md) | ✅ | CAN | Low risk; ~5700-8450 LOC |
 | publishing | 2 | [Pass0-Coverage.md](NCEMPIRE/publishing/Pass0-Coverage.md) | ✅ | CAN | Low risk; ~750-1100 LOC |
-| renderers | 8 | [Pass0-Coverage.md](NCEMPIRE/renderers/Pass0-Coverage.md) | ☐ | | |
-| resilience | 10 | [Pass0-Coverage.md](NCEMPIRE/resilience/Pass0-Coverage.md) | ☐ | | |
-| review | 3 | [Pass0-Coverage.md](NCEMPIRE/review/Pass0-Coverage.md) | ☐ | | |
-| services | 14 | [Pass0-Coverage.md](NCEMPIRE/services/Pass0-Coverage.md) | ☐ | | |
-| social | 4 | [Pass0-Coverage.md](NCEMPIRE/social/Pass0-Coverage.md) | ☐ | | |
-| state | 3 | [Pass0-Coverage.md](NCEMPIRE/state/Pass0-Coverage.md) | ☐ | | |
-| svg | 8 | [Pass0-Coverage.md](NCEMPIRE/svg/Pass0-Coverage.md) | ☐ | | |
-| system | 7 | [Pass0-Coverage.md](NCEMPIRE/system/Pass0-Coverage.md) | ☐ | | Core mechanical |
-| template | 5 | [Pass0-Coverage.md](NCEMPIRE/template/Pass0-Coverage.md) | ☐ | | |
-| typography | 3 | [Pass0-Coverage.md](NCEMPIRE/typography/Pass0-Coverage.md) | ☐ | | |
-| verification | 5 | [Pass0-Coverage.md](NCEMPIRE/verification/Pass0-Coverage.md) | ☐ | | |
-| versioning | 2 | [Pass0-Coverage.md](NCEMPIRE/versioning/Pass0-Coverage.md) | ☐ | | Small |
-| visual | 4 | [Pass0-Coverage.md](NCEMPIRE/visual/Pass0-Coverage.md) | ☐ | | |
-| website | 9 | [Pass0-Coverage.md](NCEMPIRE/website/Pass0-Coverage.md) | ☐ | | |
+| renderers | 8 | [Pass0-Coverage.md](NCEMPIRE/renderers/Pass0-Coverage.md) | ✅ | CAN | Low; ~2750-4050 LOC; logic-free; tracker synced (was drafted, untracked) |
+| resilience | 11 | [Pass0-Coverage.md](NCEMPIRE/resilience/Pass0-Coverage.md) | ✅ | CAN | Low-Med; **RULED 2026-06-08:** `FailureHandler` folds in as resilience's orchestrating core (owns recovery strategy + cross-system dispatch) → 11 subs. Remaining boundaries (audit/content/review/ai) lock at Pass 1. |
+| review | 3 | [Pass0-Coverage.md](NCEMPIRE/review/Pass0-Coverage.md) | ✅ | CAN | Medium; ~900-1600 LOC; ApprovalManager/ManualOverride overlap; ledger ownership |
+| services | 14 | [Pass0-Coverage.md](NCEMPIRE/services/Pass0-Coverage.md) | ✅ | CAN* | Med-High; ~7600-11400 LOC; **PythonRunner→DROP/REMAP**; Catalog/Metadata/Librarian overlap |
+| social | 4 | [Pass0-Coverage.md](NCEMPIRE/social/Pass0-Coverage.md) | ✅ | CAN* | Medium; ~1200-2150 LOC; SocialMediaManager vs publishing/DistributionManager |
+| state | 3 | [Pass0-Coverage.md](NCEMPIRE/state/Pass0-Coverage.md) | ✅ | CAN* | Medium; ~1400-2350 LOC; recovery-state ↔ resilience authority |
+| svg | 8 | [Pass0-Coverage.md](NCEMPIRE/svg/Pass0-Coverage.md) | ✅ | CAN* | Med-High; ~3450-6500 LOC; svg↔marks geometry; SVGExporter over-claims raster |
+| system | 6 | [Pass0-Coverage.md](NCEMPIRE/system/Pass0-Coverage.md) | ✅ | CAN | **RULED 2026-06-08:** `FailureHandler` relocates → `resilience/` (decision-owning recovery orchestrator) — clears the CANNOT. `system/` keeps 6 mechanical subs. Confirm `Builders` label when `system` opens for Pass 1. |
+| template | 5 | [Pass0-Coverage.md](NCEMPIRE/template/Pass0-Coverage.md) | ✅ | CAN* | Med-High; ~4300-6700 LOC; ThemeGenerator>1500; versioning claimed in 3 places |
+| typography | 3 | [Pass0-Coverage.md](NCEMPIRE/typography/Pass0-Coverage.md) | ✅ | CAN | Low; ~800-1350 LOC; SEPARATE REPO (integration only); doc-templates type-rule overlap |
+| verification | 5 | [Pass0-Coverage.md](NCEMPIRE/verification/Pass0-Coverage.md) | ✅ | CAN* | Medium; ~2000-3150 LOC; shared checks-orchestrator referenced but missing |
+| versioning | 2 | [Pass0-Coverage.md](NCEMPIRE/versioning/Pass0-Coverage.md) | ✅ | CAN* | Medium; ~650-1100 LOC; central-vs-per-domain version managers |
+| visual | 4 | [Pass0-Coverage.md](NCEMPIRE/visual/Pass0-Coverage.md) | ✅ | RESOLVED (MERGE/DROP) | **RULED 2026-06-08:** `VisualBrand` + `VisualValueAlignment` → `brand/`; `VisualCheck` → `checks/`. `visual/` likely a DROP — confirm what (if anything) remains when applied at Pass 1. |
+| website | 9 | [Pass0-Coverage.md](NCEMPIRE/website/Pass0-Coverage.md) | ✅ | CAN* | Medium; ~3400-6400 LOC; SEPARATE REPO; WebsiteLifecycle↔content; Astro boundary |
 
-**Progress: 17 / 31 complete**
+**Progress: 31 / 31 Pass 0 drafts complete** — all reviewed. The 2 former CANNOTs are **RULED** (system: FailureHandler → resilience; visual: MERGE → brand/checks, likely DROP); structural moves applied at Pass 1. 8 conditional CANs carry boundary rulings into Pass 1. All *Draft Complete – Awaiting Review*.
+`*` = CAN **conditional** on a Pass-1 boundary ruling.
 
 ---
 
@@ -204,8 +205,29 @@
 | 2026-01-22 | observability | ✅ CAN | Low risk; ~1550-2300 LOC; 4 subsystems all sufficient |
 | 2026-01-22 | orchestration | ✅ CAN | Low risk; ~5700-8450 LOC; 17 subsystems all sufficient |
 | 2026-01-22 | publishing | ✅ CAN | Low risk; ~750-1100 LOC; 2 subsystems all sufficient |
+| 2026-06-08 | renderers | ✅ CAN | Low; logic-free; tracker synced (was drafted, untracked) |
+| 2026-06-08 | resilience | ✅ CAN | Low-Med; 5 cross-system boundaries to lock at Pass 1 |
+| 2026-06-08 | review | ✅ CAN | Medium; ApprovalManager/ManualOverride overlap; ledger ownership |
+| 2026-06-08 | services | ✅ CAN* | Med-High; PythonRunner→DROP/REMAP; Catalog/Metadata/Librarian overlap |
+| 2026-06-08 | social | ✅ CAN* | Medium; SocialMediaManager vs publishing/DistributionManager |
+| 2026-06-08 | state | ✅ CAN* | Medium; recovery-state ↔ resilience authority |
+| 2026-06-08 | svg | ✅ CAN* | Med-High; svg↔marks geometry; SVGExporter de-scope |
+| 2026-06-08 | system | ⚠️ CANNOT | FailureHandler breaches mechanical-only; Builders mislabeled (pending ruling) |
+| 2026-06-08 | template | ✅ CAN* | Med-High; ThemeGenerator>1500; versioning claimed in 3 places |
+| 2026-06-08 | typography | ✅ CAN | Low; SEPARATE REPO (integration only) |
+| 2026-06-08 | verification | ✅ CAN* | Medium; checks-orchestrator referenced but missing |
+| 2026-06-08 | versioning | ✅ CAN* | Medium; central-vs-per-domain version managers |
+| 2026-06-08 | visual | ⚠️ CANNOT | brand-authority collision (pending ruling) |
+| 2026-06-08 | website | ✅ CAN* | Medium; SEPARATE REPO; WebsiteLifecycle↔content; Astro boundary |
 
 ---
+## Pass 0 → Pass 1 Decision Queue (OPEN — human ruling needed; recorded as questions, not decisions)
+
+- [x] **system → RULED (2026-06-08):** `FailureHandler` is removed from `system/` and **folds into `resilience/` as its decision-owning recovery orchestrator** — it owns the recovery paths, rules, and strategy, and dispatches to other systems to execute (resend → AICaller, rewrite → generator, log → Logger). This clears `system`'s CANNOT. *(Supersedes the earlier A/B framing — neither applied; FailureHandler is a decision owner, not a thin executor.)* `Builders` mislabel: confirm when `system` opens for Pass 1.
+- [x] **visual → RULED (2026-06-08, MERGE/DROP):** `VisualBrand` + `VisualValueAlignment` → `brand/` (brand authority lives in brand, no exceptions); `VisualCheck` → `checks/`. If nothing genuinely visual-mechanical remains, `visual/` is a **DROP** — flag the remainder at Pass 1.
+- [ ] **Conditional CANs (boundary ruling at Pass 1):** services (PythonRunner DROP/REMAP), social (Manager vs publishing), state (recovery-state vs resilience), svg (geometry vs marks; SVGExporter scope), template (versioning ownership), verification (shared checks-orchestrator), versioning (central vs per-domain), website (lifecycle vs content).
+- Recurring rule to apply: **cross-cutting concern → one global owner** (brand / access / resilience / checks).
+
 PASS0 NOTES TODO:
 [ ] PASS 1: Colours — lock non-goal: palette generation handled by separate system
 

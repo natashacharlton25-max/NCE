@@ -25,7 +25,11 @@ Three architectures existed in the reference material. This list uses **Model B*
 
 - **Systems:** 31
 - **Subsystems:** 239 (237 in the canonical tracker set + 2 re-added checks/ modules — verified by the NCEMPIRE/ scaffold: 239 subsystem folders. The audit's "~237" and the tracker's "~195" were both estimates; 239 is the counted total.)
-- **Pass 0 complete:** 17 / 31 (status carried from PASS0-TRACKER)
+- **Pass 0 complete:** 31 / 31 (all reviewed 2026-06-08; verdicts + rulings in [PASS0-TRACKER.md](PASS0-TRACKER.md))
+
+### Pass 0 → Pass 1 structural rulings (2026-06-08; applied at Pass 1, not yet physically moved)
+- **FailureHandler:** moves `system/` → **`resilience/`** as its decision-owning recovery orchestrator (system 7→6, resilience 10→11). Cleared `system`'s Pass-0 CANNOT.
+- **visual:** `VisualBrand` + `VisualValueAlignment` → `brand/`; `VisualCheck` → `checks/`; `visual/` likely a **DROP** (confirm remainder at Pass 1). Cleared `visual`'s Pass-0 CANNOT.
 
 ### Resolved subsystem-count decisions (per PASS0-TRACKER, user-confirmed)
 - **checks/ → 9** (tracker had 7; **PostCreationCheckManager + PostCreationQualityDecider re-added** — confirmed Tier-1 blocking per `DOCS - Notes/final grade spec analysis python.txt`).
