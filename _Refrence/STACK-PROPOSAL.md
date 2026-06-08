@@ -48,8 +48,9 @@ All recommendations below are **non-binding options** presented for review. Wher
 
 ### 1.3 — Where Durable Objects are warranted
 
-Durable Objects are proposed for stateful coordination, not for general compute. Specifically:
+**Durable Objects are ADOPTED as a platform primitive** (ruled 2026-06-08) for stateful coordination — *not* for general compute. Adoption was justified by stateful-coordination cases no other primitive serves correctly: the **circuit-breaker** (resilience live breaker state), **RateLimiter**, and **HumanHandoffManager**. Only the *primitive* is locked — each subsystem's actual use of a DO is still confirmed at that subsystem's own Pass, and this adoption promotes **no other §1.3 item** below to "adopted." Warranted cases:
 
+- **Circuit-breaker** (resilience) — per-service/provider failure counters + windows + halt/health flag; needs atomic increments + strongly-consistent halt at the moment of a failure storm (live breaker state only — failure *records* go to D1)
 - **Orchestrator** (orchestration system) — coordinating multi-stage generation pipelines with stateful progress
 - **StateManager** (state system) — long-lived state per brand/job/session
 - **RateLimiter** (orchestration) — per-tenant or per-provider rate state

@@ -134,8 +134,8 @@
 - CanvaRenderer, DOCXRenderer, GoogleDocsRenderer, GoogleSheetsRenderer
 - GoogleSlidesRenderer, HTMLRenderer, MarkdownRenderer, PDFRenderer
 
-### resilience (10)
-- EscalationRouter, FailureAuditRecorder, FailureClassifier, FailureNarrator
+### resilience (11)
+- EscalationRouter, FailureAuditRecorder, FailureClassifier, **FailureHandler** *(orchestrating core, ex-system/)*, FailureNarrator
 - FallbackStrategyResolver, HumanHandoffManager, RecoveryStateBuilder
 - ResumePointManager, RetryPolicyEngine, SalvageCoordinator
 
@@ -158,9 +158,10 @@
 - SVGBooleanOps, SVGDrawer, SVGExporter, SVGGeometryUtils
 - SVGOptimizer, SVGPathBuilder, SVGTextParser, SVGTransformEngine
 
-### system (7)
-- Archivist, Builders, FailureHandler, GarbageCollector
-- Logger, Parsers, Writer
+### system (6)
+- Archivist, Builders, GarbageCollector, Logger
+- Parsers, Writer
+- *(FailureHandler relocated → resilience/ 2026-06-08)*
 
 ### template (5)
 - OutlineGenerator, TemplateEngine, TemplateFactory, TemplateLibraryManager, ThemeGenerator
