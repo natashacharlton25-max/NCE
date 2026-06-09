@@ -239,6 +239,19 @@ PASS0 NOTES TODO:
 
 
 
+## Structural Flag Scan — 2026-06-09
+
+Validated the stub-based Pass-0 **structural flags** (move / merge / drop / relabel / duplicate-authority) against each module's real `_plan/` content (now co-located after the doc-org). Verdicts / sufficiency / LOC ride to Pass 1 unchanged — only the structural flags were checked, and only in systems carrying one.
+
+- **services** — PythonRunner **DROP confirmed** (Python subprocess, no Workers path; capabilities redistribute to AICaller / EmbeddingService / Cloudflare-Images / Parsers — a *drop, not a move*; `ai/EmbeddingService` confirmed real, not a phantom). `Catalog ↔ Metadata` merge **deferred** (both stub-only). `Librarian` **cleared** — it's *library/repo* discovery (tones/models/templates), not generated-content discovery.
+- **social** — `SocialMediaManager` is **distinct**, not a `DistributionManager` duplicate (owns engagement + social-analytics + platform APIs). Layering boundary (DistributionManager decides+tracks; SocialMediaManager executes social delivery) draws at Pass 2; both ungrounded → no move.
+- **state / review** — confirm `resilience`'s already-drawn boundaries (StateManager owns canonical state, resilience reads/reconstructs; ReviewQueue is the human queue, resilience owns the handoff). No conflict, no re-open.
+- **svg / template / verification / versioning** — flagged modules stub-only and touch only *ungrounded* systems → defer to Pass 1. (verification's "missing checks-orchestrator" already resolved — PostCreationCheckManager re-added.)
+
+**Conclusion: the only cross-system structural MOVE across all flagged systems is `visual`.** No hidden move can force re-opening grounded `resilience` / `system`. **Grounding order is unconstrained except `visual` before `brand` / `checks`.** (VisualBrand + VisualManager dispositions under final adversarial verification before applying visual.)
+
+---
+
 ## How to Use
 
 1. Pick a system from the checklist (A-Z)
